@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Android_Project</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="newaccount">Creat new Account,Register</string>
+    <string name="Register">Register</string>
+</resources>
