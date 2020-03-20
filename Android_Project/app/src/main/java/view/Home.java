@@ -1,4 +1,4 @@
-package com.example.android_project.View;
+package view;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#471515"
-    tools:context=".View.Home">
+    tools:context="view.Home">
 
     <TextView
         android:id="@+id/textView2"

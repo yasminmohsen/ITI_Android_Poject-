@@ -1,4 +1,4 @@
-package com.example.android_project.View;
+package view;
 
 import android.app.Application;
 import android.content.Intent;
