@@ -99,7 +99,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Button"
-        android:onClick="googleSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"

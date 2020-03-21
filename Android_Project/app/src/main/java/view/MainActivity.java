@@ -89,6 +89,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        
+
+        google.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i = v.getId();
+                if (i == R.id.googleLogIn) {
+                    signIn();
+                }
+            }
+        });
+
 
     }
 
@@ -197,16 +209,6 @@ public class MainActivity extends AppCompatActivity {
     }
     // [END signin]
 
-
-    public void googleSignIn(View view) {
-        int i = view.getId();
-        if (i == R.id.googleLogIn) {
-            signIn();
-          //  Log.v("sign", "googleSignIn");
-//            Toast.makeText(MainActivity.this, "Done",
-//                   Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
 
