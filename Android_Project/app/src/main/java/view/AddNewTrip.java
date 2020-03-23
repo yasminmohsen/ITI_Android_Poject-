@@ -48,6 +48,8 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_trip);
+        getSupportActionBar().setTitle("Add new trip");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tripName = (EditText) findViewById(R.id.tripName);
         startPoint = (EditText) findViewById(R.id.startPointText);

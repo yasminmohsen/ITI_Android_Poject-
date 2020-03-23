@@ -41,6 +41,7 @@
                     android:layout_weight="1" />
 
                 <Button
+                    android:id="@+id/trashBtn"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
                     android:textColor="#FFFFFF" />
 
                 <Button
-                    android:id="@+id/button13"
+                    android:id="@+id/editBtn"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="208dp"
                     android:layout_height="match_parent"
