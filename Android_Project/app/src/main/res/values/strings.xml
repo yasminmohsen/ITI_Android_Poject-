@@ -5,4 +5,29 @@
     <string name="Login">Login</string>
     <string name="newaccount">Creat new Account,Register</string>
     <string name="Register">Register</string>
+    <string name="TripName">Trip Name</string>
+    <string name="EnterName">Enter Name</string>
+    <string name="StartPoint">Start Point</string>
+    <string name="Search">Search</string>
+    <string name="endPoint">End Point</string>
+    <string name="Date">Date</string>
+    <string name="Time">Time</string>
+    <string name="TripDirection">Trip Direction</string>
+    <string name="EnterNote">Enter Note..</string>
+    <string name="Add">Add</string>
+    <string name="OneDirection">One Direction</string>
+    <string name="Round">Round</string>
+    <string name="showDetails">Show Details</string>
+    <string name="Start">Start</string>
+    <string name="title_activity_basic_home">BasicHome</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_home_basic">HomeBasic</string>
 </resources>

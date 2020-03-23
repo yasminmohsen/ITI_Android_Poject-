@@ -2,12 +2,14 @@ package view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android_project.R;
@@ -17,6 +19,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Contract.TripDAO;
+import Model.AppDataBase;
+import Pojos.Trip;
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -24,18 +33,20 @@ public class MainActivity extends AppCompatActivity {
     EditText pass;
     Button login;
     Button register;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         mAuth = FirebaseAuth.getInstance();
-
         email=(EditText)findViewById(R.id.logEmail);
         pass=(EditText)findViewById(R.id.logPass);
         login=(Button)findViewById(R.id.loginBtn);
         register=(Button)findViewById(R.id.regCreat);
+
+
+
 
 
         login.setOnClickListener(new View.OnClickListener() {
