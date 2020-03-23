@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="view.AddTrip">
+    tools:context="view.AddNewTrip">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFB300"
+        android:background="#85FFB300"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,13 +65,12 @@
                 android:textColor="#090909"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/startPointText"
+            <fragment
+                android:id="@+id/autocomplete_fragment"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="center"
-                android:inputType="textPersonName" />
+                android:layout_height="wrap_content" />
+
 
             <TextView
                 android:id="@+id/separator__"
@@ -87,13 +86,12 @@
                 android:textColor="#1B1A1A"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/endPointTextEdit"
+            <fragment
+                android:id="@+id/autocomplete_fragment_end"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="center"
-                android:inputType="textPersonName" />
+                android:layout_height="wrap_content" />
+
 
             <TextView
                 android:id="@+id/seprator__2"

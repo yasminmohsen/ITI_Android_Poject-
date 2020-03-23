@@ -40,10 +40,20 @@ return  tripList;
 
     }
 
-    public void insertTripPresenter(Trip trip)
+    public void insertTripPresenter(String tName,String id, String startPoint,String endPoint,String note,String date,String time,String dirction,String staus)
     {
+        Trip t=new Trip();
+        t.setTripName(tName);
+        t.setTripId(id ); // from firebase  the trip id !!
+        t.setStartPoint(startPoint);
+        t.setEndPoint(endPoint);
+        t.setNote(note);
+        t.setDate(date);
+        t.setTime(time);
+        t.setTripDirection(dirction);
+        t.setTripStatus(staus);
 
-        triptDAO.insertTrip(trip);
+        triptDAO.insertTrip(t);
 
 
     }
