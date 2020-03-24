@@ -102,8 +102,9 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onClick(View v) {
 
-                x++;
-                presenter.insertTripPresenter(tripName.getText().toString(), "the id from firebase "+x, startPointAddress, endPointAddress, notes.getText().toString(),
+
+                String i="id"+x;
+                presenter.insertTripPresenter(tripName.getText().toString(), i, startPointAddress, endPointAddress, notes.getText().toString(),
                         dateText.getText().toString(), time.getText().toString(), tripDir, "Upcoming");
 
                 //addtoFireBase();
@@ -245,5 +246,11 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
 
         timeText.setText(hourOfDay + ":" + minute);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        x++;
     }
 }
