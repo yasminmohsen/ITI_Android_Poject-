@@ -24,6 +24,8 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import Pojos.Trip;
+import Pojos.Users;
 import Presenter.Presenter;
 
 import java.util.Calendar;
@@ -46,6 +49,9 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
     Button add;
     RadioButton oneDir;
     RadioButton round;
+    DatabaseReference databaseReferenceUsers;
+
+
 
     private List<Trip> c = new ArrayList<Trip>();
     Presenter presenter;
@@ -74,7 +80,7 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tripName = (EditText) findViewById(R.id.tripName);
-//        startPoint = (EditText) findViewById(R.id.startPointText);
+  //      startPoint = (EditText) findViewById(R.id.startPointText);
 //        endPoint = (EditText) findViewById(R.id.endPointTextEdit);
         date = (Button) findViewById(R.id.calenderBtn);
         time = (Button) findViewById(R.id.alaramBtn);
@@ -86,6 +92,9 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
         round=(RadioButton)findViewById(R.id.roundBtn);
 
         presenter = new Presenter(getApplicationContext());
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("User");
+
+
 
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -93,10 +102,11 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onClick(View v) {
 
-
                 x++;
                 presenter.insertTripPresenter(tripName.getText().toString(), "the id from firebase "+x, startPointAddress, endPointAddress, notes.getText().toString(),
                         dateText.getText().toString(), time.getText().toString(), tripDir, "Upcoming");
+
+                //addtoFireBase();
 
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
@@ -160,6 +170,12 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
 
 
     }
+//    private  void addtoFireBase(){
+//        String id = databaseReferenceUsers.push().getKey();
+//        Users trp = new Users(tripName.getText().toString(), startPointAddress, endPointAddress,notes.getText().toString(), tripDir, "UpComing",  dateText.getText().toString(), time.getText().toString());
+//        databaseReferenceUsers.child(id).setValue(trp);
+//    }
+
 
     private void setupPlaceAutocomlete() {
 

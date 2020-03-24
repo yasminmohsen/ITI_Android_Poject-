@@ -88,7 +88,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-         c=presenter.getTripPresenter();
+         c=presenter.getTripPresenter(); // array from room
          if(c.isEmpty()==false) {
              tripAdapter = new TripAdapter(this, c);
              recyclerView.setAdapter(tripAdapter);

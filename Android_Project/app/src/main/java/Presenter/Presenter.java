@@ -10,12 +10,16 @@ import java.util.List;
 import Contract.TripDAO;
 import Model.AppDataBase;
 import Pojos.Trip;
+import Pojos.Users;
 
 public class Presenter {
 
     private List<Trip> tripList =new ArrayList<Trip>();
     TripDAO triptDAO;
     final AppDataBase database;
+
+
+
 
 
     public Presenter(Context contx){
@@ -54,9 +58,8 @@ return  tripList;
         t.setTripStatus(staus);
 
         triptDAO.insertTrip(t);
-
-
     }
+
 
 
 
@@ -84,6 +87,8 @@ return  tripList;
        t=triptDAO.getTriptWithId(id);
        return  t;
     }
+
+
 
 
 }
