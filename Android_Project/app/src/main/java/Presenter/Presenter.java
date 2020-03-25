@@ -100,33 +100,10 @@ return  tripList;
        return  t;
 
 
+    }
 
 
 
     }
 
-//
-    public void insertFireTrip( List<Trip> triparray) {
 
-//        databaseReferenceUsers=FirebaseDatabase.getInstance().getReference("upcoming");
-//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        String trip = databaseReferenceUsers.push().getKey();
-//
-//        for( int i=0;i<triparray.size();i++)
-//        {
-//            String tripname=triparray.get(i).getTripName();
-//            String startPointAddress=  triparray.get(i).getStartPoint() ;
-//            ..
-//
-//            Users trp = new Users(tripname, startPointAddress, ...);
-//            databaseReferenceUsers.child(userId).child(trip).setValue(trp);
-//        }
-//
-//
-
-
-
-
-    }
-
-}
