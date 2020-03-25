@@ -3,6 +3,7 @@ package view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +40,16 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         public TextView homeTime;
         public Button deleteBtn;
         public Button homeStart;
+        public Button editBtn;
+
 
         public MyViewHolder(View view) {
             super(view);
             homeTripName = view.findViewById(R.id.H_TRIP);
             homeDate = view.findViewById(R.id.H_DATE);
             deleteBtn = view.findViewById(R.id.trashBtn);
+            editBtn = view.findViewById(R.id.editBtn);
+            homeStart=view.findViewById(R.id.startBtn);
 
 
         }
@@ -74,7 +79,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
 
-        final Trip trip = tripsList.get(position);
+        final Trip trip = tripsList.get(position);  // object of the trip
 
         holder.homeTripName.setText(trip.getTripName());
 
@@ -138,6 +143,46 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
             }
         });
+
+
+        holder.editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent i = new Intent(context, EditTrip.class);
+                i.putExtra("sampleObject", trip);
+                context.startActivity(i);
+
+
+
+            }
+        });
+
+
+
+        /********** starting alarm manager ********/
+
+
+        holder.homeStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+           String alarmDate=trip.getDate();
+           String alarmTime= trip.getTime();
+           String startLoc=trip.getStartPoint();
+           String endLoc=trip.getEndPoint();
+
+                Toast.makeText(context, "start", Toast.LENGTH_SHORT).show();
+
+                //write code here
+
+
+
+            }
+        });
+
+
 
 
     }

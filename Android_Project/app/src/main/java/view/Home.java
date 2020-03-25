@@ -118,6 +118,7 @@ public class Home extends AppCompatActivity {
       {
 
           //fire base code
+      // presenter.insertFireTrip(c);
 
           Toast.makeText(getApplicationContext(), " sync", Toast.LENGTH_SHORT).show();
 

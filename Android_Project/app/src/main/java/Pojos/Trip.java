@@ -6,11 +6,12 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.Date;
 
-
+@SuppressWarnings("serial")
 @Entity(tableName = "Trip")
-    public class Trip {
+    public class Trip implements Serializable {
     @ColumnInfo(name = "tripName")
     private String tripName;
     @ColumnInfo(name = "startPoint")
@@ -34,6 +35,12 @@ import java.util.Date;
     @ColumnInfo(name = "time")
     private String time;
 
+    @ColumnInfo(name = "startUi")
+    private String startUi;
+
+    @ColumnInfo(name = "endUi")
+    private String endUi;
+
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "tripId")
@@ -41,7 +48,6 @@ import java.util.Date;
 
 
     public Trip() {
-
     }
 
     public String getTripName() {
@@ -124,6 +130,22 @@ import java.util.Date;
         this.time = time;
     }
 
+    public String getStartUi() {
+        return startUi;
+    }
+
+    public void setStartUi(String startUi) {
+        this.startUi = startUi;
+    }
+
+    public String getEndUi() {
+        return endUi;
+    }
+
+    public void setEndUi(String endUi) {
+        this.endUi = endUi;
+    }
+
     @NonNull
     public String getTripId() {
         return tripId;
@@ -133,17 +155,19 @@ import java.util.Date;
         this.tripId = tripId;
     }
 
-    public Trip(String tripName, String startPoint, String endPoint, String note, String type, String tripDirection, String tripStatus, Date dateAndTime, String date, String time, @NonNull String tripId) {
+    public Trip(String tripName, String startPoint, String endPoint, String note, String type, String tripDirection, String tripStatus, Date dateAndTime, String date, String time, String startUi, String endUi, @NonNull String tripId) {
         this.tripName = tripName;
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
+        this.startPoint = startPoint; // for database address
+        this.endPoint = endPoint;  // for database address
         this.note = note;
         this.type = type;
         this.tripDirection = tripDirection;
         this.tripStatus = tripStatus;
         this.dateAndTime = dateAndTime;
-        this.date = date;
-        this.time = time;
+        this.date = date;     // for alarm manager
+        this.time = time;    // for alarm manager
+        this.startUi = startUi; // for ui
+        this.endUi = endUi;  // for ui
         this.tripId = tripId;
     }
 }
