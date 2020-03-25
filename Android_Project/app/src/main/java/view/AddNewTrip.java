@@ -24,6 +24,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -92,7 +93,7 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
         round=(RadioButton)findViewById(R.id.roundBtn);
 
         presenter = new Presenter(getApplicationContext());
-        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("User");
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
 
 
 
@@ -107,7 +108,7 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
                 presenter.insertTripPresenter(tripName.getText().toString(), i, startPointAddress, endPointAddress, notes.getText().toString(),
                         dateText.getText().toString(), time.getText().toString(), tripDir, "Upcoming");
 
-                //addtoFireBase();
+                addtoFireBase();
 
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
@@ -171,11 +172,12 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
 
 
     }
-//    private  void addtoFireBase(){
-//        String id = databaseReferenceUsers.push().getKey();
-//        Users trp = new Users(tripName.getText().toString(), startPointAddress, endPointAddress,notes.getText().toString(), tripDir, "UpComing",  dateText.getText().toString(), time.getText().toString());
-//        databaseReferenceUsers.child(id).setValue(trp);
-//    }
+    private  void addtoFireBase(){
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String trip = databaseReferenceUsers.push().getKey();
+        Users trp = new Users(tripName.getText().toString(), startPointAddress, endPointAddress,notes.getText().toString(), tripDir, "UpComing",  dateText.getText().toString(), time.getText().toString());
+        databaseReferenceUsers.child(userId).child(trip).setValue(trp);
+    }
 
 
     private void setupPlaceAutocomlete() {
