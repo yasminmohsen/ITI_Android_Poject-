@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Size;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -39,6 +41,7 @@ public class Home extends AppCompatActivity {
     private Presenter presenter;
     private RecyclerView recyclerView;
     private TripAdapter tripAdapter;
+    private  Button sync;
 
 
 
@@ -102,4 +105,28 @@ public class Home extends AppCompatActivity {
 
 
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_sync, menu);
+
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //handle presses on the action bar items
+      if(item.getItemId()==R.id.syncBtn)
+      {
+
+          //fire base code
+
+          Toast.makeText(getApplicationContext(), " sync", Toast.LENGTH_SHORT).show();
+
+      }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 }
+
+
+

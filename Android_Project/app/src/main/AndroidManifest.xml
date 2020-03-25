@@ -16,16 +16,17 @@ android:name="view.checkState"
             android:label="@string/AddNewTrip" android:parentActivityName="view.Home">
         </activity>
         <activity android:name="view.Home">
-
-        </activity>
-        <activity android:name="view.Register" />
-        <activity android:name="view.MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity android:name="view.Register" />
+        <activity android:name="view.MainActivity">
+
+
         </activity>
     </application>
 
