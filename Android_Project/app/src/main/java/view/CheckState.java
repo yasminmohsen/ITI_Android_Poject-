@@ -6,7 +6,9 @@ import android.content.Intent;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class CheckState extends Application {
+import view.alarm.NotificationService;
+
+public class CheckState extends NotificationService {
 
 
     @Override

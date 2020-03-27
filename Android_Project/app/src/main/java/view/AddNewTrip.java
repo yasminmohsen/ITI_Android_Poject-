@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -41,11 +43,13 @@ import Contract.HomeBase;
 import Pojos.Trip;
 import Pojos.Users;
 import Presenter.AddPresenter;
+import view.alarm.AlarmReceiver;
+import view.alarm.TripCalenderManager;
 
 
 import java.util.Calendar;
 
-public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, AddBase {
+public class AddNewTrip extends AppCompatActivity implements AddBase {
 
     EditText tripName;
     Button date;
@@ -78,10 +82,23 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
     AutocompleteSupportFragment places_fregment_end;
 
 
+    //alarm manager
+    AlarmManager alarmManager;
+    Intent myIntent;
+    private PendingIntent pendingIntent;
+    TripCalenderManager tripAlarm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_trip);
+
+        // instantiate calender
+        tripAlarm = new TripCalenderManager();
+        //initialize alarm manager
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        myIntent = new Intent(this, AlarmReceiver.class);
+
         getSupportActionBar().setTitle("Add new trip");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -116,6 +133,9 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
 
                 Toast.makeText(AddNewTrip.this, "id is " + tripId, Toast.LENGTH_SHORT).show();
 
+                // here start pendingIntent
+                pendingIntent = PendingIntent.getBroadcast(AddNewTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
@@ -129,11 +149,7 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onClick(View v) {
 
-
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
-
-
+                tripAlarm.showDateDialog(dateText, AddNewTrip.this);
             }
         });
 
@@ -142,10 +158,7 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onClick(View v) {
 
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-
-
+                tripAlarm.showTimeDialog(timeText, AddNewTrip.this);
             }
         });
 
@@ -164,9 +177,7 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
         round.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 tripDir = "Round";
-
             }
         });
 
@@ -207,7 +218,6 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
 
                 startPointAddress = place.getAddress();
                 showStartPoint = place.getName();
-
             }
 
             @Override
@@ -223,7 +233,6 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onPlaceSelected(@NonNull Place place) {
 
-
                 endPointAddress = place.getAddress();
                 showEndPoint = place.getName();
             }
@@ -233,8 +242,6 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
                 Toast.makeText(AddNewTrip.this, status.getStatusMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-
     }
 
     private void initPlaces() {
@@ -242,29 +249,6 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
         Places.initialize(this, getString(R.string.place_api_key));
         placesClient = Places.createClient(this);
     }
-
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar cl = cl = Calendar.getInstance();
-        cl.set(Calendar.YEAR, year);
-        cl.set(Calendar.MONTH, month);
-        cl.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-
-        String currentDateString = DateFormat.getDateInstance(DateFormat.DEFAULT).format(cl.getTime());
-
-
-        dateText.setText(currentDateString);
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-        timeText.setText(hourOfDay + ":" + minute);
-
-    }
-
 
     @Override
     public void showOnSucessAdd() {

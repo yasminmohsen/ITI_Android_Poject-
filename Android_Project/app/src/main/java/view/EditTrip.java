@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -37,8 +39,10 @@ import java.util.List;
 import Contract.EditBase;
 import Pojos.Trip;
 import Presenter.EditPresenter;
+import view.alarm.AlarmReceiver;
+import view.alarm.TripCalenderManager;
 
-public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, EditBase {
+public class EditTrip extends AppCompatActivity implements EditBase {
 
 
     private EditText eTripName;
@@ -68,11 +72,22 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
     public  static  final  String PrefName="MyPrefFile";
     public  static  final  String counter="Counter";
 
+    //alarm manager
+    AlarmManager alarmManager;
+    Intent myIntent;
+    private PendingIntent pendingIntent;
+    TripCalenderManager tripAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trip);
+
+        // instantiate calender
+        tripAlarm = new TripCalenderManager();
+        //initialize alarm manager
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        myIntent = new Intent(this, AlarmReceiver.class);
 
         eTripName = (EditText) findViewById(R.id.tripName);
         eStartPointAddress = (TextView) findViewById(R.id.editStartPoint);
@@ -130,10 +145,14 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
 
                 presenter.updateTripPresenter(t);
 
+                Toast.makeText(EditTrip.this, "id is "+tripId, Toast.LENGTH_SHORT).show();
+
+                // here start pendingIntent
+                pendingIntent = PendingIntent.getBroadcast(EditTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
+
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
-
-                Toast.makeText(EditTrip.this, "id is "+tripId, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -142,11 +161,7 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
 
-
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
-
-
+                tripAlarm.showDateDialog(eDateText, EditTrip.this);
             }
         });
 
@@ -155,10 +170,7 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
 
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-
-
+                tripAlarm.showTimeDialog(eTimeText, EditTrip.this);
             }
         });
 
@@ -187,31 +199,6 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
 
 
     }
-
-
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar cl = cl = Calendar.getInstance();
-        cl.set(Calendar.YEAR, year);
-        cl.set(Calendar.MONTH, month);
-        cl.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-
-        String currentDateString = DateFormat.getDateInstance(DateFormat.DEFAULT).format(cl.getTime());
-
-        eDateText.setText(currentDateString);
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-        eTimeText.setText(hourOfDay + ":" + minute);
-
-    }
-
-
-
 
     private void setupPlaceAutocomlete() {
 
