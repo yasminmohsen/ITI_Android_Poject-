@@ -33,11 +33,14 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+import Contract.LoginBase;
 import Contract.TripDAO;
 import Model.AppDataBase;
 import Pojos.Trip;
+import Presenter.LoginPresenter;
+import Presenter.Presenter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginBase {
 
     private FirebaseAuth mAuth;
     EditText email;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
+    private LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         register = (Button) findViewById(R.id.regCreat);
         google = (SignInButton) findViewById(R.id.googleLogIn);
 
+        presenter = new LoginPresenter(this);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                setLogin(email.getText().toString(), pass.getText().toString());
+                presenter.setLoginEmail(email.getText().toString(), pass.getText().toString());
 
             }
         });
@@ -106,51 +112,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-
     }
-
-    public void setLogin(String e, String p) {
-
-
-        mAuth.signInWithEmailAndPassword(e, p)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast toast_1 = Toast.makeText(MainActivity.this, "Sucess Login", Toast.LENGTH_SHORT);
-                            toast_1.show();
-
-                            //String myEmail= user.getEmail();
-                            Intent intent = new Intent(MainActivity.this, Home.class);
-                            // intent.putExtra("email",myEmail);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                            startActivity(intent);
-                            finish();
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-
-                            Toast toast_2 = Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_LONG);
-                            toast_2.show();
-
-
-                        }
-
-                        // ...
-                    }
-                });
-
-
-    }
-
 
     // [START onactivityresult]
     @Override
@@ -162,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                presenter.firebaseAuthWithGoogle(account);
+                //firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed
                 Log.w(TAG, "Google sign in failed", e);
@@ -170,39 +136,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // [END onactivityresult]
-    // [START auth_with_google]
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(MainActivity.this, Home.class);
-                            startActivity(intent);
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(findViewById(R.id.MainActivity), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-    }
-    // [END auth_with_google]
-
-    // [START signin]
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 
+    @Override
+    public void showOnSucessEmail() {
+
+        Toast toast_1 = Toast.makeText(MainActivity.this, "Sucess Login", Toast.LENGTH_SHORT);
+        toast_1.show();
+        Intent intent = new Intent(MainActivity.this, Home.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void showOnFailEmail() {
+        Toast toast_2 = Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_LONG);
+        toast_2.show();
+
+    }
+
+    @Override
+    public void showOnSucessGoogle() {
+        Intent intent = new Intent(MainActivity.this, Home.class);
+        startActivity(intent);
+
+
+    }
+
+    @Override
+    public void showOnFailGoogle() {
+        Log.w(TAG, "signInWithCredential:failure");
+        Snackbar.make(findViewById(R.id.MainActivity), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+    }
 }
+
