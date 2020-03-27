@@ -14,6 +14,7 @@ import java.util.List;
 import Contract.TripDAO;
 import Contract.HomeBase;
 import Model.AppDataBase;
+import Model.FirebaseModel;
 import Pojos.Trip;
 import view.Home;
 
@@ -23,6 +24,7 @@ public class Presenter {
     TripDAO triptDAO;
     final AppDataBase database;
     DatabaseReference databaseReferenceUsers;
+    FirebaseModel firebaseModel;
 
     HomeBase h;
     Home home;
@@ -33,9 +35,8 @@ public class Presenter {
 
 
 
-
     public Presenter(Context contx, HomeBase ho){
-
+        firebaseModel = new FirebaseModel();
 
         database = Room.databaseBuilder(contx,AppDataBase.class,"db_Trps").allowMainThreadQueries().build();
         triptDAO = database.getTriptDAO();
@@ -77,6 +78,13 @@ public class Presenter {
 
 
     }
+
+    public void addTriptoFirebase(List<Trip> arrTrips) {
+
+        firebaseModel.addtoFireBase(arrTrips);
+
+    }
+
 
 
 

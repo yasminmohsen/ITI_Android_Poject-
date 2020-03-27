@@ -115,13 +115,10 @@ public class Home extends AppCompatActivity implements HomeBase {
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        //handle presses on the action bar items
         if (item.getItemId() == R.id.syncBtn) {
 
-            //fire base code
-            // presenter.insertFireTrip(c);
-
-            Toast.makeText(getApplicationContext(), " sync", Toast.LENGTH_SHORT).show();
+            presenter.addTriptoFirebase(this.c);
+            Toast.makeText(getApplicationContext(), "sync", Toast.LENGTH_SHORT).show();
 
         }
 
