@@ -54,10 +54,7 @@ public class RingtonePlayingService extends Service {
                     .setSmallIcon(R.drawable.ic_android)
                     .setContentIntent(pIntent)
                     .build();
-
             startForeground(1, notification);
-
-
 
             Intent dialogIntent = new Intent(this, DialogActivity.class);
             dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
