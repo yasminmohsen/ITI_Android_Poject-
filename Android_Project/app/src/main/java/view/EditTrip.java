@@ -6,7 +6,9 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,10 +34,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import Contract.EditBase;
 import Pojos.Trip;
-import Presenter.Presenter;
+import Presenter.EditPresenter;
 
-public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, EditBase {
 
 
     private EditText eTripName;
@@ -51,20 +54,19 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
     private RadioButton oneDir;
     private RadioButton round;
     Trip t;
-    String id;
+    String tripId;
     String tripStatus;
     String eStartui;
     String eEndui;
     String eStartPoint;
     String eEndPoint;
-
-
-
-    Presenter presenter;
+    EditPresenter presenter;
     AutocompleteSupportFragment places_fregment;
     AutocompleteSupportFragment places_fregment_end;
     PlacesClient placesClient;
     List<Place.Field> placeField = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+    public  static  final  String PrefName="MyPrefFile";
+    public  static  final  String counter="Counter";
 
 
     @Override
@@ -84,14 +86,15 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
         save = (Button) findViewById(R.id.AddBtn);
         oneDir = (RadioButton) findViewById(R.id.oneDirection);
         round = (RadioButton) findViewById(R.id.roundBtn);
-        presenter= new Presenter(getApplicationContext());
+        presenter= new EditPresenter(getApplicationContext(),this);
 
 
         Intent i = getIntent();
         t = (Trip) i.getSerializableExtra("sampleObject");
-
-        id = t.getTripId();
         tripStatus = t.getTripStatus();
+        final SharedPreferences prefs = EditTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
+        final long cnt = prefs.getLong(counter, 0);
+
 
 
 
@@ -110,6 +113,9 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
             public void onClick(View v) {
 
 
+                String tn=eTripName.getText().toString();
+                String tripId=t.getTripId();
+
                 t.setTripName(eTripName.getText().toString());
                 t.setStartPoint(eStartPoint);
                 t.setEndPoint(eEndPoint);
@@ -117,7 +123,7 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
                 t.setTime(eTimeText.getText().toString());
                 t.setTripDirection(eTripDir.getText().toString());
                 t.setNote(eNotes.getText().toString());
-                t.setTripId(id);
+                //t.setTripId(tripId);
                 t.setTripStatus(tripStatus);
                 t.setStartUi(eStartui);
                 t.setEndUi(eEndui);
@@ -127,6 +133,7 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
 
+                Toast.makeText(EditTrip.this, "id is "+tripId, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -236,11 +243,7 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
 
                eEndPoint=place.getAddress();
                eEndui=place.getName();
-
                 eEndPointAddress.setText(eEndui);
-
-
-
 
 
 
@@ -262,8 +265,14 @@ public class EditTrip extends AppCompatActivity implements DatePickerDialog.OnDa
     }
 
 
+    @Override
+    public void showOnSucessEdit() {
+        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
 
+    }
 
+    @Override
+    public void showOnFailEdit() {
 
-
+    }
 }

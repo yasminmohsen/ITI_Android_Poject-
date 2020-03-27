@@ -1,5 +1,6 @@
 package view;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,16 +20,32 @@ import com.example.android_project.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Contract.HomeBase;
 import Pojos.Trip;
 import Presenter.Presenter;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> {
+public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder>  implements HomeBase{
 
 
     private Context context;
     private List<Trip> tripsList;
     private Presenter presenter;
     private Home home;
+
+    @Override
+    public void showOnSucess(List<Trip> tripList) {
+
+    }
+
+    @Override
+    public void showOnFail() {
+
+    }
+
+    @Override
+    public void showOnSucessFirebase() {
+
+    }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -59,7 +76,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     public TripAdapter(Context context, List<Trip> trips) {
         this.context = context;
         this.tripsList = trips;
-        presenter = new Presenter(context);
+        presenter = new Presenter(context, this);
 
 
     }
@@ -173,7 +190,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
            String startLoc=trip.getStartPoint();
            String endLoc=trip.getEndPoint();
 
-                Toast.makeText(context, "start", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ""+trip.getTripId(), Toast.LENGTH_SHORT).show();
 
                 //write code here
 
@@ -181,8 +198,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
             }
         });
-
-
 
 
     }

@@ -6,7 +6,9 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,13 +36,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import Contract.AddBase;
+import Contract.HomeBase;
 import Pojos.Trip;
 import Pojos.Users;
-import Presenter.Presenter;
+import Presenter.AddPresenter;
+
 
 import java.util.Calendar;
 
-public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, AddBase {
 
     EditText tripName;
     Button date;
@@ -51,12 +57,12 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
     RadioButton oneDir;
     RadioButton round;
     DatabaseReference databaseReferenceUsers;
-
-
+    public static final String PrefName = "MyPrefFile";
+    public static final String counter = "Counter";
 
 
     private List<Trip> c = new ArrayList<Trip>();
-    Presenter presenter;
+    AddPresenter presenter;
 
     String tripDir;
     String startPointAddress;// for database
@@ -66,15 +72,10 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
     String showEndPoint;// for ui
 
 
-
     PlacesClient placesClient;
     List<Place.Field> placeField = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
     AutocompleteSupportFragment places_fregment;
     AutocompleteSupportFragment places_fregment_end;
-
-
-    int x = 0;
-
 
 
     @Override
@@ -91,26 +92,30 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
         timeText = (TextView) findViewById(R.id.TimeText);
         notes = (EditText) findViewById(R.id.NotesText);
         add = (Button) findViewById(R.id.AddBtn);
-        oneDir=(RadioButton)findViewById(R.id.oneDirection);
-        round=(RadioButton)findViewById(R.id.roundBtn);
+        oneDir = (RadioButton) findViewById(R.id.oneDirection);
+        round = (RadioButton) findViewById(R.id.roundBtn);
 
 
-        presenter = new Presenter(getApplicationContext());
+        presenter = new AddPresenter(getApplicationContext(), this);
         databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
 
 
+        final SharedPreferences prefs = AddNewTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
+        final long cnt = prefs.getLong(counter, 0);
 
         add.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
+                String tn = tripName.getText().toString();
+                String tripId = tn + cnt; // the id
+                presenter.insertTripPresenter(tripName.getText().toString(), tripId, startPointAddress, endPointAddress, notes.getText().toString(),
+                        dateText.getText().toString(), timeText.getText().toString(), tripDir, "Upcoming", showStartPoint, showEndPoint);
 
-                String i="id"+dateText;
-                presenter.insertTripPresenter(tripName.getText().toString(), i, startPointAddress, endPointAddress, notes.getText().toString(),
-                        dateText.getText().toString(), timeText.getText().toString(), tripDir, "Upcoming",showStartPoint,showEndPoint);
 
-               // addtoFireBase();
+                Toast.makeText(AddNewTrip.this, "id is " + tripId, Toast.LENGTH_SHORT).show();
+
 
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
@@ -145,29 +150,25 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
         });
 
 
-
         oneDir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-              tripDir="One Direction";
+                tripDir = "One Direction";
 
 
             }
         });
-
 
 
         round.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               tripDir="Round";
+                tripDir = "Round";
 
             }
         });
-
-
 
 
         initPlaces();
@@ -175,7 +176,20 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
 
 
     }
-//    private  void addtoFireBase(){
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+ // increment th id counter
+        final SharedPreferences prefs = AddNewTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
+        final long count = prefs.getLong(counter, 0);
+
+        // shared pref :
+        long value = prefs.getLong(counter, 0);
+        prefs.edit().putLong(counter, (value + 1)).apply();
+    }
+
+    //    private  void addtoFireBase(){
 //        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        String trip = databaseReferenceUsers.push().getKey();
 //        Users trp = new Users(tripName.getText().toString(), startPointAddress, endPointAddress,notes.getText().toString(), tripDir, "UpComing",  dateText.getText().toString(), time.getText().toString());
@@ -191,8 +205,8 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
             @Override
             public void onPlaceSelected(@NonNull Place place) {
 
-               startPointAddress= place.getAddress();
-               showStartPoint=place.getName();
+                startPointAddress = place.getAddress();
+                showStartPoint = place.getName();
 
             }
 
@@ -201,8 +215,6 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
                 Toast.makeText(AddNewTrip.this, status.getStatusMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-
 
 
         places_fregment_end = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment_end);
@@ -212,8 +224,8 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
             public void onPlaceSelected(@NonNull Place place) {
 
 
-                endPointAddress= place.getAddress();
-                showEndPoint=place.getName();
+                endPointAddress = place.getAddress();
+                showEndPoint = place.getName();
             }
 
             @Override
@@ -223,10 +235,7 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
         });
 
 
-
-
-
-}
+    }
 
     private void initPlaces() {
 
@@ -257,4 +266,13 @@ public class AddNewTrip extends AppCompatActivity implements DatePickerDialog.On
     }
 
 
+    @Override
+    public void showOnSucessAdd() {
+        Toast.makeText(this, "Added", Toast.LENGTH_LONG);
+    }
+
+    @Override
+    public void showOnFailFail() {
+
+    }
 }

@@ -10,7 +10,7 @@ import Pojos.DateTypeConverter;
 import Pojos.Trip;
 
 @Database(entities = {Trip.class}, version = 1)
-@TypeConverters({DateTypeConverter.class})
+
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract TripDAO getTriptDAO();

@@ -27,8 +27,6 @@ import java.util.Date;
     @ColumnInfo(name = "tripStatus")
     private String tripStatus;
 
-    @ColumnInfo(name = "dateAndTime")
-    private Date dateAndTime;
     @ColumnInfo(name = "date")
     private String date;
 
@@ -43,9 +41,9 @@ import java.util.Date;
 
     @PrimaryKey
     @NonNull
+
     @ColumnInfo(name = "tripId")
     private String tripId;
-
 
     public Trip() {
     }
@@ -106,14 +104,6 @@ import java.util.Date;
         this.tripStatus = tripStatus;
     }
 
-    public Date getDateAndTime() {
-        return dateAndTime;
-    }
-
-    public void setDateAndTime(Date dateAndTime) {
-        this.dateAndTime = dateAndTime;
-    }
-
     public String getDate() {
         return date;
     }
@@ -155,19 +145,18 @@ import java.util.Date;
         this.tripId = tripId;
     }
 
-    public Trip(String tripName, String startPoint, String endPoint, String note, String type, String tripDirection, String tripStatus, Date dateAndTime, String date, String time, String startUi, String endUi, @NonNull String tripId) {
+    public Trip(String tripName, String startPoint, String endPoint, String note, String type, String tripDirection, String tripStatus, String date, String time, String startUi, String endUi, @NonNull String tripId) {
         this.tripName = tripName;
-        this.startPoint = startPoint; // for database address
-        this.endPoint = endPoint;  // for database address
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
         this.note = note;
         this.type = type;
         this.tripDirection = tripDirection;
         this.tripStatus = tripStatus;
-        this.dateAndTime = dateAndTime;
-        this.date = date;     // for alarm manager
-        this.time = time;    // for alarm manager
-        this.startUi = startUi; // for ui
-        this.endUi = endUi;  // for ui
+        this.date = date;
+        this.time = time;
+        this.startUi = startUi;
+        this.endUi = endUi;
         this.tripId = tripId;
     }
 }

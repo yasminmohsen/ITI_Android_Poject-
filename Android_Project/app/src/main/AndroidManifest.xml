@@ -12,13 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="view.EditTrip"></activity>
+        <activity android:name="view.TripDetails"></activity>
+        <activity android:name="view.EditTrip" />
         <activity
             android:name="view.AddNewTrip"
             android:label="@string/AddNewTrip"
-            android:parentActivityName="view.Home"></activity>
-        <activity android:name="view.Home">
-        </activity>
+            android:parentActivityName="view.Home" />
+        <activity android:name="view.Home"></activity>
         <activity android:name="view.Register" />
         <activity android:name="view.MainActivity">
             <intent-filter>

@@ -30,9 +30,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,15 +48,16 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        email=(EditText)findViewById(R.id.logEmail);
-        pass=(EditText)findViewById(R.id.logPass);
-        login=(Button)findViewById(R.id.loginBtn);
-        register=(Button)findViewById(R.id.regCreat);
+        email = (EditText) findViewById(R.id.logEmail);
+        pass = (EditText) findViewById(R.id.logPass);
+        login = (Button) findViewById(R.id.loginBtn);
+        register = (Button) findViewById(R.id.regCreat);
         google = (SignInButton) findViewById(R.id.googleLogIn);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -69,21 +67,14 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
-
-
-
-
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                setLogin(email.getText().toString(),pass.getText().toString());
+                setLogin(email.getText().toString(), pass.getText().toString());
 
             }
         });
-
-
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -91,13 +82,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Intent intent= new Intent(MainActivity.this,Register.class);
+                Intent intent = new Intent(MainActivity.this, Register.class);
                 startActivity(intent);
 
 
             }
         });
-
 
 
         google.setOnClickListener(new View.OnClickListener() {
@@ -139,11 +129,11 @@ public class MainActivity extends AppCompatActivity {
                             //String myEmail= user.getEmail();
                             Intent intent = new Intent(MainActivity.this, Home.class);
                             // intent.putExtra("email",myEmail);
-                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                             startActivity(intent);
-                             finish();
+                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -159,13 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-
-
-
-
-
     }
-
 
 
     // [START onactivityresult]
@@ -185,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     // [END onactivityresult]
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -199,8 +184,8 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent =new Intent(MainActivity.this,Home.class);
-                             startActivity (intent) ;
+                            Intent intent = new Intent(MainActivity.this, Home.class);
+                            startActivity(intent);
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -220,4 +205,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    }
+}

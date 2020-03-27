@@ -22,15 +22,15 @@ public class Register extends AppCompatActivity {
     EditText email;
     EditText pass;
     Button register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
-        email=(EditText)findViewById(R.id.regEmail);
-        pass=(EditText)findViewById(R.id.regPass);
-        register=(Button)findViewById(R.id.regBtn);
-
+        email = (EditText) findViewById(R.id.regEmail);
+        pass = (EditText) findViewById(R.id.regPass);
+        register = (Button) findViewById(R.id.regBtn);
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -38,21 +38,18 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
-                setRegister(email.getText().toString(),pass.getText().toString());
+                setRegister(email.getText().toString(), pass.getText().toString());
             }
         });
-
 
 
     }
 
 
+    public void setRegister(String e, String p) {
 
-    public void setRegister(String e, String p){
 
-
-        mAuth.createUserWithEmailAndPassword(e,p)
+        mAuth.createUserWithEmailAndPassword(e, p)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -65,7 +62,7 @@ public class Register extends AppCompatActivity {
                             Toast toast_1 = Toast.makeText(Register.this, "Registeration Succsess", Toast.LENGTH_SHORT);
                             toast_1.show();
 
-                            Intent intent= new Intent(Register.this,MainActivity.class);
+                            Intent intent = new Intent(Register.this, MainActivity.class);
                             startActivity(intent);
 
                         } else {
@@ -79,7 +76,6 @@ public class Register extends AppCompatActivity {
                         // ...
                     }
                 });
-
 
 
     }

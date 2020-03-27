@@ -1,20 +1,20 @@
 package Presenter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 
 import androidx.room.Room;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Contract.TripDAO;
+import Contract.HomeBase;
 import Model.AppDataBase;
 import Pojos.Trip;
-import Pojos.Users;
 import view.Home;
 
 public class Presenter {
@@ -23,7 +23,10 @@ public class Presenter {
     TripDAO triptDAO;
     final AppDataBase database;
     DatabaseReference databaseReferenceUsers;
-    Home h;
+
+    HomeBase h;
+    Home home;
+    Activity a;
 
 
 
@@ -31,48 +34,25 @@ public class Presenter {
 
 
 
-    public Presenter(Context contx){
+    public Presenter(Context contx, HomeBase ho){
 
 
         database = Room.databaseBuilder(contx,AppDataBase.class,"db_Trps").allowMainThreadQueries().build();
         triptDAO = database.getTriptDAO();
+        h=ho;
 
 
     }
-    public List<Trip> getTripPresenter()
+    public  void getTripPresenter()
     {
 
 
         tripList=triptDAO.getTrips();
 
 
-
-return  tripList;
-
-
+        h.showOnSucess(tripList);
 
     }
-
-    public void insertTripPresenter(String tName,String id, String startPoint,String endPoint,String note,String date,String time,String dirction,String staus,String startUi,String endUi)
-    {
-        Trip t=new Trip();
-        t.setTripName(tName);
-        t.setTripId(id ); // from firebase  the trip id !!
-        t.setStartPoint(startPoint);
-        t.setEndPoint(endPoint);
-        t.setNote(note);
-        t.setDate(date);
-        t.setTime(time);
-        t.setTripDirection(dirction);
-        t.setTripStatus(staus);
-        // new variable
-        t.setStartUi(startUi);
-        t.setEndUi(endUi);
-//
-        triptDAO.insertTrip(t);
-    }
-
-
 
 
 
@@ -84,23 +64,20 @@ return  tripList;
 
     }
 
-    public void updateTripPresenter(Trip trip)
-    {
 
-        triptDAO.updateTrip(trip);
-
-
-    }
 
     public Trip getSpecificTrip(String id)
     {
         Trip t=new Trip();
 
+
        t=triptDAO.getTriptWithId(id);
+
        return  t;
 
 
     }
+
 
 
 
