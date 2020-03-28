@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name="view.alarm.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
 
         <service
             android:name="view.alarm.RingtonePlayingService"
