@@ -1,6 +1,6 @@
 package view.alarm;
 
-import android.app.PendingIntent;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
@@ -9,13 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_project.R;
 
 import java.net.URI;
 
-public class DialogActivity extends AppCompatActivity {
+public class DialogActivity extends Activity {
 
     Button snoozeBtn;
     Button startBtn;
@@ -27,7 +26,6 @@ public class DialogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_Dialog);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
 
@@ -53,10 +51,13 @@ public class DialogActivity extends AppCompatActivity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse("google.navigation:q=Taronga+Zoo,+Sydney+Australia");
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=Alexandria,+Cairo");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
+                mMediaPlayer.stop();
                 startActivity(mapIntent);
+                sendBroadcast(intent);
+                finish();
             }
         });
 

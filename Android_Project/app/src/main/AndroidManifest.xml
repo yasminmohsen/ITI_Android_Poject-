@@ -3,24 +3,21 @@
     package="com.example.android_project">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION"/>
-
-    <!--android:name="view.alarm.NotificationService"-->
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
 
     <application
         android:name="view.CheckState"
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
-        <activity android:name="view.alarm.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog"/>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="view.alarm.DialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
 
         <service
             android:name="view.alarm.RingtonePlayingService"
@@ -30,19 +27,19 @@
         <receiver
             android:name="view.alarm.AlarmReceiver"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
-                <action android:name="my.action.data"/>
+                <action android:name="my.action.data" />
             </intent-filter>
         </receiver>
 
-        <activity android:name="view.TripDetails"></activity>
+        <activity android:name="view.TripDetails" />
         <activity android:name="view.EditTrip" />
         <activity
             android:name="view.AddNewTrip"
             android:label="@string/AddNewTrip"
             android:parentActivityName="view.Home" />
-        <activity android:name="view.Home"></activity>
+        <activity android:name="view.Home" />
         <activity android:name="view.Register" />
         <activity android:name="view.MainActivity">
             <intent-filter>
