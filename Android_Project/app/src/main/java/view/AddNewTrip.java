@@ -127,18 +127,15 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
                 String tn = tripName.getText().toString();
                 String tripId = tn + cnt; // the id
+
+
                 presenter.insertTripPresenter(tripName.getText().toString(), tripId, startPointAddress, endPointAddress, notes.getText().toString(),
                         dateText.getText().toString(), timeText.getText().toString(), tripDir, "Upcoming", showStartPoint, showEndPoint);
 
 
-                Toast.makeText(AddNewTrip.this, "id is " + tripId, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AddNewTrip.this, "id is " + tripId, Toast.LENGTH_SHORT).show();
 
-                // here start pendingIntent
-                pendingIntent = PendingIntent.getBroadcast(AddNewTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                startActivity(intent);
 
 
             }
@@ -252,11 +249,17 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
     @Override
     public void showOnSucessAdd() {
+        // here start pendingIntent
+        pendingIntent = PendingIntent.getBroadcast(AddNewTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(this, "Added", Toast.LENGTH_LONG);
+        Intent intent = new Intent(getApplicationContext(), Home.class);
+        startActivity(intent);
     }
 
     @Override
     public void showOnFailFail() {
+        Toast.makeText(this, "Fill the Empty Fields ", Toast.LENGTH_SHORT).show();
 
     }
 }

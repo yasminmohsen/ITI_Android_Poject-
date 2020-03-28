@@ -40,23 +40,32 @@ public class AddPresenter {
 
     public void insertTripPresenter(String tName,String id, String startPoint,String endPoint,String note,String date,String time,String dirction,String staus,String startUi,String endUi)
     {
-        Trip t=new Trip();
-        t.setTripName(tName);
-        t.setTripId(id);
-        t.setStartPoint(startPoint);
-        t.setEndPoint(endPoint);
-        t.setNote(note);
-        t.setDate(date);
-        t.setTime(time);
-        t.setTripDirection(dirction);
-        t.setTripStatus(staus);
-        // new variable
-        t.setStartUi(startUi);
-        t.setEndUi(endUi);
 
-        triptDAO.insertTrip(t);
+        if((tName.isEmpty()||startPoint.isEmpty()||startUi.isEmpty()||endPoint.isEmpty()||endUi.isEmpty()||date.isEmpty()||time.isEmpty()||dirction.isEmpty()))
+        {
+            addBase.showOnFailFail();
+        }
+        else{
 
-        addBase.showOnSucessAdd();
+            Trip t=new Trip();
+            t.setTripName(tName);
+            t.setTripId(id);
+            t.setStartPoint(startPoint);
+            t.setEndPoint(endPoint);
+            t.setNote(note);
+            t.setDate(date);
+            t.setTime(time);
+            t.setTripDirection(dirction);
+            t.setTripStatus(staus);
+            // new variable
+            t.setStartUi(startUi);
+            t.setEndUi(endUi);
+
+            triptDAO.insertTrip(t);
+
+            addBase.showOnSucessAdd();
+        }
+
 
 
     }

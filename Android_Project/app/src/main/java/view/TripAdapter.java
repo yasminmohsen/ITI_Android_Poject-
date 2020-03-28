@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.android_project.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import Contract.HomeBase;
 import Pojos.Trip;
@@ -58,6 +60,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         public Button deleteBtn;
         public Button homeStart;
         public Button editBtn;
+        public Button cancelBtn;
 
 
         public MyViewHolder(View view) {
@@ -67,6 +70,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             deleteBtn = view.findViewById(R.id.trashBtn);
             editBtn = view.findViewById(R.id.editBtn);
             homeStart=view.findViewById(R.id.startBtn);
+            cancelBtn=view.findViewById(R.id.cancelBtn);
 
 
         }
@@ -101,6 +105,18 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         holder.homeTripName.setText(trip.getTripName());
 
         holder.homeDate.setText(trip.getDate());
+
+
+//        holder.cancelBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
+
+
+
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,11 +210,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
                 //write code here
 
-
+                Uri navigationIntentUri = Uri.parse("google.navigation:q=" + trip.getStartPoint() +"," + trip.getEndPoint());//creating intent with latlng
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, navigationIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                context.startActivity(mapIntent);
 
             }
         });
-
 
     }
 

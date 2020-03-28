@@ -148,7 +148,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="22-4-2019"
                         android:textSize="18sp" />
 
                     <TextView
@@ -164,7 +163,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="22:00"
                         android:textSize="20sp" />
                 </LinearLayout>
 

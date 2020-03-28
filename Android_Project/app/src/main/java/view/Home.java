@@ -11,6 +11,8 @@ import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Size;
@@ -96,13 +98,18 @@ public class Home extends AppCompatActivity implements HomeBase {
     @Override
     protected void onStart() {
         super.onStart();
+
+        boolean x=isConnectedToInternet();
+        Toast.makeText(this, "no data"+x, Toast.LENGTH_SHORT).show();
+
         presenter.getTripPresenter();
         if (c.isEmpty() == false) {
             tripAdapter = new TripAdapter(this, c);
             recyclerView.setAdapter(tripAdapter);
         } else {
 
-            Toast.makeText(this, "no data", Toast.LENGTH_SHORT).show();
+
+
         }
     }
 
@@ -147,6 +154,22 @@ public class Home extends AppCompatActivity implements HomeBase {
         //
     }
 
+
+    public boolean isConnectedToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+
+        }
+        return false;
+    }
 
 }
 

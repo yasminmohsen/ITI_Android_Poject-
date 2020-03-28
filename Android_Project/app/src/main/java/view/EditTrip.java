@@ -149,11 +149,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
                 Toast.makeText(EditTrip.this, "id is "+tripId, Toast.LENGTH_SHORT).show();
 
                 // here start pendingIntent
-                pendingIntent = PendingIntent.getBroadcast(EditTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                startActivity(intent);
             }
         });
 
@@ -256,6 +252,11 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     @Override
     public void showOnSucessEdit() {
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+        pendingIntent = PendingIntent.getBroadcast(EditTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
+
+        Intent intent = new Intent(getApplicationContext(), Home.class);
+        startActivity(intent);
 
     }
 
