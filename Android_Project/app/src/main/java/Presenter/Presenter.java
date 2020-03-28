@@ -86,6 +86,13 @@ public class Presenter {
     }
 
 
+    public Trip retrieveTripfromFirebase(){
+
+        return  firebaseModel.getfromFireBase();
+
+    }
+
+
 
 
 
