@@ -13,11 +13,10 @@ public class FirebaseModel {
     Trip trp;
 
     public void addtoFireBase(List<Trip> tArray){
-
-        Users trpDetails = new Users();
-        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
+        databaseReferenceUsers.child(userId).removeValue(); // remove method
+        Users trpDetails = new Users();
         for (int i=0; i < tArray.size(); i++){
             trpDetails.setTripId(tArray.get(i).getTripId());
             trpDetails.setTripName(tArray.get(i).getTripName());
