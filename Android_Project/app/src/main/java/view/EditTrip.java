@@ -57,6 +57,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     private Button save;
     private RadioButton oneDir;
     private RadioButton round;
+
     Trip t;
     String tripId;
     String tripStatus;
