@@ -1,7 +1,7 @@
 package Pojos;
 
 public class Users {
-    private String userId;
+    private String userId; //don't save it i just return it "get only"
     private String tripId;
     private String tripName;
     private String startPoint;
@@ -11,8 +11,11 @@ public class Users {
     private String tripStatus;
     private String date;
     private String time;
+    private String startUi;
+    private String endUi;
 
-    public Users( String tripName, String startPoint, String endPoint, String note, String tripDirection, String tripStatus, String date, String time) {
+    public Users(String tripId, String tripName, String startPoint, String endPoint, String note, String tripDirection, String tripStatus, String date, String time, String startUi, String endUi) {
+        this.tripId = tripId;
         this.tripName = tripName;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -21,6 +24,8 @@ public class Users {
         this.tripStatus = tripStatus;
         this.date = date;
         this.time = time;
+        this.startUi = startUi;
+        this.endUi = endUi;
     }
 
     public Users() {
@@ -102,5 +107,21 @@ public class Users {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getStartUi() {
+        return startUi;
+    }
+
+    public void setStartUi(String startUi) {
+        this.startUi = startUi;
+    }
+
+    public String getEndUi() {
+        return endUi;
+    }
+
+    public void setEndUi(String endUi) {
+        this.endUi = endUi;
     }
 }
