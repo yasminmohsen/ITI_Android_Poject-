@@ -21,12 +21,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             if (action.equals("my.action.data")) {
                 String s = intent.getStringExtra("send");
                 if (s != null) {
-                    if (s.equals("wait")) {
-                        serviceIntent.putExtra("send", "wait");
-                    } else if (s.equals("stop")) {
+                    if (s.equals("stop")) {
                         serviceIntent.putExtra("send", "stop");
-                    } else if (s.equals("run")) {
-                        serviceIntent.putExtra("send", "run");
                     }
                 }
             }

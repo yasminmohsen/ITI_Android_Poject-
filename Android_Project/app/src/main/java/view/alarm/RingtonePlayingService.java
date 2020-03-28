@@ -15,8 +15,6 @@ import static view.alarm.NotificationService.CHANNEL_ID;
 
 public class RingtonePlayingService extends Service {
 
-    MediaPlayer mMediaPlayer;
-
     public RingtonePlayingService() {
     }
 
@@ -30,20 +28,10 @@ public class RingtonePlayingService extends Service {
 
         String s = intent.getStringExtra("send");
         if(s != null){
-            if(s.equals("wait")){
-                mMediaPlayer.stop();
-            } else if(s.equals("stop")){
-                mMediaPlayer.stop();
+            if(s.equals("stop")){
                 stopSelf();
-            } else if(s.equals("run")){
-                mMediaPlayer.start();
-                mMediaPlayer.setLooping(true);
             }
         }else {
-
-            mMediaPlayer = MediaPlayer.create(this, R.raw.a);
-            mMediaPlayer.start();
-            mMediaPlayer.setLooping(true);
 
             Intent notificationIntent = new Intent(this, DialogActivity.class);
             PendingIntent pIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
