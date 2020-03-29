@@ -99,18 +99,9 @@ public class Home extends AppCompatActivity implements HomeBase {
     protected void onStart() {
         super.onStart();
 
-        boolean x=isConnectedToInternet();
-        Toast.makeText(this, "no data"+x, Toast.LENGTH_SHORT).show();
 
         presenter.getTripPresenter();
-        if (c.isEmpty() == false) {
-            tripAdapter = new TripAdapter(this, c);
-            recyclerView.setAdapter(tripAdapter);
-        } else {
 
-
-
-        }
     }
 
 
@@ -123,7 +114,7 @@ public class Home extends AppCompatActivity implements HomeBase {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.syncBtn) {
-
+//            onStart();
             presenter.addTriptoFirebase(this.c);
             Toast.makeText(getApplicationContext(), "sync", Toast.LENGTH_SHORT).show();
 
@@ -142,6 +133,8 @@ public class Home extends AppCompatActivity implements HomeBase {
     @Override
     public void showOnSucess(List<Trip> tripList) {
         this.c = tripList;
+        tripAdapter = new TripAdapter(this, c);
+        recyclerView.setAdapter(tripAdapter);
     }
 
     @Override
@@ -150,9 +143,16 @@ public class Home extends AppCompatActivity implements HomeBase {
     }
 
     @Override
-    public void showOnSucessFirebase() {
-        //
+    public void showOnSucessFirebase(List<Trip> tripList) {
+        Toast.makeText(this,"open internet connection",Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void showOnFaiIntenetConnet() {
+Toast.makeText(this,"open internet connection",Toast.LENGTH_LONG).show();
+    }
+
+
 
 
     public boolean isConnectedToInternet(){

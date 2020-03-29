@@ -124,19 +124,23 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
             @Override
             public void onClick(View v) {
-
+                Trip t = new Trip();
                 String tn = tripName.getText().toString();
                 String tripId = tn + cnt; // the id
 
+                t.setTripName(tripName.getText().toString());
+                t.setTripId(tripId);
+                t.setStartPoint(startPointAddress);
+                t.setEndPoint(endPointAddress);
+                t.setNote(notes.getText().toString());
+                t.setDate(dateText.getText().toString());
+                t.setTime(timeText.getText().toString());
+                t.setTripDirection(tripDir);
+                t.setTripStatus("Upcoming");
+                t.setStartUi(showStartPoint);
+                t.setEndUi(showEndPoint);
 
-                presenter.insertTripPresenter(tripName.getText().toString(), tripId, startPointAddress, endPointAddress, notes.getText().toString(),
-                        dateText.getText().toString(), timeText.getText().toString(), tripDir, "Upcoming", showStartPoint, showEndPoint);
-
-
-//                Toast.makeText(AddNewTrip.this, "id is " + tripId, Toast.LENGTH_SHORT).show();
-
-
-
+                presenter.insertTripPresenter(t);
 
             }
         });
@@ -196,13 +200,6 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         long value = prefs.getLong(counter, 0);
         prefs.edit().putLong(counter, (value + 1)).apply();
     }
-
-    //    private  void addtoFireBase(){
-//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        String trip = databaseReferenceUsers.push().getKey();
-//        Users trp = new Users(tripName.getText().toString(), startPointAddress, endPointAddress,notes.getText().toString(), tripDir, "UpComing",  dateText.getText().toString(), time.getText().toString());
-//        databaseReferenceUsers.child(userId).child(trip).setValue(trp);
-//    }
 
 
     private void setupPlaceAutocomlete() {

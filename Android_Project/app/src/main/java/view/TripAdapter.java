@@ -45,9 +45,16 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     }
 
     @Override
-    public void showOnSucessFirebase() {
+    public void showOnSucessFirebase(List<Trip> tripList) {
 
     }
+
+    @Override
+    public void showOnFaiIntenetConnet() {
+
+    }
+
+
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

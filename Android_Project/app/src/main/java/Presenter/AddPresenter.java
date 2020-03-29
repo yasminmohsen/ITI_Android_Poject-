@@ -23,6 +23,7 @@ public class AddPresenter {
     final AppDataBase database;
     DatabaseReference databaseReferenceUsers;
     AddBase addBase;
+    Trip newtrip;
 
 
     public AddPresenter(Context contx, AddBase add){
@@ -37,38 +38,24 @@ public class AddPresenter {
     }
 
 
-
-    public void insertTripPresenter(String tName,String id, String startPoint,String endPoint,String note,String date,String time,String dirction,String staus,String startUi,String endUi)
+    public void insertTripPresenter(Trip t)
     {
+        newtrip=t;
+        String id= newtrip.getTripId();
+        Trip trip = triptDAO.getTriptWithId(id);
+        if(trip == null) {
+            if (newtrip.getTripName().isEmpty()|| newtrip.getTripId().isEmpty()|| newtrip.getDate().isEmpty()||
+                    newtrip.getTime().isEmpty()|| newtrip.getStartUi().isEmpty()||newtrip.getEndUi().isEmpty()||
+                    newtrip.getStartPoint().isEmpty()||newtrip.getEndPoint().isEmpty()||newtrip.getTripStatus().isEmpty())
+            {
+                addBase.showOnFailFail();
+            } else {
 
-        if((tName.isEmpty()||startPoint.isEmpty()||startUi.isEmpty()||endPoint.isEmpty()||endUi.isEmpty()||date.isEmpty()||time.isEmpty()||dirction.isEmpty()))
-        {
-            addBase.showOnFailFail();
+                triptDAO.insertTrip(newtrip);
+                addBase.showOnSucessAdd();
+            }
         }
-        else{
-
-            Trip t=new Trip();
-            t.setTripName(tName);
-            t.setTripId(id);
-            t.setStartPoint(startPoint);
-            t.setEndPoint(endPoint);
-            t.setNote(note);
-            t.setDate(date);
-            t.setTime(time);
-            t.setTripDirection(dirction);
-            t.setTripStatus(staus);
-            // new variable
-            t.setStartUi(startUi);
-            t.setEndUi(endUi);
-
-            triptDAO.insertTrip(t);
-
-            addBase.showOnSucessAdd();
-        }
-
-
 
     }
-
 
 }

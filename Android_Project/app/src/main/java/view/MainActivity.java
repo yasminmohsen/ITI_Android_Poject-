@@ -30,9 +30,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import Contract.FirebaseBase;
 import Contract.LoginBase;
 import Contract.TripDAO;
 import Model.AppDataBase;
@@ -40,7 +42,7 @@ import Pojos.Trip;
 import Presenter.LoginPresenter;
 import Presenter.Presenter;
 
-public class MainActivity extends AppCompatActivity implements LoginBase {
+public class MainActivity extends AppCompatActivity implements LoginBase  {
 
     private FirebaseAuth mAuth;
     EditText email;
@@ -52,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements LoginBase {
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
     private LoginPresenter presenter;
+    //
+    private   List<Trip>tripList=new ArrayList<Trip>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements LoginBase {
             public void onClick(View v) {
 
                 presenter.setLoginEmail(email.getText().toString(), pass.getText().toString());
+
 
             }
         });
@@ -115,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements LoginBase {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+
     }
 
     // [START onactivityresult]
@@ -151,21 +158,33 @@ public class MainActivity extends AppCompatActivity implements LoginBase {
         Intent intent = new Intent(MainActivity.this, Home.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+
+         intent = new Intent(MainActivity.this, Home.class);
+        Bundle args = new Bundle();
+        args.putSerializable("ARRAYLIST", (Serializable) tripList);
+        intent.putExtra("BUNDLE",args);
         startActivity(intent);
-        finish();
     }
+
+
 
     @Override
     public void showOnFailEmail() {
         Toast toast_2 = Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_LONG);
         toast_2.show();
 
+
     }
 
     @Override
     public void showOnSucessGoogle() {
+
+
         Intent intent = new Intent(MainActivity.this, Home.class);
+
         startActivity(intent);
+
 
 
     }
@@ -175,5 +194,8 @@ public class MainActivity extends AppCompatActivity implements LoginBase {
         Log.w(TAG, "signInWithCredential:failure");
         Snackbar.make(findViewById(R.id.MainActivity), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
     }
+
+
+
 }
 

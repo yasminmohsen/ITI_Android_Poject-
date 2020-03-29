@@ -14,22 +14,27 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
+import Contract.AddBase;
+import Contract.FirebaseBase;
 import Pojos.Trip;
 import Pojos.Users;
+import Presenter.AddPresenter;
 
 public class FirebaseModel {
     DatabaseReference databaseReferenceUsers;
-    Users trpDetails;
+    Trip trpDetails;
     List<Users> userslist;
-    Trip tripsList;
-    //Trip trp;
+    Trip tribObj;
+    List<Trip> tripList;
+    String userId;
+    FirebaseBase f;
 
-    public void addtoFireBase(List<Trip> tArray){
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
+
+    public void addtoFireBase(List<Trip> tArray) {
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference().child("upcoming");
         databaseReferenceUsers.child(userId).removeValue(); // remove method
-        trpDetails = new Users();
-        for (int i=0; i < tArray.size(); i++){
+        trpDetails = new Trip();
+        for (int i = 0; i < tArray.size(); i++) {
             trpDetails.setTripId(tArray.get(i).getTripId());
             trpDetails.setTripName(tArray.get(i).getTripName());
             trpDetails.setStartPoint(tArray.get(i).getStartPoint());
@@ -44,58 +49,50 @@ public class FirebaseModel {
 
             databaseReferenceUsers.child(userId).child(tArray.get(i).getTripId()).setValue(trpDetails);
         }
-       // trp = new Trip();
-        //String trip = databaseReferenceUsers.push().getKey();
+
     }
 
-    public FirebaseModel() {
+    public FirebaseModel(FirebaseBase f) {
+
+
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        this.f = f;
+
     }
 
-    public Trip getfromFireBase(){
+    public void getfromFireBase() {
 
         userslist = new ArrayList<>();
-        tripsList = new Trip();
+        tribObj = new Trip();
+        tripList = new ArrayList<>();
+
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference().child("upcoming").child(userId);
 
         databaseReferenceUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                userslist.clear(); // if it have any user previous as status snapshot obj will have user every time at excute
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
 
-                for(DataSnapshot userSnapshot: dataSnapshot.getChildren()){
-                    //modelClass
-                    Users user = userSnapshot.getValue(Users.class);
-                    userslist.add(user);
+                    Trip user = userSnapshot.getValue(Trip.class);
+
+                    tripList.add(user);
+
                 }
+                f.showOnSuccLoad(tripList);
 
-
-                for (int i=0; i < userslist.size(); i++){
-                    tripsList.setTripId(userslist.get(i).getTripId());
-                    tripsList.setTripName(userslist.get(i).getTripName());
-                    tripsList.setStartPoint(userslist.get(i).getStartPoint());
-                    tripsList.setEndPoint(userslist.get(i).getEndPoint());
-                    tripsList.setNote(userslist.get(i).getNote());
-                    tripsList.setTripDirection(userslist.get(i).getTripDirection());
-                    tripsList.setTripStatus(userslist.get(i).getTripStatus());
-                    tripsList.setDate(userslist.get(i).getDate());
-                    tripsList.setTime(userslist.get(i).getTime());
-                    tripsList.setStartUi(userslist.get(i).getStartUi());
-                    tripsList.setEndUi(userslist.get(i).getEndUi());
-                }
-
-//                ArrayAdapter adapter = new ArrayAdapter("set here Activity".this, android.R.layout.simple_list_item_1, userslist);
-//                userslist.setAdapter(adapter);
             }
 
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError){
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
 
         });
-            return tripsList;
+
 
     }
+
 
 }
