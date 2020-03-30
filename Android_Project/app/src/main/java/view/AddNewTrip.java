@@ -63,6 +63,7 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
     DatabaseReference databaseReferenceUsers;
     public static final String PrefName = "MyPrefFile";
     public static final String counter = "Counter";
+    String flag;
 
 
     private List<Trip> c = new ArrayList<Trip>();
@@ -74,6 +75,8 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
     String showStartPoint;// for ui
     String showEndPoint;// for ui
+
+    Trip roundedTrip;
 
 
     PlacesClient placesClient;
@@ -117,6 +120,12 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
 
 
+
+        Intent i = getIntent();
+        roundedTrip= (Trip) i.getSerializableExtra("sampleObject");
+
+
+
         final SharedPreferences prefs = AddNewTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
         final long cnt = prefs.getLong(counter, 0);
 
@@ -141,6 +150,7 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
                 t.setEndUi(showEndPoint);
 
                 presenter.insertTripPresenter(t);
+
 
             }
         });
@@ -178,7 +188,10 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         round.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 tripDir = "Round";
+                flag="round";
+
             }
         });
 
@@ -249,9 +262,22 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         // here start pendingIntent
         pendingIntent = PendingIntent.getBroadcast(AddNewTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
-        Toast.makeText(this, "Added", Toast.LENGTH_LONG);
-        Intent intent = new Intent(getApplicationContext(), Home.class);
-        startActivity(intent);
+        if(flag=="round")
+        {
+            Intent i = new Intent(getApplicationContext(), RoundTrip.class);
+            i.putExtra("start",showStartPoint);
+            i.putExtra("end", showEndPoint);
+            i.putExtra("startAdd",startPointAddress);
+            i.putExtra("endAdd", endPointAddress);
+
+            startActivity(i);
+        }
+        else{
+            Toast.makeText(this, "Added", Toast.LENGTH_LONG);
+            Intent intent = new Intent(getApplicationContext(), Home.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override

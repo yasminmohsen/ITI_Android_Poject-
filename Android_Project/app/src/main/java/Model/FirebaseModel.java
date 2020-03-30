@@ -73,6 +73,7 @@ public class FirebaseModel {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                tripList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
 
                     Trip user = userSnapshot.getValue(Trip.class);

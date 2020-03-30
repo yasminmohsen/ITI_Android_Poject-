@@ -59,15 +59,18 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView homeTripName;
-        public TextView homeStartPoint;
-        public TextView homeEndPoint;
-        public TextView homeDate;
-        public TextView homeTime;
-        public Button deleteBtn;
-        public Button homeStart;
-        public Button editBtn;
-        public Button cancelBtn;
+        private TextView homeTripName;
+        private TextView homeStartPoint;
+        private TextView homeEndPoint;
+        private TextView homeDate;
+        private TextView homeTime;
+        private Button deleteBtn;
+        private Button homeStart;
+        private Button editBtn;
+        private Button cancelBtn;
+        private Button showBtn;
+
+
 
 
         public MyViewHolder(View view) {
@@ -78,6 +81,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             editBtn = view.findViewById(R.id.editBtn);
             homeStart=view.findViewById(R.id.startBtn);
             cancelBtn=view.findViewById(R.id.cancelBtn);
+            showBtn=view.findViewById(R.id.showDetailsBtn);
 
 
         }
@@ -120,6 +124,19 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 //
 //            }
 //        });
+
+
+
+        holder.showBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(context, TripDetails.class);
+                i.putExtra("sampleObject", trip);
+                context.startActivity(i);
+            }
+        });
+
 
 
 
@@ -224,6 +241,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
             }
         });
+
+
+
+
 
     }
 

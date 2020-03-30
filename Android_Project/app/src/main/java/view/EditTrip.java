@@ -176,7 +176,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
 
                 Toast.makeText(EditTrip.this, "id is "+tripId, Toast.LENGTH_SHORT).show();
 
-                // here start pendingIntent
+
 
             }
         });
@@ -216,6 +216,8 @@ public class EditTrip extends AppCompatActivity implements EditBase {
             public void onClick(View v) {
 
                 eTripDir.setText("Round");
+
+
 
             }
         });
