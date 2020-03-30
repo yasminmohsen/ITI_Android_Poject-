@@ -71,26 +71,54 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
         startPnt.setText(endLoc);
         endPtn.setText(startLoc);
 
-save.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        t=new Trip();
-        String name= tripName.getText().toString();
-        //String name="hello";
-        String id=name+cnt;
-        t.setTripName(name);
-        t.setTripId(id);
-        t.setTripStatus("upcoming");
-        t.setEndUi(startLoc);
-        t.setStartUi(endLoc);
-        t.setTripDirection("Round of"+trip.getTripName());
-        t.setStartPoint(endLocAdd);
-        t.setEndPoint(startLocAdd);
-        t.setNote(notes.getText().toString());
-        //t.setDate(date.getText().toString());
-        t.setDate("12 March 2009");
-        //t.setTime(time.getText().toString());
-        t.setTime("12:24");
+
+
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+
+                //code of date
+
+            }
+        });
+
+
+
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+
+                //code of time
+
+            }
+        });
+
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                t = new Trip();
+                String name = tripName.getText().toString();
+                //String name="hello";
+                String id = name + cnt;
+                t.setTripName(name);
+                t.setTripId(id);
+                t.setTripStatus("upcoming");
+                t.setEndUi(startLoc);
+                t.setStartUi(endLoc);
+                t.setTripDirection("Round of" + trip.getTripName());
+                t.setStartPoint(endLocAdd);
+                t.setEndPoint(startLocAdd);
+                t.setNote(notes.getText().toString());
+                //t.setDate(date.getText().toString());
+                t.setDate("12 March 2009");
+                //t.setTime(time.getText().toString());
+                t.setTime("12:24");
 
      addPresenter.insertTripPresenter(t);
 
