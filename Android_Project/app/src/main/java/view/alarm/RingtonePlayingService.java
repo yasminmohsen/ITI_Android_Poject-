@@ -11,9 +11,13 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.android_project.R;
 
+import Pojos.Trip;
+
 import static view.alarm.NotificationService.CHANNEL_ID;
 
 public class RingtonePlayingService extends Service {
+
+    Trip tripService;
 
     public RingtonePlayingService() {
     }

@@ -23,6 +23,9 @@ import java.util.List;
 import Contract.HomeBase;
 import Pojos.Trip;
 import Presenter.Presenter;
+import view.alarm.AlarmServiceID;
+import view.alarm.CancelMyAlarm;
+import view.alarm.DialogActivity;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder>  implements HomeBase{
 
@@ -58,6 +61,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         public Button deleteBtn;
         public Button homeStart;
         public Button editBtn;
+        Button cardCancelBtn;
 
 
         public MyViewHolder(View view) {
@@ -67,6 +71,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             deleteBtn = view.findViewById(R.id.trashBtn);
             editBtn = view.findViewById(R.id.editBtn);
             homeStart=view.findViewById(R.id.startBtn);
+            cardCancelBtn = view.findViewById(R.id.card_cancel_btn);
 
 
         }
@@ -161,7 +166,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             }
         });
 
-
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,6 +203,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             }
         });
 
+        holder.cardCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
+            }
+        });
 
     }
 

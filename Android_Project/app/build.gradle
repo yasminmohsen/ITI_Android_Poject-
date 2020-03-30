@@ -50,4 +50,11 @@ dependencies {
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.mediarouter:mediarouter:1.1.0'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //floating button
+    implementation 'com.txusballesteros:bubbles:1.2.1'
+    //circleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

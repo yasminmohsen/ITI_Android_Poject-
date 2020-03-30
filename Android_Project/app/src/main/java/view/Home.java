@@ -146,8 +146,6 @@ public class Home extends AppCompatActivity implements HomeBase {
     public void showOnSucessFirebase() {
         //
     }
-
-
 }
 
 
