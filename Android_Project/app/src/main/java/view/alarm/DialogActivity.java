@@ -119,7 +119,7 @@ public class DialogActivity extends Activity {
                 //sendBroadcast(intent);
                 // put Trip id
                 //new CancelMyAlarm().cancelAlarm(DialogActivity.this, new AlarmServiceID().getAlarmServiceId(tripDialog.getTripId()));
-                //finish();
+                finish();
             }
         });
 
@@ -172,14 +172,12 @@ public class DialogActivity extends Activity {
             @Override
             public void onBubbleClick(BubbleLayout bubble) {
                 Toast.makeText(DialogActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-                showNotesList();
+                intent.putExtra("send", "notes");
+                sendBroadcast(intent);                
             }
         });
         bubbleView.setShouldStickToWall(true);
         bubblesManager.addBubble(bubbleView, 60, 20);
-    }
-
-    private void showNotesList() {
     }
 
     @Override

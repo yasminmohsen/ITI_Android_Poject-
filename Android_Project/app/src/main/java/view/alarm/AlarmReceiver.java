@@ -26,6 +26,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 if (s != null) {
                     if (s.equals("stop")) {
                         serviceIntent.putExtra("send", "stop");
+                    } else if(s.equals("notes")) {
+                        serviceIntent.putExtra("send", "notes");
                     }
                 }
             }

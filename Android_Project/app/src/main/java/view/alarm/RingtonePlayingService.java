@@ -34,6 +34,9 @@ public class RingtonePlayingService extends Service {
         if(s != null){
             if(s.equals("stop")){
                 stopSelf();
+            } else if(s.equals("notes")){
+                // run dialog of notes
+                
             }
         }else {
 
