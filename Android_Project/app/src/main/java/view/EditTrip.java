@@ -71,6 +71,11 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     Intent myIntent;
     private PendingIntent pendingIntent;
     TripCalenderManager tripAlarm;
+    String flag;
+    String vStartui;
+    String vEndui;
+    String vStartPoint;
+    String vEndPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +106,11 @@ public class EditTrip extends AppCompatActivity implements EditBase {
         Intent i = getIntent();
         t = (Trip) i.getSerializableExtra("sampleObject");
         tripStatus = t.getTripStatus();
+
+        vStartui=t.getStartUi();
+        vEndui=t.getEndUi();
+        vStartPoint=t.getStartPoint();
+        vEndPoint=t.getEndPoint();
         final SharedPreferences prefs = EditTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
         final long cnt = prefs.getLong(counter, 0);
 
@@ -110,6 +120,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
         eTripName.setText(t.getTripName());
         eStartPointAddress.setText(t.getStartUi());
         eEndPointAddress.setText(t.getEndUi());
+
         eDateText.setText(t.getDate());
         eTimeText.setText(t.getTime());
         eNotes.setText(t.getNote());
@@ -126,16 +137,33 @@ public class EditTrip extends AppCompatActivity implements EditBase {
                 String tripId=t.getTripId();
 
                 t.setTripName(eTripName.getText().toString());
-                t.setStartPoint(eStartPoint);
-                t.setEndPoint(eEndPoint);
+
+                if (flag!="pressed")
+                {
+                    t.setStartPoint(vStartPoint);
+                    t.setEndPoint(vEndPoint);
+                    t.setStartUi(vStartui);
+                    t.setEndUi(vEndui);
+
+                }
+
+                else{
+
+                    t.setStartUi(eStartui);
+                    t.setEndUi(eEndui);
+                    t.setStartPoint(eStartPoint);
+                    t.setEndPoint(eEndui);
+                }
+
+
                 t.setDate(eDateText.getText().toString());
                 t.setTime(eTimeText.getText().toString());
                 t.setTripDirection(eTripDir.getText().toString());
                 t.setNote(eNotes.getText().toString());
-                //t.setTripId(tripId);
+
                 t.setTripStatus(tripStatus);
-                t.setStartUi(eStartui);
-                t.setEndUi(eEndui);
+
+
 
                 presenter.updateTripPresenter(t);
 
@@ -149,8 +177,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
                 pendingIntent = PendingIntent.getBroadcast(EditTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                startActivity(intent);
+
             }
         });
 
@@ -190,6 +217,8 @@ public class EditTrip extends AppCompatActivity implements EditBase {
 
                 eTripDir.setText("Round");
 
+
+
             }
         });
         initPlaces();
@@ -218,6 +247,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
                 eStartui=place.getName();
                 eStartPoint=place.getAddress();
                 eStartPointAddress.setText(eStartui);
+                flag="pressed";
 
             }
 
@@ -239,7 +269,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
                eEndui=place.getName();
                 eEndPointAddress.setText(eEndui);
 
-
+                flag="pressed";
 
             }
 
@@ -263,6 +293,8 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     public void showOnSucessEdit() {
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(getApplicationContext(), Home.class);
+        startActivity(intent);
     }
 
     @Override

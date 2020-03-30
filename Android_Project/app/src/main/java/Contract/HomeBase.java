@@ -9,6 +9,7 @@ public interface HomeBase {
 
     public  void   showOnSucess(List<Trip> tripList);
     public void showOnFail();
-    public  void   showOnSucessFirebase();
+    public  void   showOnSucessFirebase(List<Trip> tripList);
+    public void showOnFaiIntenetConnet();
 
 }

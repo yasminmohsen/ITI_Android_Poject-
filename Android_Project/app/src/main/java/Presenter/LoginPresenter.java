@@ -23,17 +23,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Contract.FirebaseBase;
 import Contract.LoginBase;
+import Pojos.Trip;
 import view.Home;
 import view.MainActivity;
 
 
-public class LoginPresenter {
+public class LoginPresenter implements FirebaseBase  {
     private FirebaseAuth mAuth;
 
    private MainActivity mainActivity;
 
     private static final String TAG = "GoogleActivity";
+    List<Trip> tripList=new ArrayList<Trip>();
+
 
     LoginBase loginBase;
 
@@ -42,6 +49,8 @@ public class LoginPresenter {
         mAuth = FirebaseAuth.getInstance();
         mainActivity = new MainActivity();
         loginBase = l;
+
+
 
     }
 
@@ -56,6 +65,9 @@ public class LoginPresenter {
                             // Sign in success, update UI with the signed-in user's information
 
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            //
+
 
                             loginBase.showOnSucessEmail();
 
@@ -97,4 +109,10 @@ public class LoginPresenter {
                 });
     }
 
+    @Override
+    public void showOnSuccLoad(List<Trip> t) {
+
+       tripList=t;
+
+    }
 }

@@ -11,6 +11,8 @@ import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Size;
@@ -96,14 +98,10 @@ public class Home extends AppCompatActivity implements HomeBase {
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.getTripPresenter();
-        if (c.isEmpty() == false) {
-            tripAdapter = new TripAdapter(this, c);
-            recyclerView.setAdapter(tripAdapter);
-        } else {
 
-            Toast.makeText(this, "no data", Toast.LENGTH_SHORT).show();
-        }
+
+        presenter.getTripPresenter();
+
     }
 
 
@@ -116,7 +114,7 @@ public class Home extends AppCompatActivity implements HomeBase {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.syncBtn) {
-
+//            onStart();
             presenter.addTriptoFirebase(this.c);
             Toast.makeText(getApplicationContext(), "sync", Toast.LENGTH_SHORT).show();
 
@@ -135,6 +133,8 @@ public class Home extends AppCompatActivity implements HomeBase {
     @Override
     public void showOnSucess(List<Trip> tripList) {
         this.c = tripList;
+        tripAdapter = new TripAdapter(this, c);
+        recyclerView.setAdapter(tripAdapter);
     }
 
     @Override
@@ -143,9 +143,31 @@ public class Home extends AppCompatActivity implements HomeBase {
     }
 
     @Override
-    public void showOnSucessFirebase() {
-        //
+    public void showOnSucessFirebase(List<Trip> tripList) {
+        Toast.makeText(this,"open internet connection",Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void showOnFaiIntenetConnet() {
+Toast.makeText(this,"open internet connection",Toast.LENGTH_LONG).show();
+    }
+
+    public boolean isConnectedToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+
+        }
+        return false;
+    }
+
 }
 
 

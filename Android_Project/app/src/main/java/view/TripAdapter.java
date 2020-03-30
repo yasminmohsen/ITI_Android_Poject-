@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.android_project.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import Contract.HomeBase;
 import Pojos.Trip;
@@ -46,9 +48,16 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     }
 
     @Override
-    public void showOnSucessFirebase() {
+    public void showOnSucessFirebase(List<Trip> tripList) {
 
     }
+
+    @Override
+    public void showOnFaiIntenetConnet() {
+
+    }
+
+
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -62,6 +71,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         public Button homeStart;
         public Button editBtn;
         Button cardCancelBtn;
+        private Button showBtn;
 
 
         public MyViewHolder(View view) {
@@ -72,7 +82,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             editBtn = view.findViewById(R.id.editBtn);
             homeStart=view.findViewById(R.id.startBtn);
             cardCancelBtn = view.findViewById(R.id.card_cancel_btn);
-
+            showBtn=view.findViewById(R.id.showDetailsBtn);
 
         }
     }
@@ -106,6 +116,31 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         holder.homeTripName.setText(trip.getTripName());
 
         holder.homeDate.setText(trip.getDate());
+
+
+//        holder.cancelBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
+
+
+        holder.showBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(context, TripDetails.class);
+                i.putExtra("sampleObject", trip);
+                context.startActivity(i);
+            }
+        });
+
+
+
+
+
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +233,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
                 //write code here
 
-
+                Uri navigationIntentUri = Uri.parse("google.navigation:q=" + trip.getStartPoint() +"," + trip.getEndPoint());//creating intent with latlng
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, navigationIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                context.startActivity(mapIntent);
 
             }
         });
@@ -209,6 +247,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                 new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
             }
         });
+
+
+
 
     }
 

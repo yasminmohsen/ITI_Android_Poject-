@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="view.AddNewTrip">
+    tools:context="view.RoundTrip">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,12 +25,11 @@
                 android:id="@+id/toolbar2"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:background="@color/common_google_signin_btn_text_light_pressed"
+                android:background="@color/design_default_color_error"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
                 app:logo="@color/common_google_signin_btn_text_dark_disabled"
-                app:title="Add Trip"
-                app:titleTextColor="#A1B68A" />
+                app:titleTextColor="#FCCD65" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -42,18 +41,21 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/tripName"
+                android:id="@+id/rTripName"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/EnterName"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColor="#9E0019"
+                android:textColorHighlight="#C51F1F"
+                android:textColorLink="#FFFFFF" />
 
             <TextView
                 android:id="@+id/seprator__"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColorLink="#232020" />
 
             <TextView
                 android:id="@+id/startPoint"
@@ -65,11 +67,16 @@
                 android:textColor="#090909"
                 android:textSize="20sp" />
 
-            <fragment
-                android:id="@+id/autocomplete_fragment"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="11dp" />
+
+            <TextView
+                android:id="@+id/editStartPoint"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:gravity="center"
+                android:textColor="#9E0019" />
 
 
             <TextView
@@ -86,21 +93,26 @@
                 android:textColor="#1B1A1A"
                 android:textSize="20sp" />
 
-            <fragment
-                android:id="@+id/autocomplete_fragment_end"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            <Space
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/editEndPoint"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:gravity="center"
+                android:textColor="#8F0020" />
 
 
             <TextView
                 android:id="@+id/seprator__2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="33dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="615dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -148,6 +160,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:textColor="#8F0020"
                         android:textSize="18sp" />
 
                     <TextView
@@ -163,6 +176,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:textColor="#98001C"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -186,10 +200,10 @@
 
                     <Button
                         android:id="@+id/alaramBtn"
-                        android:layout_width="40dp"
+                        android:layout_width="21dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@android:drawable/ic_menu_recent_history" />
+                        android:background="@android:drawable/ic_lock_idle_alarm" />
                 </LinearLayout>
 
                 <TextView
@@ -197,32 +211,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/textView33"
+                <Space
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:text="@string/TripDirection"
-                    android:textColor="#0B0A0A"
-                    android:textSize="20sp" />
-
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-
-                    <RadioButton
-                        android:id="@+id/oneDirection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/OneDirection" />
-
-                    <RadioButton
-                        android:id="@+id/roundBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/Round" />
-                </RadioGroup>
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/textView34"
@@ -244,8 +235,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:hint="@string/EnterNote"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:textColor="#93001E" />
 
                 <TextView
                     android:id="@+id/textView39"
@@ -256,14 +247,18 @@
                     android:id="@+id/AddBtn"
                     android:layout_width="299dp"
                     android:layout_height="wrap_content"
-                    android:background="#101010"
-                    android:text="@string/Add"
-                    android:textColor="#A1B68A" />
+                    android:background="#93001E"
+                    android:text="Save"
+                    android:textColor="#FCCD65" />
 
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

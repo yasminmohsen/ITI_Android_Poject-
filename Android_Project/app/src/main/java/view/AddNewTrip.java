@@ -64,6 +64,7 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
     DatabaseReference databaseReferenceUsers;
     public static final String PrefName = "MyPrefFile";
     public static final String counter = "Counter";
+    String flag;
 
 
     private List<Trip> c = new ArrayList<Trip>();
@@ -75,6 +76,8 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
     String showStartPoint;// for ui
     String showEndPoint;// for ui
+
+    Trip roundedTrip;
 
 
     Trip addTripObj;
@@ -124,6 +127,12 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
 
 
+
+        Intent i = getIntent();
+        roundedTrip= (Trip) i.getSerializableExtra("sampleObject");
+
+
+
         final SharedPreferences prefs = AddNewTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
         final long cnt = prefs.getLong(counter, 0);
 
@@ -131,36 +140,31 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
             @Override
             public void onClick(View v) {
-
+                Trip t = new Trip();
                 String tn = tripName.getText().toString();
                 String tripId = tn + cnt; // the id
-                presenter.insertTripPresenter(tripName.getText().toString(), tripId, startPointAddress, endPointAddress, notes.getText().toString(),
-                        dateText.getText().toString(), timeText.getText().toString(), tripDir, "Upcoming", showStartPoint, showEndPoint);
 
-                Toast.makeText(AddNewTrip.this, "id is " + tripId, Toast.LENGTH_SHORT).show();
+                t.setTripName(tripName.getText().toString());
+                t.setTripId(tripId);
+                t.setStartPoint(startPointAddress);
+                t.setEndPoint(endPointAddress);
+                t.setNote(notes.getText().toString());
+                t.setDate(dateText.getText().toString());
+                t.setTime(timeText.getText().toString());
+                t.setTripDirection(tripDir);
+                t.setTripStatus("Upcoming");
+                t.setStartUi(showStartPoint);
+                t.setEndUi(showEndPoint);
 
-                addTripObj.setTripName(tripName.getText().toString());
-                addTripObj.setStartPoint(startPointAddress);
-                addTripObj.setEndPoint(endPointAddress);
-                addTripObj.setDate(dateText.getText().toString());
-                addTripObj.setTime(timeText.getText().toString());
-                addTripObj.setTripDirection(tripDir);
-                addTripObj.setNote(notes.getText().toString());
-                addTripObj.setTripId(tripId);
-                addTripObj.setTripStatus("Upcoming");
-                addTripObj.setStartUi(showStartPoint);
-                addTripObj.setEndUi(showEndPoint);
+                presenter.insertTripPresenter(t);
 
                 //save trip object to sharedpreference
-                saveTripToShared(addTripObj);
+                saveTripToShared(t);
 
-                // here start pendingIntent
+                 // here start pendingIntent
                 int serviceId = (int)cnt;
                 pendingIntent = PendingIntent.getBroadcast(AddNewTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
-
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                startActivity(intent);
 
             }
         });
@@ -193,7 +197,10 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         round.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 tripDir = "Round";
+                flag="round";
+
             }
         });
 
@@ -223,13 +230,6 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         long value = prefs.getLong(counter, 0);
         prefs.edit().putLong(counter, (value + 1)).apply();
     }
-
-    //    private  void addtoFireBase(){
-//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        String trip = databaseReferenceUsers.push().getKey();
-//        Users trp = new Users(tripName.getText().toString(), startPointAddress, endPointAddress,notes.getText().toString(), tripDir, "UpComing",  dateText.getText().toString(), time.getText().toString());
-//        databaseReferenceUsers.child(userId).child(trip).setValue(trp);
-//    }
 
 
     private void setupPlaceAutocomlete() {
@@ -276,11 +276,28 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
     @Override
     public void showOnSucessAdd() {
-        Toast.makeText(this, "Added", Toast.LENGTH_LONG);
+
+        if(flag=="round")
+        {
+            Intent i = new Intent(getApplicationContext(), RoundTrip.class);
+            i.putExtra("start",showStartPoint);
+            i.putExtra("end", showEndPoint);
+            i.putExtra("startAdd",startPointAddress);
+            i.putExtra("endAdd", endPointAddress);
+
+            startActivity(i);
+        }
+        else{
+            Toast.makeText(this, "Added", Toast.LENGTH_LONG);
+            Intent intent = new Intent(getApplicationContext(), Home.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override
     public void showOnFailFail() {
+        Toast.makeText(this, "Fill the Empty Fields ", Toast.LENGTH_SHORT).show();
 
     }
     // convert string to millisecond
