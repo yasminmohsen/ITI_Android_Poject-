@@ -5,8 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name="view.CheckState"
@@ -17,12 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name="view.HistoryAdapter"></activity>
+        <activity android:name="view.History" />
+        <activity
+            android:name="view.PopUpNote"
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name="view.RoundTrip" />
         <activity
             android:name="view.alarm.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert" >
-
-        </activity>
+            android:label="@string/notes"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
 
         <service
             android:name="view.alarm.RingtonePlayingService"
@@ -53,6 +56,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--        <activity android:name="view.SplashScreen">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android_project.R;
@@ -20,6 +22,7 @@ public class TripDetails extends AppCompatActivity {
     private TextView type;
     private TextView status;
     private TextView notes;
+    private Button read;
 
 
     @Override
@@ -37,7 +40,8 @@ public class TripDetails extends AppCompatActivity {
         time=(TextView) findViewById(R.id.dTime);
         type=(TextView) findViewById(R.id.dType);
         status=(TextView) findViewById(R.id.dStatus);
-        notes=(TextView) findViewById(R.id.dNotes);
+        read=(Button)findViewById(R.id.read);
+//        notes=(TextView) findViewById(R.id.dNotes);
 
 
 
@@ -48,8 +52,19 @@ public class TripDetails extends AppCompatActivity {
         time.setText(trip.getTime());
         type.setText(trip.getTripDirection());
         status.setText(trip.getTripStatus());
-        notes.setText(trip.getNote());
+        //notes.setText(trip.getNote());
 
+
+        read.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), PopUpNote.class);
+                i.putExtra("note",trip.getNote());
+                startActivity(i);
+
+            }
+        });
 
     }
 }
