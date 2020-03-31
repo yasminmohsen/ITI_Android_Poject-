@@ -71,6 +71,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     Intent myIntent;
     private PendingIntent pendingIntent;
     TripCalenderManager tripAlarm;
+
     String flag;
     String vStartui;
     String vEndui;
