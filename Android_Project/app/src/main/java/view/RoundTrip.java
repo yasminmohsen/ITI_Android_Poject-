@@ -2,6 +2,8 @@ package view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,10 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android_project.R;
+import com.google.gson.Gson;
 
 import Contract.AddBase;
 import Pojos.Trip;
 import Presenter.AddPresenter;
+import view.alarm.AlarmReceiver;
+import view.alarm.AlarmServiceID;
+import view.alarm.TripCalenderManager;
 
 public class RoundTrip extends AppCompatActivity implements AddBase {
 
@@ -41,11 +47,23 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
     public static final String PrefName = "MyPrefFile";
     public static final String counter = "Counter";
 
+    //alarm manager
+    AlarmManager alarmManager;
+    Intent myIntent;
+    private PendingIntent pendingIntent;
+    TripCalenderManager tripAlarm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round_trip);
+
+        // instantiate calender
+        tripAlarm = new TripCalenderManager();
+        //initialize alarm manager
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        myIntent = new Intent(this, AlarmReceiver.class);
 
        tripName = (EditText) findViewById(R.id.rTripName);
         startPnt = (TextView) findViewById(R.id.editStartPoint);
@@ -79,7 +97,7 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
             @Override
             public void onClick(View v) {
 
-                //code of date
+                tripAlarm.showDateDialog(date, RoundTrip.this);
 
             }
         });
@@ -88,11 +106,10 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
 
         timeBtn.setOnClickListener(new View.OnClickListener() {
 
-
             @Override
             public void onClick(View v) {
 
-                //code of time
+                tripAlarm.showTimeDialog(time, RoundTrip.this);
 
             }
         });
@@ -120,17 +137,29 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
                 //t.setTime(time.getText().toString());
                 t.setTime("12:24");
 
-     addPresenter.insertTripPresenter(t);
+                addPresenter.insertTripPresenter(t);
+
+                saveTripToShared(t);
+
+                // here start pendingIntent
+                int serviceId = new AlarmServiceID().getAlarmServiceId(id);
+
+                pendingIntent = PendingIntent.getBroadcast(RoundTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
     }
 });
 
     }
 
-
-
-
-
+    private void saveTripToShared(Trip t) {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(t);
+        editor.putString("trip", json);
+        editor.apply();
+    }
 
     @Override
     protected void onStart() {
@@ -144,8 +173,6 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
         // shared pref :
         long value = prefs.getLong(counter, 0);
         prefs.edit().putLong(counter, (value + 1)).apply();
-
-
 
     }
 

@@ -201,9 +201,6 @@ public class Home extends AppCompatActivity implements HomeBase {
 Toast.makeText(this,"open internet connection",Toast.LENGTH_LONG).show();
     }
 
-
-
-
     public boolean isConnectedToInternet(){
         ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null)

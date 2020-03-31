@@ -11,9 +11,13 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.android_project.R;
 
+import Pojos.Trip;
+
 import static view.alarm.NotificationService.CHANNEL_ID;
 
 public class RingtonePlayingService extends Service {
+
+    Trip tripService;
 
     public RingtonePlayingService() {
     }
@@ -30,6 +34,9 @@ public class RingtonePlayingService extends Service {
         if(s != null){
             if(s.equals("stop")){
                 stopSelf();
+            } else if(s.equals("notes")){
+                // run dialog of notes
+
             }
         }else {
 

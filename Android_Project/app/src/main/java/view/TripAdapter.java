@@ -25,6 +25,9 @@ import java.util.Locale;
 import Contract.HomeBase;
 import Pojos.Trip;
 import Presenter.Presenter;
+import view.alarm.AlarmServiceID;
+import view.alarm.CancelMyAlarm;
+import view.alarm.DialogActivity;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder>  implements HomeBase{
 
@@ -59,18 +62,16 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView homeTripName;
-        private TextView homeStartPoint;
-        private TextView homeEndPoint;
-        private TextView homeDate;
-        private TextView homeTime;
-        private Button deleteBtn;
-        private Button homeStart;
-        private Button editBtn;
-        private Button cancelBtn;
+        public TextView homeTripName;
+        public TextView homeStartPoint;
+        public TextView homeEndPoint;
+        public TextView homeDate;
+        public TextView homeTime;
+        public Button deleteBtn;
+        public Button homeStart;
+        public Button editBtn;
+        Button cardCancelBtn;
         private Button showBtn;
-
-
 
 
         public MyViewHolder(View view) {
@@ -80,9 +81,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             deleteBtn = view.findViewById(R.id.trashBtn);
             editBtn = view.findViewById(R.id.editBtn);
             homeStart=view.findViewById(R.id.startBtn);
-            cancelBtn=view.findViewById(R.id.cancelBtn);
+            cardCancelBtn = view.findViewById(R.id.card_cancel_btn);
             showBtn=view.findViewById(R.id.showDetailsBtn);
-
 
         }
     }
@@ -201,7 +201,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             }
         });
 
-
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -242,6 +241,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             }
         });
 
+        holder.cardCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
+            }
+        });
 
 
 

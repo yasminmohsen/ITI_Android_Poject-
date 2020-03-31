@@ -1,18 +1,32 @@
 package view.alarm;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 import com.example.android_project.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.txusballesteros.bubbles.BubbleLayout;
+import com.txusballesteros.bubbles.BubblesManager;
+import com.txusballesteros.bubbles.OnInitializedCallback;
 
+import java.lang.reflect.Type;
 import java.net.URI;
+
+import Pojos.Trip;
 
 public class DialogActivity extends Activity {
 
@@ -24,6 +38,14 @@ public class DialogActivity extends Activity {
     MediaPlayer mMediaPlayer;
     Intent intent;
 
+    Trip tripDialog;
+
+    String source;
+    String destination;
+
+    BubblesManager bubblesManager;
+    private int MY_PERMISSION = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +54,23 @@ public class DialogActivity extends Activity {
         this.setFinishOnTouchOutside(false);
 
         alarmReceiver = new AlarmReceiver();
+
+        startFloatingButton();
+
+        //Get Trip Object
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("trip", null);
+        Type type = new TypeToken<Trip>(){}.getType();
+        tripDialog = gson.fromJson(json, type);
+
+        if(tripDialog != null){
+
+            source = tripDialog.getStartPoint();
+            destination = tripDialog.getEndPoint();
+            String sss = tripDialog.getTripId();
+            Toast.makeText(this, source+"  "+destination, Toast.LENGTH_LONG).show();
+        }
 
         //register for receiver
         IntentFilter filter = new IntentFilter("my.action.data");
@@ -53,12 +92,33 @@ public class DialogActivity extends Activity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse("google.navigation:q=Alexandria,+Cairo");
+                // start Activity
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+source+","+destination);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                mMediaPlayer.stop();
                 startActivity(mapIntent);
-                sendBroadcast(intent);
+
+
+                mMediaPlayer.stop();
+
+                ///////////////////////////////////////////////////////////////
+
+                //Floating Button Permission
+                if(Build.VERSION.SDK_INT >= 23) {
+                    if(!Settings.canDrawOverlays(DialogActivity.this)) {
+                        Intent floatIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:"+getPackageName()));
+                        startActivityForResult(floatIntent, MY_PERMISSION);
+                    }
+                }else{
+                    Intent floatIntent = new Intent(DialogActivity.this, Service.class);
+                    startService(floatIntent);
+                }
+                addNewBubble();
+
+                ///////////////////////////////////////////////////////////////
+                //sendBroadcast(intent);
+                // put Trip id
+                //new CancelMyAlarm().cancelAlarm(DialogActivity.this, new AlarmServiceID().getAlarmServiceId(tripDialog.getTripId()));
                 finish();
             }
         });
@@ -79,13 +139,51 @@ public class DialogActivity extends Activity {
                 mMediaPlayer.stop();
                 sendBroadcast(intent);
                 finish();
+                // put Trip id
+                //new CancelMyAlarm().cancelAlarm(DialogActivity.this, new AlarmServiceID().getAlarmServiceId(tripDialog.getTripId()));
             }
         });
+    }
+
+    private void startFloatingButton() {
+        bubblesManager = new BubblesManager.Builder(this)
+                .setTrashLayout(R.layout.bubble_remove)
+                .setInitializationCallback(new OnInitializedCallback() {
+                    @Override
+                    public void onInitialized() {
+                    }
+                })
+                .build();
+        bubblesManager.initialize();
+    }
+
+    private void addNewBubble() {
+
+        BubbleLayout bubbleView = (BubbleLayout) LayoutInflater.from(this)
+                .inflate(R.layout.bubble_layout, null);
+        bubbleView.setOnBubbleRemoveListener(new BubbleLayout.OnBubbleRemoveListener() {
+            @Override
+            public void onBubbleRemoved(BubbleLayout bubble) {
+                Toast.makeText(DialogActivity.this, "Removed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        bubbleView.setOnBubbleClickListener(new BubbleLayout.OnBubbleClickListener() {
+            @Override
+            public void onBubbleClick(BubbleLayout bubble) {
+                Toast.makeText(DialogActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+//                intent.putExtra("send", "notes");
+//                sendBroadcast(intent);                
+            }
+        });
+        bubbleView.setShouldStickToWall(true);
+        bubblesManager.addBubble(bubbleView, 60, 20);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(alarmReceiver);
+        bubblesManager.recycle();
     }
 }

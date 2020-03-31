@@ -111,8 +111,6 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
                 }
             }
         });
-
-
     }
 
     @Override

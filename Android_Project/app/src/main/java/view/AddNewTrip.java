@@ -32,6 +32,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -79,6 +80,8 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
     Trip roundedTrip;
 
 
+    Trip addTripObj;
+
     PlacesClient placesClient;
     List<Place.Field> placeField = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
     AutocompleteSupportFragment places_fregment;
@@ -96,11 +99,15 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_trip);
 
+
         // instantiate calender
         tripAlarm = new TripCalenderManager();
         //initialize alarm manager
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         myIntent = new Intent(this, AlarmReceiver.class);
+
+
+        addTripObj = new Trip();
 
         getSupportActionBar().setTitle("Add new trip");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -151,10 +158,16 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
                 presenter.insertTripPresenter(t);
 
+                //save trip object to sharedpreference
+                saveTripToShared(t);
+
+                 // here start pendingIntent
+                int serviceId = (int)cnt;
+                pendingIntent = PendingIntent.getBroadcast(AddNewTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
             }
         });
-
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +177,6 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
             }
         });
 
-
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,17 +185,14 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
             }
         });
 
-
         oneDir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 tripDir = "One Direction";
 
-
             }
         });
-
 
         round.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,11 +204,19 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
             }
         });
 
-
         initPlaces();
         setupPlaceAutocomlete();
 
 
+    }
+
+    private void saveTripToShared(Trip t) {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(t);
+        editor.putString("trip", json);
+        editor.apply();
     }
 
     @Override
@@ -259,9 +276,7 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
     @Override
     public void showOnSucessAdd() {
-        // here start pendingIntent
-        pendingIntent = PendingIntent.getBroadcast(AddNewTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
+
         if(flag=="round")
         {
             Intent i = new Intent(getApplicationContext(), RoundTrip.class);
@@ -285,4 +300,11 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         Toast.makeText(this, "Fill the Empty Fields ", Toast.LENGTH_SHORT).show();
 
     }
+    // convert string to millisecond
+    /*
+        String someDate = "05.10.2011";
+        SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
+        Date date = sdf.parse(someDate);
+        System.out.println(date.getTime());
+     */
 }

@@ -5,20 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.AlarmManager;
-import android.app.DatePickerDialog;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.android_project.R;
@@ -28,18 +24,16 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.firebase.database.DatabaseReference;
+import com.google.gson.Gson;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import Contract.EditBase;
 import Pojos.Trip;
 import Presenter.EditPresenter;
 import view.alarm.AlarmReceiver;
+import view.alarm.AlarmServiceID;
 import view.alarm.TripCalenderManager;
 
 public class EditTrip extends AppCompatActivity implements EditBase {
@@ -57,7 +51,6 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     private Button save;
     private RadioButton oneDir;
     private RadioButton round;
-
     Trip t;
     String tripId;
     String tripStatus;
@@ -78,6 +71,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     Intent myIntent;
     private PendingIntent pendingIntent;
     TripCalenderManager tripAlarm;
+
     String flag;
     String vStartui;
     String vEndui;
@@ -176,6 +170,13 @@ public class EditTrip extends AppCompatActivity implements EditBase {
 
                 Toast.makeText(EditTrip.this, "id is "+tripId, Toast.LENGTH_SHORT).show();
 
+                saveTripToShared(t);
+
+                // here start pendingIntent
+                int serviceId = new AlarmServiceID().getAlarmServiceId(tripId);
+
+                pendingIntent = PendingIntent.getBroadcast(EditTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
 
             }
@@ -225,6 +226,15 @@ public class EditTrip extends AppCompatActivity implements EditBase {
         setupPlaceAutocomlete();
 
 
+    }
+
+    private void saveTripToShared(Trip t) {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(t);
+        editor.putString("trip", json);
+        editor.apply();
     }
 
     private void setupPlaceAutocomlete() {
@@ -283,16 +293,36 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     @Override
     public void showOnSucessEdit() {
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-        pendingIntent = PendingIntent.getBroadcast(EditTrip.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
         Intent intent = new Intent(getApplicationContext(), Home.class);
         startActivity(intent);
-
     }
 
     @Override
     public void showOnFailEdit() {
 
     }
+    // convert string to millisecond
+    /*
+        String someDate = "05.10.2011";
+        SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
+        Date date = sdf.parse(someDate);
+        System.out.println(date.getTime());
+     */
+
+    // cancel alarm
+    /*
+    Context ctx = getApplicationContext();
+
+    AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+    Intent cancelServiceIntent = new Intent(ctx, NewsCheckingService.class);
+    PendingIntent cancelServicePendingIntent = PendingIntent.getBroadcast(
+            ctx,
+            NewsCheckingService.SERVICE_ID, // integer constant used to identify the service
+            cancelServiceIntent,
+            0 //no FLAG needed for a service cancel
+    );
+    am.cancel(cancelServicePendingIntent);
+
+    */
 }
