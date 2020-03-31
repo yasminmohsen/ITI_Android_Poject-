@@ -172,12 +172,31 @@ public class DialogActivity extends Activity {
             @Override
             public void onBubbleClick(BubbleLayout bubble) {
                 Toast.makeText(DialogActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-//                intent.putExtra("send", "notes");
-//                sendBroadcast(intent);                
+                String s = readFromShared();
+                if(s.equals("f") || s.equals("false")) {
+
+                    intent.putExtra("send", "notes");
+                    sendBroadcast(intent);
+                    writeInShared("t");
+                }
             }
         });
         bubbleView.setShouldStickToWall(true);
         bubblesManager.addBubble(bubbleView, 60, 20);
+    }
+
+    //write in shared preference
+    void writeInShared(String s) {
+        SharedPreferences msgPref = getSharedPreferences("msg", 0);
+        SharedPreferences.Editor editor = msgPref.edit();
+        editor.putString("msg", s);
+        editor.commit();
+    }
+
+    String readFromShared() {
+        SharedPreferences msgPref = getSharedPreferences("msg", 0);
+        String msg = msgPref.getString("msg", "false");
+        return msg;
     }
 
     @Override
