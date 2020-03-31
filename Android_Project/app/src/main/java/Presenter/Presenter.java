@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.View;
 
 import androidx.room.Room;
 
@@ -22,7 +21,7 @@ import Model.FirebaseModel;
 import Pojos.Trip;
 import view.Home;
 
-public class Presenter implements AddBase,FirebaseBase {
+public class Presenter implements AddBase,FirebaseBase{
 
     private List<Trip> tripList = new ArrayList<Trip>();
 
@@ -37,6 +36,7 @@ public class Presenter implements AddBase,FirebaseBase {
     Activity a;
     Context contx;
     boolean result;
+
 
 
     public Presenter(Context contx, HomeBase ho) {
@@ -61,9 +61,7 @@ public class Presenter implements AddBase,FirebaseBase {
             if(result==true) {
                 retrieveTripfromFirebase();
             }
-            else{
 
-            }
         }
         h.showOnSucess(tripList);
 
@@ -101,6 +99,16 @@ public class Presenter implements AddBase,FirebaseBase {
         firebaseModel.getfromFireBase();
 
     }
+
+
+    public void addToHistoryFireBase() {
+
+        firebaseModel.getfromFireBase();
+
+    }
+
+
+
 
 
     public boolean isConnectedToInternet() {
@@ -141,4 +149,7 @@ public class Presenter implements AddBase,FirebaseBase {
     public void showOnFailFail() {
 
     }
+
+
+
 }

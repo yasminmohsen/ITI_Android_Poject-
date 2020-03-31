@@ -87,8 +87,8 @@ public class Home extends AppCompatActivity implements HomeBase {
                          break;
                     case R.id.history:
                         Toast.makeText(Home.this, "History", Toast.LENGTH_SHORT).show();
-//                        Intent a = new Intent(Home.this,AddNewTrip.class);
-//                        startActivity(a);
+                        Intent a = new Intent(Home.this,History.class);
+                        startActivity(a);
                         break;
                     case R.id.sync:
                         Toast.makeText(Home.this, "sync", Toast.LENGTH_SHORT).show();

@@ -12,87 +12,86 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import Contract.HistoryFireBase;
 import Pojos.Trip;
-import Pojos.Users;
 
-public class HistoryModel {
+public class HistoryModel  {
     DatabaseReference databaseReferenceUsers;
-    Users trpDetails;
-    List<Users> userslist;
+
     Trip tripsList;
+    String userId;
+    List<Trip>tripList;
+    HistoryFireBase hB;
 
-    public void addHistorytoFireBase(List<Trip> tArray){
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    public void addHistorytoFireBase(Trip trip ){
+
         databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("History");
-        databaseReferenceUsers.child(userId).removeValue();
-        trpDetails = new Users();
-        for (int i=0; i < tArray.size(); i++){
-            trpDetails.setTripId(tArray.get(i).getTripId());
-            trpDetails.setTripName(tArray.get(i).getTripName());
-            trpDetails.setStartPoint(tArray.get(i).getStartPoint());
-            trpDetails.setEndPoint(tArray.get(i).getEndPoint());
-            trpDetails.setNote(tArray.get(i).getNote());
-            trpDetails.setTripDirection(tArray.get(i).getTripDirection());
-            tripsList.setTripStatus(tArray.get(i).getTripStatus());
-//            if ( tArray.get(i).getTripStatus().equals(a) ){   //if we return flag
-//                trpDetails.setTripStatus("Cancel");
-//            }else{
-//                trpDetails.setTripStatus("Done");
-//            }
-            trpDetails.setDate(tArray.get(i).getDate());
-            trpDetails.setTime(tArray.get(i).getTime());
-            trpDetails.setStartUi(tArray.get(i).getStartUi());
-            trpDetails.setEndUi(tArray.get(i).getEndUi());
+      Trip trpObj=new Trip();
+            trpObj.setTripId(trip.getTripId());
+            trpObj.setTripName(trip.getTripName());
+            trpObj.setStartPoint(trip.getStartPoint());
+            trpObj.setEndPoint(trip.getEndPoint());
+            trpObj.setNote(trip.getNote());
+            trpObj.setTripDirection(trip.getTripDirection());
+            trpObj.setTripStatus(trip.getTripStatus());
+            trpObj.setDate(trip.getDate());
+            trpObj.setTime(trip.getTime());
+            trpObj.setStartUi(trip.getStartUi());
+            trpObj.setEndUi(trip.getEndUi());
 
-            databaseReferenceUsers.child(userId).child(tArray.get(i).getTripId()).setValue(trpDetails);
+            databaseReferenceUsers.child(userId).child(trip.getTripId()).setValue(trpObj);
         }
+
+
+    public HistoryModel(HistoryFireBase h) {
+
+         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+         hB=h;
+
     }
 
-    public HistoryModel() {
+
+
+    public void getfromFireBase() {
+
+
+     tripList = new ArrayList<>();
+
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference().child("History").child(userId);
+
+        databaseReferenceUsers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                tripList.clear();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+
+                    Trip user = userSnapshot.getValue(Trip.class);
+
+                    tripList.add(user);
+
+                }
+             hB.showOnSuccLoadHistory(tripList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+
     }
 
-//    public Trip getHistoryfromFireBase(){
-//
-//        userslist = new ArrayList<>();
-//        tripsList = new Trip();
-//
-//        databaseReferenceUsers.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                userslist.clear(); // if it have any user previous as status snapshot obj will have user every time at excute
-//
-//                for(DataSnapshot userSnapshot: dataSnapshot.getChildren()){
-//                    Users user = userSnapshot.getValue(Users.class);
-//                    userslist.add(user);
-//                }
-//
-//
-//                for (int i=0; i < userslist.size(); i++){
-//                    tripsList.setTripId(userslist.get(i).getTripId());
-//                    tripsList.setTripName(userslist.get(i).getTripName());
-//                    tripsList.setStartPoint(userslist.get(i).getStartPoint());
-//                    tripsList.setEndPoint(userslist.get(i).getEndPoint());
-//                    tripsList.setNote(userslist.get(i).getNote());
-//                    tripsList.setTripDirection(userslist.get(i).getTripDirection());  //get LatLng to HistoryMap
-//                    tripsList.setTripStatus(userslist.get(i).getTripStatus());
-//                    tripsList.setDate(userslist.get(i).getDate());
-//                    tripsList.setTime(userslist.get(i).getTime());
-//                    tripsList.setStartUi(userslist.get(i).getStartUi());
-//                    tripsList.setEndUi(userslist.get(i).getEndUi());
-//                }
-//
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError){
-//
-//            }
-//
-//        });
-//            return tripsList;
-//
-//    }
+
+    public void deleteFromFirebase(Trip trip)
+    {
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("History");
+        databaseReferenceUsers.child(userId).child(trip.getTripId()).removeValue(); // remove method
+
+
+    }
+
 
 }

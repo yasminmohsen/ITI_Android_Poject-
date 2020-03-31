@@ -22,22 +22,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import Contract.HistoryBase;
 import Contract.HomeBase;
 import Pojos.Trip;
 import Presenter.Presenter;
 import view.alarm.AlarmServiceID;
 import view.alarm.CancelMyAlarm;
 import view.alarm.DialogActivity;
+import Presenter.HistoryPresenter;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder>  implements HomeBase{
+public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder>  implements HomeBase, HistoryBase {
 
 
     private Context context;
     private List<Trip> tripsList;
     private Presenter presenter;
     private Home home;
-
-
+private  HistoryPresenter historyPresenter;
 
 
 
@@ -74,6 +75,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
         this.context = context;
         this.tripsList = trips;
         presenter = new Presenter(context, this);
+        historyPresenter=new HistoryPresenter(this);
 
 
     }
@@ -99,16 +101,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
         holder.homeDate.setText(trip.getDate());
 
-
-//        holder.cancelBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-
-
-
         holder.showBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,11 +110,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                 context.startActivity(i);
             }
         });
-
-
-
-
-
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +207,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
                 mapIntent.setPackage("com.google.android.apps.maps");
                 context.startActivity(mapIntent);
 
+
+                // add to firebase history
+                trip.setTripStatus("Done");
+
+                historyPresenter.addToFireBaseHistory(trip);
+                presenter.deleteTripPresenter(trip);
+                tripsList.remove(position);
+                notifyDataSetChanged();
+
             }
         });
 
@@ -227,6 +223,16 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
                 new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
+
+
+                trip.setTripStatus("Cancelled");
+
+                historyPresenter.addToFireBaseHistory(trip);
+                presenter.deleteTripPresenter(trip);
+                tripsList.remove(position);
+                notifyDataSetChanged();
+
+
             }
         });
 
@@ -263,5 +269,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
 
     }
 
+    @Override
+    public void showOnSuccessHistory(List<Trip> tripList) {
+
+    }
+
+    @Override
+    public void showOnFailHistory() {
+
+    }
 
 }

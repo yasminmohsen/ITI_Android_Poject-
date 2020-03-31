@@ -128,7 +128,7 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
                 t.setTripStatus("upcoming");
                 t.setEndUi(startLoc);
                 t.setStartUi(endLoc);
-                t.setTripDirection("Round of" + trip.getTripName());
+                t.setTripDirection("Back Trip");
                 t.setStartPoint(endLocAdd);
                 t.setEndPoint(startLocAdd);
                 t.setNote(notes.getText().toString());
