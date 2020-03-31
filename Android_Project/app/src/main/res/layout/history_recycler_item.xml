@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/quantum_orange50"
+    app:layout_anchorGravity="center">
+
+    <LinearLayout
+        android:layout_width="304dp"
+        android:layout_height="292dp"
+        android:layout_marginTop="28dp"
+        android:background="#E8D3B0"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+        <Button
+            android:id="@+id/hTrashBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="67dp"
+            android:layout_height="39dp"
+            android:layout_gravity="right"
+            android:drawableLeft="@drawable/trash__1_"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/tripTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="My new Trip"
+            android:textColor="#D85C01"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="13-2-20019"
+            android:textColor="#D85C01"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/statusTitle"
+            android:layout_width="317dp"
+            android:layout_height="wrap_content"
+            android:background="@color/quantum_white_100"
+            android:gravity="center"
+            android:textColor="@color/quantum_lime50"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/hShowDetailsBtn"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:background="#D85C01"
+            android:gravity="center"
+            android:text="@string/showDetails" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

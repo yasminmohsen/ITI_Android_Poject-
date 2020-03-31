@@ -128,7 +128,6 @@ public class EditTrip extends AppCompatActivity implements EditBase {
         eTripDir.setText(t.getTripDirection());
 
 
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

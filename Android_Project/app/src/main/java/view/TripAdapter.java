@@ -37,40 +37,22 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     private Presenter presenter;
     private Home home;
 
-    @Override
-    public void showOnSucess(List<Trip> tripList) {
 
-    }
-
-    @Override
-    public void showOnFail() {
-
-    }
-
-    @Override
-    public void showOnSucessFirebase(List<Trip> tripList) {
-
-    }
-
-    @Override
-    public void showOnFaiIntenetConnet() {
-
-    }
 
 
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView homeTripName;
-        public TextView homeStartPoint;
-        public TextView homeEndPoint;
-        public TextView homeDate;
-        public TextView homeTime;
-        public Button deleteBtn;
-        public Button homeStart;
-        public Button editBtn;
-        Button cardCancelBtn;
+        private TextView homeTripName;
+        private TextView homeStartPoint;
+        private TextView homeEndPoint;
+        private TextView homeDate;
+        private TextView homeTime;
+        private Button deleteBtn;
+        private Button homeStart;
+        private Button editBtn;
+        private Button cardCancelBtn;
         private Button showBtn;
 
 
@@ -256,6 +238,29 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
     @Override
     public int getItemCount() {
         return tripsList.size();
+    }
+
+
+
+
+    @Override
+    public void showOnSucess(List<Trip> tripList) {
+
+    }
+
+    @Override
+    public void showOnFail() {
+
+    }
+
+    @Override
+    public void showOnSucessFirebase(List<Trip> tripList) {
+
+    }
+
+    @Override
+    public void showOnFaiIntenetConnet() {
+
     }
 
 
