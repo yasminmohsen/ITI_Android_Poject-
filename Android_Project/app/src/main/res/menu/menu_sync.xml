@@ -4,9 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context="view.Home">
     <item
-        android:id="@+id/syncBtn"
-        android:icon="@drawable/close"
-        android:title="@string/Sync"
+        android:id="@+id/logout"
+        android:title="logout"
         app:showAsAction="always" />
 
 </menu>

@@ -4,7 +4,7 @@
     <item android:left="-2dp"  android:right="-2dp">
         <shape android:shape="rectangle">
             <stroke android:width="2dp"  />
-<!--            <solid android:color="@color/backgroundColor" />-->
+<!--         //   <solid android:color="@color/quantum_orange50" />-->
         </shape>
     </item>
 

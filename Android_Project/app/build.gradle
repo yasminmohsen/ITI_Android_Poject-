@@ -50,4 +50,8 @@ dependencies {
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.mediarouter:mediarouter:1.1.0'
+    //noinspection GradleCompatible
+    compile 'com.android.support:design:25.0.0'
+
+
 }

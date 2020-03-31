@@ -35,4 +35,6 @@
     <string name="Sync">Sync</string>
     <string name="snooze_btn">Snooze</string>
     <string name="start_btn">Start</string>
+    <string name="Home">Home</string>
+    <string name="History">History</string>
 </resources>

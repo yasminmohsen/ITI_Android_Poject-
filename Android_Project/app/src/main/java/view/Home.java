@@ -3,33 +3,43 @@ package view;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Size;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.android_project.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import Contract.HomeBase;
 import Contract.TripDAO;
@@ -53,10 +63,47 @@ public class Home extends AppCompatActivity implements HomeBase {
 
     HomeBase h;
 
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+/*************/
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        navigation.setItemIconTintList(null);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        Toast.makeText(Home.this, "Home", Toast.LENGTH_SHORT).show();
+                         break;
+                    case R.id.history:
+                        Toast.makeText(Home.this, "History", Toast.LENGTH_SHORT).show();
+//                        Intent a = new Intent(Home.this,AddNewTrip.class);
+//                        startActivity(a);
+                        break;
+                    case R.id.sync:
+                        Toast.makeText(Home.this, "sync", Toast.LENGTH_SHORT).show();
+//                        Intent b = new Intent(Home.this,TripDetails.class);
+//                        startActivity(b);
+                        break;
+                }
+                return false;
+            }
+        });
+
+/************/
+
+
+
 
         presenter = new Presenter(getApplicationContext(), this);
 
@@ -79,6 +126,8 @@ public class Home extends AppCompatActivity implements HomeBase {
                 Intent intent = new Intent(getApplicationContext(), AddNewTrip.class);
 
                 startActivity(intent);
+
+
 
 
             }
@@ -113,10 +162,10 @@ public class Home extends AppCompatActivity implements HomeBase {
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.syncBtn) {
+        if (item.getItemId() == R.id.logout) {
 //            onStart();
-            presenter.addTriptoFirebase(this.c);
-            Toast.makeText(getApplicationContext(), "sync", Toast.LENGTH_SHORT).show();
+//            presenter.addTriptoFirebase(this.c);
+           Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -170,6 +219,16 @@ Toast.makeText(this,"open internet connection",Toast.LENGTH_LONG).show();
         }
         return false;
     }
+
+
+
+
+    /*********/
+
+
+
+
+
 
 }
 
