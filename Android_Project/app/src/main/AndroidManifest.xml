@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="view.RoundTrip"></activity>
+        <activity android:name="view.RoundTrip" />
         <activity
             android:name="view.alarm.DialogActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" >
