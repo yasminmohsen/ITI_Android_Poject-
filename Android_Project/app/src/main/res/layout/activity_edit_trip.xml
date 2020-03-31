@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#85FFB300"
+        android:background="@color/quantum_orange50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,287 +18,299 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/quantum_orange50"
             android:gravity="center"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar2"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="@color/design_default_color_error"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:logo="@color/common_google_signin_btn_text_dark_disabled"
-                app:title="Add Trip"
-                app:titleTextColor="#FCCD65" />
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:text="@string/TripName"
-                android:textColor="#0E0E0E"
-                android:textSize="20sp" />
+                android:textColor="#D85C01"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/tripName"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:gravity="center"
-                android:inputType="textPersonName"
-                android:textColor="#9E0019"
-                android:textColorHighlight="#C51F1F"
-                android:textColorLink="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/seprator__"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorLink="#232020" />
-
-            <TextView
-                android:id="@+id/startPoint"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/StartPoint"
-                android:textColor="#090909"
-                android:textSize="20sp" />
+                android:gravity="center_horizontal"
+                android:hint="@string/EnterName"
+                android:inputType="textPersonName" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="11dp" />
+                android:layout_height="20dp" />
 
-            <TextView
-                android:id="@+id/editStartPoint"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="#9E0019" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
+                <TextView
+                    android:id="@+id/startPoint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/icons8_asterisk_26__1_"
+                    android:gravity="center|start"
+                    android:text="@string/newStartPoint"
+                    android:textColor="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/editStartPoint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="#0B0A0A"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
             <fragment
                 android:id="@+id/autocomplete_fragment"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-
-            <TextView
-                android:id="@+id/separator__"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="@string/endPoint"
-                android:textColor="#1B1A1A"
-                android:textSize="20sp" />
-
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="20dp" />
 
-            <TextView
-                android:id="@+id/editEndPoint"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="#8F0020" />
+                android:orientation="horizontal"
+                android:weightSum="2">
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/icons8_asterisk_26__1_"
+                    android:gravity="center_horizontal|left|center_vertical"
+                    android:text="@string/newEndPoint"
+                    android:textColor="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/editEndPoint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#090808"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
             <fragment
                 android:id="@+id/autocomplete_fragment_end"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-
-            <TextView
-                android:id="@+id/seprator__2"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="615dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/Date"
-                        android:textColor="#151515"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center" />
-
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/Time"
-                        android:textColor="#070707"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/dateText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="#8F0020"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center" />
-
-                    <TextView
-                        android:id="@+id/TimeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="#98001C"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="87dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/calenderBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/calendar_icon" />
-
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="10dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <Button
-                        android:id="@+id/alaramBtn"
-                        android:layout_width="21dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@android:drawable/ic_lock_idle_alarm" />
-                </LinearLayout>
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:id="@+id/textView15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/icons8_asterisk_26__1_"
+                    android:gravity="clip_horizontal|center|center_horizontal|left"
+                    android:text="@string/newDate"
+                    android:textColor="#D85C01"
+                    android:textColorHighlight="#D85C01"
+                    android:textColorHint="#D85C01"
+                    android:textColorLink="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dateText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.25"
+                    android:gravity="center"
+                    android:textColor="#0B0A0A"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/calenderBtn"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".75"
+                    android:drawableStart="@drawable/calendar_icon" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/icons8_asterisk_26__1_"
+                    android:gravity="center|left"
+                    android:text="@string/newTime"
+                    android:textColor="#D85C01"
+                    android:textColorHighlight="#D85C01"
+                    android:textColorHint="#D85C01"
+                    android:textColorLink="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/TimeText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.25"
+                    android:gravity="center"
+                    android:textColor="#121111"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/alaramBtn"
+                    style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/icons8_alarm_clock_50" />
+            </LinearLayout>
+
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <TextView
                     android:id="@+id/textView33"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:text="@string/TripDirection"
-                    android:textColor="#0B0A0A"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/icons8_asterisk_26__1_"
+                    android:gravity="center|center_horizontal|left|center_vertical"
+                    android:text="@string/TripDir"
+                    android:textColor="#D85C01"
+                    android:textColorHighlight="#D85C01"
+                    android:textColorHint="#D85C01"
+                    android:textColorLink="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/editTripDir"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="#9C001A" />
-
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-
-                    <RadioButton
-                        android:id="@+id/oneDirection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/OneDirection" />
-
-                    <RadioButton
-                        android:id="@+id/roundBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/Round" />
-                </RadioGroup>
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/textView37"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Notes"
-                    android:textColor="#0E0E0E"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/NotesText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    android:textColor="#93001E" />
-
-                <TextView
-                    android:id="@+id/textView39"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:id="@+id/AddBtn"
-                    android:layout_width="299dp"
-                    android:layout_height="wrap_content"
-                    android:background="#93001E"
-                    android:text="Save"
-                    android:textColor="#FCCD65" />
-
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textSize="18sp" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <RadioButton
+                    android:id="@+id/oneDirection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/OneDirection"
+                    android:textColorHighlight="#D85C01"
+                    android:textColorHint="#D85C01"
+                    android:textColorLink="#D85C01" />
+
+                <RadioButton
+                    android:id="@+id/roundBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Round" />
+            </RadioGroup>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Notes"
+                android:textColor="#D85C01"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/NotesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/EnterNote"
+                android:inputType="textMultiLine" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/AddBtn"
+                android:layout_width="299dp"
+                android:layout_height="wrap_content"
+                android:background="#D85C01"
+                android:text="@string/Save"
+                android:textColor="#FFF1D9" />
 
         </LinearLayout>
     </ScrollView>

@@ -5,8 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name="view.CheckState"
@@ -17,13 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name="view.PopUpNote" android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
         <activity android:name="view.RoundTrip" />
         <activity
             android:name="view.alarm.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert" >
-
+            android:label="@string/notes"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert">
         </activity>
-
         <service
             android:name="view.alarm.RingtonePlayingService"
             android:enabled="true"

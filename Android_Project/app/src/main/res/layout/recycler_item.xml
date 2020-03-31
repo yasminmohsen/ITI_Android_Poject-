@@ -127,7 +127,7 @@
 
 
                 <Button
-                    android:id="@+id/showDetailsBtn "
+                    android:id="@+id/showDetails"
                     android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_button"

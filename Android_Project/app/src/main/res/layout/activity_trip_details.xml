@@ -16,23 +16,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#77ECD24B"
+            android:background="@color/quantum_orange50"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar7"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#D6384D"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme" />
+                android:layout_height="30dp" />
 
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="match_parent"
                 android:layout_height="134dp"
                 android:layout_gravity="center|center_vertical"
-                android:src="@drawable/map" />
+                android:src="@drawable/triplogo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,6 +43,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="MY NEW TRIP"
+                    android:textColor="#D85C01"
                     android:textSize="30sp" />
 
             </LinearLayout>
@@ -58,7 +55,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:background="@drawable/border_set"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -69,7 +65,9 @@
                     android:drawableLeft="@drawable/icons8_user_location_50"
                     android:gravity="center|left"
                     android:text="From:"
-                    android:textSize="20sp" />
+                    android:textColor="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -83,6 +81,7 @@
                     android:layout_weight="1.25"
                     android:gravity="center|left"
                     android:text="Cairo"
+                    android:textColor="#0B0A0A"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -93,7 +92,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/border_set"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -104,7 +102,9 @@
                     android:drawableLeft="@drawable/icons8_user_location_50"
                     android:gravity="center|left"
                     android:text="To:"
-                    android:textSize="20sp" />
+                    android:textColor="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -118,6 +118,7 @@
                     android:layout_weight="1.25"
                     android:gravity="center|left"
                     android:text="Alex"
+                    android:textColor="#0B0A0A"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -128,7 +129,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/border_set"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -139,7 +139,9 @@
                     android:drawableLeft="@drawable/calendar_icon"
                     android:gravity="center|left"
                     android:text="Date:"
-                    android:textSize="20sp" />
+                    android:textColor="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -153,6 +155,7 @@
                     android:layout_weight="1.25"
                     android:gravity="center|left"
                     android:text="25-09-98876"
+                    android:textColor="#0B0A0A"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -163,7 +166,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:background="@drawable/border_set"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -174,7 +176,9 @@
                     android:drawableLeft="@drawable/icons8_alarm_clock_50"
                     android:gravity="center|left"
                     android:text="Time:"
-                    android:textSize="20sp" />
+                    android:textColor="#D85C01"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -188,6 +192,7 @@
                     android:layout_weight="1.25"
                     android:gravity="center|left"
                     android:text="2:40"
+                    android:textColor="#0B0A0A"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -198,7 +203,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:background="@drawable/border_set"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -209,7 +213,9 @@
                     android:drawableLeft="@drawable/icons8_direction_50"
                     android:gravity="center|left"
                     android:text="Type"
-                    android:textSize="18sp" />
+                    android:textColor="#D85C01"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -223,6 +229,7 @@
                     android:layout_weight="1.25"
                     android:gravity="center|left"
                     android:text="@string/Round"
+                    android:textColor="#0B0A0A"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -234,7 +241,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:background="@drawable/border_set"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -242,17 +248,17 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/border_set"
                     android:drawableLeft="@drawable/icons8_around_the_globe_50"
                     android:gravity="center|left"
                     android:text="Status:"
-                    android:textSize="15sp" />
+                    android:textColor="#D85C01"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:background="@drawable/border_set" />
+                    android:layout_weight=".25" />
 
                 <TextView
                     android:id="@+id/dStatus"
@@ -261,54 +267,51 @@
                     android:layout_weight="1.25"
                     android:gravity="center|left"
                     android:text="upcoming"
+                    android:textColor="#0B0A0A"
                     android:textSize="20sp" />
             </LinearLayout>
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_height="19dp"
+                android:layout_weight=".75" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="109dp"
-                android:background="@drawable/border_set"
+                android:layout_height="74dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight=".75"
                     android:drawableLeft="@drawable/icons8_notes_app_50"
                     android:gravity="center|left"
                     android:text="Notes:"
-                    android:textSize="15sp" />
+                    android:textColor="#D85C01"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".15" />
-
-                <TextView
-                    android:id="@+id/dNotes"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.75"
-                    android:gravity="center|left"
-                    android:text="my first notes"
-                    android:textSize="20sp" />
+                <Button
+                    android:id="@+id/read"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_weight=".75"
+                    android:background="#DDC8A4"
+                    android:text="@string/showNotes"
+                    android:textColor="#D85C01" />
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar6"
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1" />
+
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#CA213D"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>

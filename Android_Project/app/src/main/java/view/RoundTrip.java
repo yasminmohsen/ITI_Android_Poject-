@@ -132,10 +132,9 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
                 t.setStartPoint(endLocAdd);
                 t.setEndPoint(startLocAdd);
                 t.setNote(notes.getText().toString());
-                //t.setDate(date.getText().toString());
-                t.setDate("12 March 2009");
-                //t.setTime(time.getText().toString());
-                t.setTime("12:24");
+                t.setDate(date.getText().toString());
+                t.setTime(time.getText().toString());
+
 
                 addPresenter.insertTripPresenter(t);
 

@@ -82,7 +82,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> 
             editBtn = view.findViewById(R.id.editBtn);
             homeStart=view.findViewById(R.id.startBtn);
             cardCancelBtn = view.findViewById(R.id.card_cancel_btn);
-            showBtn=view.findViewById(R.id.showDetailsBtn);
+            showBtn=view.findViewById(R.id.showDetails);
 
         }
     }

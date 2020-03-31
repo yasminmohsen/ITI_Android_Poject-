@@ -37,4 +37,13 @@
     <string name="start_btn">Start</string>
     <string name="Home">Home</string>
     <string name="History">History</string>
+    <string name="newStartPoint">Start Point :</string>
+    <string name="newEndPoint">End Point :</string>
+    <string name="newDateee">Date</string>
+    <string name="newDate">Date :</string>
+    <string name="newTime">Time :</string>
+    <string name="TripDir">Trip Direction :</string>
+    <string name="Save">Save</string>
+    <string name="notes">Notes :</string>
+    <string name="showNotes">Reda</string>
 </resources>
