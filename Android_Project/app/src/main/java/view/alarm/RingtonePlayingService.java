@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
@@ -19,6 +20,12 @@ import android.widget.TextView;
 import androidx.core.app.NotificationCompat;
 
 import com.example.android_project.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
+import Pojos.Trip;
 
 import static view.alarm.NotificationService.CHANNEL_ID;
 
@@ -69,7 +76,19 @@ public class RingtonePlayingService extends Service {
         return START_STICKY;
     }
 
+    Trip getTripObj() {
+        //Get Trip Object
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("trip", null);
+        Type type = new TypeToken<Trip>(){}.getType();
+        Trip tripService = gson.fromJson(json, type);
+        return tripService;
+    }
+
     void startNotesWindow(){
+
+        Trip myTrip = getTripObj();
 
         wm = (WindowManager)getSystemService(WINDOW_SERVICE);
         linearLayout = new LinearLayout(this);
@@ -79,7 +98,7 @@ public class RingtonePlayingService extends Service {
 
         ViewGroup.LayoutParams btnParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         stopWM_IV.setImageResource(R.drawable.ic_clear);
-        notesTxt.setText("try");
+        notesTxt.setText(myTrip.getNote());
         ViewGroup.LayoutParams txtParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         stopWM_IV.setLayoutParams(btnParams);
         notesTxt.setLayoutParams(txtParams);
@@ -125,8 +144,16 @@ public class RingtonePlayingService extends Service {
             @Override
             public void onClick(View v) {
                 wm.removeView(linearLayout);
-
+                writeInShared("f");
             }
         });
+    }
+
+    //write in shared preference
+    void writeInShared(String s) {
+        SharedPreferences msgPref = getSharedPreferences("msg", 0);
+        SharedPreferences.Editor editor = msgPref.edit();
+        editor.putString("msg", s);
+        editor.commit();
     }
 }
