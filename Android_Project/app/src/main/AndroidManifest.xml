@@ -16,15 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="view.PopUpNote" android:theme="@style/AppTheme.CustomTheme">
-
-        </activity>
+        <activity
+            android:name="view.PopUpNote"
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name="view.RoundTrip" />
         <activity
             android:name="view.alarm.DialogActivity"
             android:label="@string/notes"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+
         <service
             android:name="view.alarm.RingtonePlayingService"
             android:enabled="true"
@@ -48,6 +48,13 @@
         <activity android:name="view.Home" />
         <activity android:name="view.Register" />
         <activity android:name="view.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="view.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
