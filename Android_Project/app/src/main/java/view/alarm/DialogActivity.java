@@ -172,8 +172,8 @@ public class DialogActivity extends Activity {
             @Override
             public void onBubbleClick(BubbleLayout bubble) {
                 Toast.makeText(DialogActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-//                intent.putExtra("send", "notes");
-//                sendBroadcast(intent);                
+                intent.putExtra("send", "notes");
+                sendBroadcast(intent);                
             }
         });
         bubbleView.setShouldStickToWall(true);
