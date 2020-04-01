@@ -100,7 +100,7 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_trip);
 
-
+         tripDir="";
         // instantiate calender
         tripAlarm = new TripCalenderManager();
         //initialize alarm manager
@@ -235,6 +235,10 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         // shared pref :
         long value = prefs.getLong(counter, 0);
         prefs.edit().putLong(counter, (value + 1)).apply();
+
+
+
+
     }
 
 

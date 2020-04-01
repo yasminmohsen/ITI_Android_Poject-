@@ -36,6 +36,7 @@ import android.widget.Toolbar;
 import com.example.android_project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,9 +87,8 @@ public class Home extends AppCompatActivity implements HomeBase {
                         break;
                     case R.id.sync:
                         Toast.makeText(Home.this, "sync", Toast.LENGTH_SHORT).show();
-//                        Intent b = new Intent(Home.this,TripDetails.class);
-//                        startActivity(b);
-                        break;
+                         presenter.addTriptoFirebase(c);
+
                 }
                 return false;
             }
@@ -135,8 +135,10 @@ public class Home extends AppCompatActivity implements HomeBase {
     protected void onStart() {
         super.onStart();
 
+        SharedPreferences prefs = getSharedPreferences("PrefName", MODE_PRIVATE);
+        String pref = prefs.getString("retrieve", " ");//"No name defined" is the default value.
 
-        presenter.getTripPresenter();
+        presenter.getTripPresenter(pref);
 
     }
 
@@ -150,9 +152,23 @@ public class Home extends AppCompatActivity implements HomeBase {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.logout) {
-//            onStart();
-//            presenter.addTriptoFirebase(this.c);
-           Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
+            
+            for(int i=0;i<c.size();i++)
+            {
+                presenter.deleteTripPresenter(c.get(i));
+
+            }
+
+            SharedPreferences.Editor editor = getSharedPreferences("PrefName", MODE_PRIVATE).edit();
+            editor.putString("retrieve", "no");
+            editor.apply();
+
+
+            FirebaseAuth.getInstance().signOut();
+            Intent intent= new Intent(Home.this, MainActivity.class);
+            startActivity(intent);
+            //            presenter.addTriptoFirebase(this.c);
+           Toast.makeText(getApplicationContext(), "logout Successed", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -168,6 +184,11 @@ public class Home extends AppCompatActivity implements HomeBase {
 
     @Override
     public void showOnSucess(List<Trip> tripList) {
+
+        SharedPreferences.Editor editor = getSharedPreferences("PrefName", MODE_PRIVATE).edit();
+        editor.putString("retrieve", "yes");
+        editor.apply();
+
         this.c = tripList;
         tripAdapter = new TripAdapter(this, c);
         recyclerView.setAdapter(tripAdapter);

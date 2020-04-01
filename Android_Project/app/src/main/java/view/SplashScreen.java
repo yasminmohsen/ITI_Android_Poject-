@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_project.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreen extends AppCompatActivity {
     @Override
@@ -17,9 +19,16 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent( SplashScreen.this, MainActivity.class);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null){
+                Intent i = new Intent( SplashScreen.this, Home.class);
                 startActivity(i);
-                finish();
+                finish(); }
+                else {
+                    Intent i = new Intent( SplashScreen.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
             }
         }, 4000);
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android_Project</string>
+    <string name="app_name">Viaggio</string>
     <string name="Email">Email</string>
     <string name="Password">Password</string>
     <string name="Login">Login</string>
@@ -46,6 +46,13 @@
     <string name="Save">Save</string>
     <string name="notes">Notes :</string>
     <string name="showNotes">Reda</string>
-
     <string name="map_key" translatable="false">AIzaSyB_XP9LpfV8mPGBvDd1BbnGdhuc25Obq48</string>
+    
+    <string name="upcoming">UpComing Trips</string>
+    <string name="Note">Note</string>
+    <string name="editTrip">Edit Trip</string>
+    <string name="details">Trip Details</string>
+    <string name="history">History</string>
+    <string name="RoundTrip"> Add Round Trip</string>
+
 </resources>

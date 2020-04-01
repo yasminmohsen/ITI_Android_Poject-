@@ -10,16 +10,18 @@
 
     <ImageView
         android:id="@+id/appImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="507dp"
+        android:layout_height="177dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="77dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginRight="78dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginLeft="106dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="118dp"
+        android:layout_marginRight="118dp"
         android:src="@drawable/triplogo" />
 
     <TextView
@@ -27,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appImage"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:text="Viaggio"
         android:textColor="#D85C01"

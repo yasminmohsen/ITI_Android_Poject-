@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.android_project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,14 @@ public class History extends AppCompatActivity implements HistoryBase {
                 startActivity(mapHistoryIntent);
             }
         });
+
+
+
+
+
+
+
+
 
     }
 

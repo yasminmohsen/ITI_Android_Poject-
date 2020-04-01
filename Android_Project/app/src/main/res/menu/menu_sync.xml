@@ -5,7 +5,7 @@
     tools:context="view.Home">
     <item
         android:id="@+id/logout"
-        android:title="logout"
-        app:showAsAction="always" />
+        android:icon="@drawable/logout"
+        android:title="logout" />
 
 </menu>
