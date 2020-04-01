@@ -62,7 +62,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+
         for(int i = 0; i < pointsList.size(); i+=2){
+
             double zx = pointsList.get(i).lng;
             double zx2 = pointsList.get(i).lat;
             double zx3 = pointsList.get(i+1).lng;
@@ -110,16 +112,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 String s2 = arrOfStr[1];
                 double lng = Double.parseDouble(arrOfStr[0]);
                 double lat = Double.parseDouble(arrOfStr[1]);
-              //  pointsList.add(new MyPoints(lng, lat));
-                MyPoints mp=new MyPoints(lng,lat);
-                pointsList.add(mp);
-                double zx = pointsList.get(0).lng;
-                double zy = pointsList.get(0).lat;
-
-            } else {
+                pointsList.add(new MyPoints(lng, lat));
 
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
