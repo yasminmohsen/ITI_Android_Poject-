@@ -84,8 +84,15 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
             @Override
             public void onClick(View v) {
 
-                presenter.setLoginEmail(email.getText().toString(), pass.getText().toString());
+                String emailVal = email.getText().toString();
+                String passVal = pass.getText().toString();
 
+                if(!emailVal.isEmpty() && !passVal.isEmpty()){
+
+                    presenter.setLoginEmail(email.getText().toString(), pass.getText().toString());
+                } else {
+                    Toast.makeText(MainActivity.this, "Enter Valid Email and Password", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
