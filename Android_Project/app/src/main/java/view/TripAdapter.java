@@ -141,6 +141,7 @@ private  HistoryPresenter historyPresenter;
                                         toast.show();
 
                                         presenter.deleteTripPresenter(trip);
+                                        presenter.deleteFromFireBaseData(trip);
                                         tripsList.remove(position);
                                         notifyDataSetChanged();
 
@@ -213,6 +214,7 @@ private  HistoryPresenter historyPresenter;
 
                 historyPresenter.addToFireBaseHistory(trip);
                 presenter.deleteTripPresenter(trip);
+                presenter.deleteFromFireBaseData(trip);
                 tripsList.remove(position);
                 notifyDataSetChanged();
 
@@ -229,6 +231,7 @@ private  HistoryPresenter historyPresenter;
 
                 historyPresenter.addToFireBaseHistory(trip);
                 presenter.deleteTripPresenter(trip);
+                presenter.deleteFromFireBaseData(trip);
                 tripsList.remove(position);
                 notifyDataSetChanged();
 

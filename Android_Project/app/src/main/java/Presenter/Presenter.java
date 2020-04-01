@@ -119,6 +119,13 @@ public class Presenter implements AddBase,FirebaseBase{
 
 
 
+    public void deleteFromFireBaseData(Trip trip)
+    {
+
+        firebaseModel.deleteFromFirebase(trip);
+
+    }
+
 
 
     public boolean isConnectedToInternet() {
@@ -167,6 +174,7 @@ public class Presenter implements AddBase,FirebaseBase{
         FirebaseAuth.getInstance().signOut();
 
     }
+
 
 
 }
