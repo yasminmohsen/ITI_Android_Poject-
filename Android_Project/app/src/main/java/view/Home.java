@@ -165,22 +165,26 @@ public class Home extends AppCompatActivity implements HomeBase {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.logout) {
-            
+
+         // presenter.addTriptoFirebase(this.c);
+
             for(int i=0;i<c.size();i++)
             {
                 presenter.deleteTripPresenter(c.get(i));
 
             }
 
+
+            presenter.logOut();
+
+
+            Intent intent= new Intent(Home.this, MainActivity.class);
+            startActivity(intent);
             SharedPreferences.Editor editor = getSharedPreferences("PrefName", MODE_PRIVATE).edit();
             editor.putString("retrieve", "no");
             editor.apply();
 
-
-            FirebaseAuth.getInstance().signOut();
-            Intent intent= new Intent(Home.this, MainActivity.class);
-            startActivity(intent);
-            //            presenter.addTriptoFirebase(this.c);
+            //
            Toast.makeText(getApplicationContext(), "logout Successed", Toast.LENGTH_SHORT).show();
 
         }

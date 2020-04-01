@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 
 import androidx.room.Room;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -159,6 +160,13 @@ public class Presenter implements AddBase,FirebaseBase{
 
     }
 
+
+
+    public  void logOut(){
+
+        FirebaseAuth.getInstance().signOut();
+
+    }
 
 
 }
