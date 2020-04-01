@@ -9,8 +9,29 @@
 
 
     <ImageView
+        android:id="@+id/appImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="77dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginRight="78dp"
         android:src="@drawable/triplogo" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appImage"
+        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
+        android:text="Viaggio"
+        android:textColor="#D85C01"
+        android:textSize="40dp"
+        android:textStyle="bold|italic" />
+
 </RelativeLayout>

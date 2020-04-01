@@ -36,6 +36,7 @@ import android.widget.Toolbar;
 import com.example.android_project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,9 +164,11 @@ public class Home extends AppCompatActivity implements HomeBase {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.logout) {
-//            onStart();
-//            presenter.addTriptoFirebase(this.c);
-           Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent= new Intent(Home.this, MainActivity.class);
+            startActivity(intent);
+            //            presenter.addTriptoFirebase(this.c);
+           Toast.makeText(getApplicationContext(), "logout Successed", Toast.LENGTH_SHORT).show();
 
         }
 
