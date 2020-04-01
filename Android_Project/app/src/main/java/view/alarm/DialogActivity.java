@@ -47,6 +47,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 
     String source;
     String destination;
+    Trip tripData;
 
     BubblesManager bubblesManager;
     private int MY_PERMISSION = 1000;
@@ -55,15 +56,15 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
-        /******/
-//         final Presenter presenter= new Presenter(getApplicationContext(),this);
-//         final HistoryPresenter historyPresenter= new HistoryPresenter(this);
-        /*****/
+
+        final Presenter presenter= new Presenter(getApplicationContext(),this);
+        final HistoryPresenter historyPresenter= new HistoryPresenter(this);
+
 
         Intent dIntent = getIntent();
         Bundle args = dIntent.getBundleExtra("Data");
         if(args != null) {
-            Trip tripData = (Trip) args.getSerializable("obj");
+             tripData = (Trip) args.getSerializable("obj");
         }
         this.setFinishOnTouchOutside(false);
 
@@ -109,9 +110,9 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                 // start Activity
 
                 /****** handling trip database****/
-//                tripDialog.setTripStatus("Done");
-//                presenter.deleteTripPresenter(tripDialog);
-//                historyPresenter.addToFireBaseHistory(tripDialog);
+                tripData.setTripStatus("Done");
+               presenter.deleteTripPresenter(tripData);
+                historyPresenter.addToFireBaseHistory(tripData);
                 /****** handling trip database****/
 
 
@@ -166,9 +167,9 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                 mMediaPlayer.stop();
 
                 /****** handling trip database****/
-//                tripDialog.setTripStatus("Cancelled");
-//                presenter.deleteTripPresenter(tripDialog);
-//                historyPresenter.addToFireBaseHistory(tripDialog);
+               tripData.setTripStatus("Cancelled");
+               presenter.deleteTripPresenter(tripData);
+               historyPresenter.addToFireBaseHistory(tripData);
                 /****** handling trip database****/
                 sendBroadcast(intent);
 
