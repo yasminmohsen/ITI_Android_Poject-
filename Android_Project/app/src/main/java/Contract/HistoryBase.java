@@ -11,7 +11,4 @@ public interface HistoryBase {
 
     public void showOnFailHistory();
 
-
-
-
 }

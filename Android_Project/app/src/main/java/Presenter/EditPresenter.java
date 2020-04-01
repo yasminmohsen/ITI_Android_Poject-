@@ -18,33 +18,28 @@ import Pojos.Trip;
 public class EditPresenter {
 
 
-    private List<Trip> tripList =new ArrayList<Trip>();
+    private List<Trip> tripList = new ArrayList<Trip>();
     TripDAO triptDAO;
     final AppDataBase database;
     DatabaseReference databaseReferenceUsers;
     EditBase edit;
 
+    public EditPresenter(Context contx, EditBase e) {
 
-    public EditPresenter(Context contx, EditBase e){
 
-
-        database = Room.databaseBuilder(contx,AppDataBase.class,"db_Trps").allowMainThreadQueries().build();
+        database = Room.databaseBuilder(contx, AppDataBase.class, "db_Trps").allowMainThreadQueries().build();
         triptDAO = database.getTriptDAO();
-        edit=e;
-
-
+        edit = e;
 
     }
 
 
-    public void updateTripPresenter(Trip trip)
-    {
+    public void updateTripPresenter(Trip trip) {
 
         triptDAO.updateTrip(trip);
         edit.showOnSucessEdit();
 
     }
-
 
 
 }

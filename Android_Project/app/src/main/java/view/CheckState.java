@@ -21,8 +21,6 @@ public class CheckState extends NotificationService {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
-
-
             startActivity(intent);
 
         }

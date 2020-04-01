@@ -44,20 +44,20 @@ import Pojos.Trip;
 import Presenter.LoginPresenter;
 import Presenter.Presenter;
 
-public class MainActivity extends AppCompatActivity implements LoginBase  {
+public class MainActivity extends AppCompatActivity implements LoginBase {
 
     private FirebaseAuth mAuth;
-    EditText email;
-    EditText pass;
-    Button login;
-    Button register;
-    SignInButton google;
+    private EditText email;
+    private EditText pass;
+    private Button login;
+    private Button register;
+    private SignInButton google;
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
     private LoginPresenter presenter;
     //
-    private   List<Trip>tripList=new ArrayList<Trip>();
+    private List<Trip> tripList = new ArrayList<Trip>();
 
 
     @Override
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
                 String emailVal = email.getText().toString();
                 String passVal = pass.getText().toString();
 
-                if(!emailVal.isEmpty() && !passVal.isEmpty()){
+                if (!emailVal.isEmpty() && !passVal.isEmpty()) {
 
                     presenter.setLoginEmail(email.getText().toString(), pass.getText().toString());
                 } else {
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
 
     }
 
-    // [START onactivityresult]
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -139,10 +139,10 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
+
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 presenter.firebaseAuthWithGoogle(account);
-                //firebaseAuthWithGoogle(account);
+
             } catch (ApiException e) {
                 // Google Sign In failed
                 Log.w(TAG, "Google sign in failed", e);
@@ -173,13 +173,12 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
 
-         intent = new Intent(MainActivity.this, Home.class);
+        intent = new Intent(MainActivity.this, Home.class);
         Bundle args = new Bundle();
         args.putSerializable("ARRAYLIST", (Serializable) tripList);
-        intent.putExtra("BUNDLE",args);
+        intent.putExtra("BUNDLE", args);
         startActivity(intent);
     }
-
 
 
     @Override
@@ -199,7 +198,6 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
         startActivity(intent);
 
 
-
     }
 
     @Override
@@ -207,7 +205,6 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
         Log.w(TAG, "signInWithCredential:failure");
         Snackbar.make(findViewById(R.id.MainActivity), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
     }
-
 
 
 }

@@ -23,9 +23,9 @@ import Presenter.RegisterPresenter;
 
 public class Register extends AppCompatActivity implements RegisterBase {
 
-    EditText email;
-    EditText pass;
-    Button register;
+    private EditText email;
+    private EditText pass;
+    private Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class Register extends AppCompatActivity implements RegisterBase {
                 String emailVal = email.getText().toString();
                 String passVal = pass.getText().toString();
 
-                if(!emailVal.isEmpty() && !passVal.isEmpty()) {
+                if (!emailVal.isEmpty() && !passVal.isEmpty()) {
                     presenter.setRegister(email.getText().toString(), pass.getText().toString());
                 } else {
                     Toast.makeText(Register.this, "Enter Valid Email and Password", Toast.LENGTH_SHORT).show();

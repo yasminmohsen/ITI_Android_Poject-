@@ -43,7 +43,7 @@ import java.util.List;
 import Contract.AddBase;
 import Contract.HomeBase;
 import Pojos.Trip;
-import Pojos.Users;
+
 import Presenter.AddPresenter;
 import view.alarm.AlarmReceiver;
 import view.alarm.TripCalenderManager;
@@ -53,16 +53,16 @@ import java.util.Calendar;
 
 public class AddNewTrip extends AppCompatActivity implements AddBase {
 
-    EditText tripName;
-    Button date;
-    Button time;
-    TextView dateText;
-    TextView timeText;
-    EditText notes;
-    Button add;
-    RadioButton oneDir;
-    RadioButton round;
-    DatabaseReference databaseReferenceUsers;
+    private EditText tripName;
+    private Button date;
+    private Button time;
+    private TextView dateText;
+    private TextView timeText;
+    private EditText notes;
+    private Button add;
+    private RadioButton oneDir;
+    private RadioButton round;
+    private DatabaseReference databaseReferenceUsers;
     public static final String PrefName = "MyPrefFile";
     public static final String counter = "Counter";
     String flag;
@@ -310,13 +310,7 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
         Toast.makeText(this, "Fill the Empty Fields ", Toast.LENGTH_SHORT).show();
 
     }
-    // convert string to millisecond
-    /*
-        String someDate = "05.10.2011";
-        SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
-        Date date = sdf.parse(someDate);
-        System.out.println(date.getTime());
-     */
+
 }
 
 

@@ -20,10 +20,11 @@ public class HistoryModel  {
 
     Trip tripsList;
     String userId;
+
     List<Trip>tripList;
     HistoryFireBase hB;
 
-    public void addHistorytoFireBase(Trip trip ){
+    public void addHistoryToFireBase(Trip trip ){
 
         databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("History");
       Trip trpObj=new Trip();
@@ -49,7 +50,6 @@ public class HistoryModel  {
          hB=h;
 
     }
-
 
 
     public void getfromFireBase() {

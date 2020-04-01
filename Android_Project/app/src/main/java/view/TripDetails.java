@@ -33,16 +33,14 @@ public class TripDetails extends AppCompatActivity {
         trip = (Trip) i.getSerializableExtra("sampleObject");
 
 
-        tripName=(TextView) findViewById(R.id.tripName);
-        startPnt=(TextView) findViewById(R.id.dStart);
-        endPtn=(TextView) findViewById(R.id.dEnd);
-        date=(TextView) findViewById(R.id.dDate);
-        time=(TextView) findViewById(R.id.dTime);
-        type=(TextView) findViewById(R.id.dType);
-        status=(TextView) findViewById(R.id.dStatus);
-        read=(Button)findViewById(R.id.read);
-//        notes=(TextView) findViewById(R.id.dNotes);
-
+        tripName = (TextView) findViewById(R.id.tripName);
+        startPnt = (TextView) findViewById(R.id.dStart);
+        endPtn = (TextView) findViewById(R.id.dEnd);
+        date = (TextView) findViewById(R.id.dDate);
+        time = (TextView) findViewById(R.id.dTime);
+        type = (TextView) findViewById(R.id.dType);
+        status = (TextView) findViewById(R.id.dStatus);
+        read = (Button) findViewById(R.id.read);
 
 
         tripName.setText(trip.getTripName());
@@ -52,7 +50,6 @@ public class TripDetails extends AppCompatActivity {
         time.setText(trip.getTime());
         type.setText(trip.getTripDirection());
         status.setText(trip.getTripStatus());
-        //notes.setText(trip.getNote());
 
 
         read.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +57,7 @@ public class TripDetails extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(getApplicationContext(), PopUpNote.class);
-                i.putExtra("note",trip.getNote());
+                i.putExtra("note", trip.getNote());
                 startActivity(i);
 
             }

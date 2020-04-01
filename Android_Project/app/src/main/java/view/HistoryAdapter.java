@@ -24,17 +24,14 @@ import Contract.HistoryBase;
 import Pojos.Trip;
 import Presenter.HistoryPresenter;
 
-public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.MyViewHolder>implements HistoryBase{
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> implements HistoryBase {
 
     private Context context;
-    private List<Trip>tripList;
+    private List<Trip> tripList;
     private HistoryPresenter historyPresenter;
 
 
-
-
-    public class MyViewHolder extends RecyclerView.ViewHolder  {
-
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
 
         private TextView tripTitle;
@@ -44,14 +41,13 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.MyViewH
         private Button showDetaisBtn;
 
 
-
         public MyViewHolder(View view) {
             super(view);
-            tripTitle=view.findViewById(R.id.tripTitle);
-            dateTitle=view.findViewById(R.id.dateTitle);
-            statusTitle=view.findViewById(R.id.statusTitle);
-            trashBtn=view.findViewById(R.id.hTrashBtn);
-            showDetaisBtn=view.findViewById(R.id.hShowDetailsBtn);
+            tripTitle = view.findViewById(R.id.tripTitle);
+            dateTitle = view.findViewById(R.id.dateTitle);
+            statusTitle = view.findViewById(R.id.statusTitle);
+            trashBtn = view.findViewById(R.id.hTrashBtn);
+            showDetaisBtn = view.findViewById(R.id.hShowDetailsBtn);
 
         }
 
@@ -66,42 +62,37 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.MyViewH
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_recycler_item, parent, false);
 
 
-      return new MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
 
-    public HistoryAdapter(Context context, List<Trip> trips,HistoryBase hB) {
+    public HistoryAdapter(Context context, List<Trip> trips, HistoryBase hB) {
         this.context = context;
         this.tripList = trips;
-        historyPresenter=new HistoryPresenter(this);
+        historyPresenter = new HistoryPresenter(this);
 
     }
-
-
-
 
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder,final int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         final Trip trip = tripList.get(position);  // object of the trip
 
         String status;
-     // write your code here
+        // write your code here
 
         holder.tripTitle.setText(trip.getTripName());
         holder.dateTitle.setText(trip.getDate());
-        status=trip.getTripStatus();
+        status = trip.getTripStatus();
 
-        if(status.equals("Done"))
-        {
+        if (status.equals("Done")) {
 
             holder.statusTitle.setText("Done");
-            holder.statusTitle.setBackgroundColor(-16711936 );
+            holder.statusTitle.setBackgroundColor(-16711936);
 
 
-        }
-        else{
+        } else {
 
             holder.statusTitle.setText("Cancelled");
             holder.statusTitle.setBackgroundColor(-65536);
@@ -193,6 +184,7 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.MyViewH
     public void showOnFailHistory() {
 
     }
+
     @Override
     public int getItemCount() {
         return tripList.size();

@@ -61,8 +61,7 @@ public class Home extends AppCompatActivity implements HomeBase {
     private Button sync;
     public static final String PrefName = "MyPrefFile";
     public static final String counter = "Counter";
-
-    HomeBase h;
+    private HomeBase h;
 
 
     @Override
@@ -79,15 +78,15 @@ public class Home extends AppCompatActivity implements HomeBase {
                 switch (item.getItemId()) {
                     case R.id.home:
                         Toast.makeText(Home.this, "Home", Toast.LENGTH_SHORT).show();
-                         break;
+                        break;
                     case R.id.history:
                         Toast.makeText(Home.this, "History", Toast.LENGTH_SHORT).show();
-                        Intent a = new Intent(Home.this,History.class);
+                        Intent a = new Intent(Home.this, History.class);
                         startActivity(a);
                         break;
                     case R.id.sync:
                         Toast.makeText(Home.this, "sync", Toast.LENGTH_SHORT).show();
-                         presenter.addTriptoFirebase(c);
+                        presenter.addTriptoFirebase(c);
 
                 }
                 return false;
@@ -153,10 +152,8 @@ public class Home extends AppCompatActivity implements HomeBase {
 
         if (item.getItemId() == R.id.logout) {
 
-         // presenter.addTriptoFirebase(this.c);
 
-            for(int i=0;i<c.size();i++)
-            {
+            for (int i = 0; i < c.size(); i++) {
                 presenter.deleteTripPresenter(c.get(i));
 
             }
@@ -165,14 +162,14 @@ public class Home extends AppCompatActivity implements HomeBase {
             presenter.logOut();
 
 
-            Intent intent= new Intent(Home.this, MainActivity.class);
+            Intent intent = new Intent(Home.this, MainActivity.class);
             startActivity(intent);
             SharedPreferences.Editor editor = getSharedPreferences("PrefName", MODE_PRIVATE).edit();
             editor.putString("retrieve", "no");
             editor.apply();
 
             //
-           Toast.makeText(getApplicationContext(), "logout Successed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "logout Successed", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -205,38 +202,27 @@ public class Home extends AppCompatActivity implements HomeBase {
 
     @Override
     public void showOnSucessFirebase(List<Trip> tripList) {
-        Toast.makeText(this,"open internet connection",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "open internet connection", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showOnFaiIntenetConnet() {
-Toast.makeText(this,"open internet connection",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "open internet connection", Toast.LENGTH_LONG).show();
     }
 
-    public boolean isConnectedToInternet(){
-        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null)
-        {
+    public boolean isConnectedToInternet() {
+        ConnectivityManager connectivity = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null)
                 for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
-                    {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
 
         }
         return false;
     }
-
-
-
-
-    /*********/
-
-
-
-
 
 
 }

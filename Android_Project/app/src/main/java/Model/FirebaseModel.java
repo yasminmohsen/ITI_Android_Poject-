@@ -1,4 +1,5 @@
 package Model;
+
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
@@ -17,13 +18,12 @@ import java.util.List;
 import Contract.AddBase;
 import Contract.FirebaseBase;
 import Pojos.Trip;
-import Pojos.Users;
 import Presenter.AddPresenter;
 
 public class FirebaseModel {
     DatabaseReference databaseReferenceUsers;
     Trip trpDetails;
-    List<Users> userslist;
+
     Trip tribObj;
     List<Trip> tripList;
     String userId;
@@ -63,7 +63,6 @@ public class FirebaseModel {
 
     public void getfromFireBase() {
 
-        userslist = new ArrayList<>();
         tribObj = new Trip();
         tripList = new ArrayList<>();
 
@@ -96,9 +95,7 @@ public class FirebaseModel {
     }
 
 
-
-    public void deleteFromFirebase(Trip trip)
-    {
+    public void deleteFromFirebase(Trip trip) {
         databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
         databaseReferenceUsers.child(userId).child(trip.getTripId()).removeValue(); // remove method
 
