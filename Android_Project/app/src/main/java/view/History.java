@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.android_project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class History extends AppCompatActivity implements HistoryBase {
     private HistoryAdapter historyAdapter;
     HistoryPresenter historyPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +41,6 @@ public class History extends AppCompatActivity implements HistoryBase {
         recyclerView.setLayoutManager(mLayoutManager);
 
         historyPresenter=new HistoryPresenter(this);
-
-
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.setItemIconTintList(null);
@@ -62,6 +64,14 @@ public class History extends AppCompatActivity implements HistoryBase {
                 return false;
             }
         });
+
+
+
+
+
+
+
+
 
 
 

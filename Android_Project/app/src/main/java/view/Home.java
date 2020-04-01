@@ -165,6 +165,18 @@ public class Home extends AppCompatActivity implements HomeBase {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.logout) {
+            
+            for(int i=0;i<c.size();i++)
+            {
+                presenter.deleteTripPresenter(c.get(i));
+
+            }
+
+            SharedPreferences.Editor editor = getSharedPreferences("PrefName", MODE_PRIVATE).edit();
+            editor.putString("retrieve", "no");
+            editor.apply();
+
+
             FirebaseAuth.getInstance().signOut();
             Intent intent= new Intent(Home.this, MainActivity.class);
             startActivity(intent);

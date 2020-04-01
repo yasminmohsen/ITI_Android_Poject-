@@ -56,8 +56,8 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
         /******/
-         final Presenter presenter= new Presenter(getApplicationContext(),this);
-         final HistoryPresenter historyPresenter= new HistoryPresenter(this);
+//         final Presenter presenter= new Presenter(getApplicationContext(),this);
+//         final HistoryPresenter historyPresenter= new HistoryPresenter(this);
         /*****/
 
         this.setFinishOnTouchOutside(false);
@@ -104,9 +104,9 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                 // start Activity
 
                 /****** handling trip database****/
-                tripDialog.setTripStatus("Done");
-                presenter.deleteTripPresenter(tripDialog);
-                historyPresenter.addToFireBaseHistory(tripDialog);
+//                tripDialog.setTripStatus("Done");
+//                presenter.deleteTripPresenter(tripDialog);
+//                historyPresenter.addToFireBaseHistory(tripDialog);
                 /****** handling trip database****/
 
 
@@ -161,9 +161,9 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                 mMediaPlayer.stop();
 
                 /****** handling trip database****/
-                tripDialog.setTripStatus("Cancelled");
-                presenter.deleteTripPresenter(tripDialog);
-                historyPresenter.addToFireBaseHistory(tripDialog);
+//                tripDialog.setTripStatus("Cancelled");
+//                presenter.deleteTripPresenter(tripDialog);
+//                historyPresenter.addToFireBaseHistory(tripDialog);
                 /****** handling trip database****/
                 sendBroadcast(intent);
 

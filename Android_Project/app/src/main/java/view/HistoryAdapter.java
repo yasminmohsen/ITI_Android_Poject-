@@ -93,7 +93,7 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.MyViewH
         holder.dateTitle.setText(trip.getDate());
         status=trip.getTripStatus();
 
-        if(status=="Done")
+        if(status.equals("Done"))
         {
 
             holder.statusTitle.setText("Done");
