@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import Pojos.Trip;
 import view.History;
@@ -46,9 +47,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         pointsList = new ArrayList<>();
 
         for(Trip t : historyTrip ){
-
-            getAddressFromLocation(t.getStartPoint());
-            getAddressFromLocation(t.getEndPoint());
+            if (t.getTripStatus().equals("Done")) {
+                getAddressFromLocation(t.getStartPoint());
+                getAddressFromLocation(t.getEndPoint());
+            }else{}
         }
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
@@ -65,9 +67,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             double zx2 = pointsList.get(i).lat;
             double zx3 = pointsList.get(i+1).lng;
             double zx4 = pointsList.get(i+1).lat;
+            Random random = new Random();
+            int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256) );
             Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
                     .clickable(true)
-                    .color(Color.BLUE)
+                    .color(color)
                     .add(
                             new LatLng(pointsList.get(i).lng, pointsList.get(i).lat),
                             new LatLng(pointsList.get(i+1).lng, pointsList.get(i+1).lat)
