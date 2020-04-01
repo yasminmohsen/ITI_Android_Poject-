@@ -39,8 +39,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        historyTrip = History.c;
 
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        historyTrip = (ArrayList<Trip>) args.getSerializable("ARRAYLIST"); // your array list
         pointsList = new ArrayList<>();
 
         for(Trip t : historyTrip ){
@@ -104,9 +106,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 String s2 = arrOfStr[1];
                 double lng = Double.parseDouble(arrOfStr[0]);
                 double lat = Double.parseDouble(arrOfStr[1]);
-                pointsList.add(new MyPoints(lng, lat));
+              //  pointsList.add(new MyPoints(lng, lat));
+                MyPoints mp=new MyPoints(lng,lat);
+                pointsList.add(mp);
                 double zx = pointsList.get(0).lng;
-                double zx2 = pointsList.get(0).lat;
+                double zy = pointsList.get(0).lat;
 
             } else {
 

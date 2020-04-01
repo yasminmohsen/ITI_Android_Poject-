@@ -5,7 +5,7 @@ public class MyPoints {
     double lat;
 
     public MyPoints(double lng, double lat) {
-        lng = lng;
-        lat = lat;
+        this.lng = lng;
+        this.lat = lat;
     }
 }

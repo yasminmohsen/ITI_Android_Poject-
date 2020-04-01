@@ -17,6 +17,7 @@ import com.example.android_project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import view.historymap.MapActivity;
 
 public class History extends AppCompatActivity implements HistoryBase {
 
-    public static List<Trip> c = new ArrayList<Trip>();
+    private   List<Trip> c = new ArrayList<Trip>();
     private RecyclerView recyclerView;
     private HistoryAdapter historyAdapter;
     HistoryPresenter historyPresenter;
@@ -61,9 +62,7 @@ public class History extends AppCompatActivity implements HistoryBase {
 
                         break;
                     case R.id.sync:
-                        Toast.makeText(History.this, "sync", Toast.LENGTH_SHORT).show();
-//                        Intent b = new Intent(Home.this,TripDetails.class);
-//                        startActivity(b);
+//
                         break;
                 }
                 return false;
@@ -75,8 +74,27 @@ public class History extends AppCompatActivity implements HistoryBase {
             @Override
             public void onClick(View v) {
 
-                Intent mapHistoryIntent = new Intent(History.this, MapActivity.class);
-                startActivity(mapHistoryIntent);
+if(c.isEmpty())
+{
+    Toast.makeText(History.this,"No data Now",Toast.LENGTH_LONG).show();
+}
+        else{
+
+
+
+    Intent intent = new Intent(History.this, MapActivity.class);
+    Bundle args = new Bundle();
+    args.putSerializable("ARRAYLIST",(Serializable)c);
+    intent.putExtra("BUNDLE",args);
+    startActivity(intent);
+
+
+}
+
+
+
+//                Intent mapHistoryIntent = new Intent(History.this, MapActivity.class);
+//                startActivity(mapHistoryIntent);
             }
         });
 
