@@ -145,6 +145,10 @@ private  HistoryPresenter historyPresenter;
                                         tripsList.remove(position);
                                         notifyDataSetChanged();
 
+
+                                        /**** alarm manager cancell*****/
+
+
                                     }
                                 });
 
@@ -217,6 +221,11 @@ private  HistoryPresenter historyPresenter;
                 presenter.deleteFromFireBaseData(trip);
                 tripsList.remove(position);
                 notifyDataSetChanged();
+
+
+                /***** alarm manager cancell ****/
+
+
 
             }
         });
