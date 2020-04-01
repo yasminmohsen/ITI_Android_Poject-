@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import Pojos.Trip;
 import view.History;
@@ -58,14 +59,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        for(int i = 0; i < pointsList.size(); i+=2){
-            double zx = pointsList.get(i).lng;
-            double zx2 = pointsList.get(i).lat;
-            double zx3 = pointsList.get(i+1).lng;
-            double zx4 = pointsList.get(i+1).lat;
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
+        for(int i = 0; i < pointsList.size()/2; i+=2){
             Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
                     .clickable(true)
-                    .color(Color.BLUE)
+                    .color(color)
                     .add(
                             new LatLng(pointsList.get(i).lng, pointsList.get(i).lat),
                             new LatLng(pointsList.get(i+1).lng, pointsList.get(i+1).lat)
@@ -105,13 +105,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 double lng = Double.parseDouble(arrOfStr[0]);
                 double lat = Double.parseDouble(arrOfStr[1]);
                 pointsList.add(new MyPoints(lng, lat));
-                double zx = pointsList.get(0).lng;
-                double zx2 = pointsList.get(0).lat;
-
-            } else {
 
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
