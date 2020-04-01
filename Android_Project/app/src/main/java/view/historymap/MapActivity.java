@@ -32,8 +32,7 @@ import view.History;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     List<Trip> historyTrip;
-    //GeoLocation geolocation;
-     ArrayList<MyPoints> pointsList;
+    ArrayList<MyPoints> pointsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +41,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         historyTrip = History.c;
 
-        //geolocation = new GeoLocation();
-
         pointsList = new ArrayList<>();
 
         for(Trip t : historyTrip ){
-            //geolocation.getAddress(t.getStartPoint(), getApplicationContext(), new GeoHandler());
-            //geolocation.getAddress(t.getEndPoint(), getApplicationContext(), new GeoHandler());
+
             getAddressFromLocation(t.getStartPoint());
             getAddressFromLocation(t.getEndPoint());
         }
@@ -111,28 +107,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         } catch (IOException e) {
             e.printStackTrace();
-            //printToast("Could not get address..!");
         }
     }
-
-    /*private class GeoHandler extends Handler {
-
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            String address;
-            switch (msg.what) {
-                case 1:
-                    Bundle bundle = msg.getData();
-                    address = bundle.getString("address");
-                    break;
-                    default:
-                        address = null;
-            }
-            String[] arrOfStr = address.split(",");
-            double lng=Double.parseDouble(arrOfStr[0]);
-            double lat=Double.parseDouble(arrOfStr[1]);
-            MyPoints p = new MyPoints(lng, lat);
-            pointsList.add(p);
-        }
-    }*/
 }
