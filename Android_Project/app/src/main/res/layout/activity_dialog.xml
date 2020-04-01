@@ -11,18 +11,21 @@
 
     <Button
         android:id="@+id/snooze_btn"
+        android:background="@color/quantum_orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/snooze_btn" />
 
     <Button
         android:id="@+id/start_btn"
+        android:background="@color/quantum_orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_btn" />
 
     <Button
         android:id="@+id/cancel_btn"
+        android:background="@color/quantum_orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@android:string/cancel"/>

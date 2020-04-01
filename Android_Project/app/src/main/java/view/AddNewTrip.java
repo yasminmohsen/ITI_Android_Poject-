@@ -34,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -163,6 +164,11 @@ public class AddNewTrip extends AppCompatActivity implements AddBase {
 
                  // here start pendingIntent
                 int serviceId = (int)cnt;
+
+                Bundle args = new Bundle();
+                args.putSerializable("obj",(Serializable)t);
+                myIntent.putExtra("Data",args);
+
                 pendingIntent = PendingIntent.getBroadcast(AddNewTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 

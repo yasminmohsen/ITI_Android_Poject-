@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.android_project.R;
@@ -19,13 +22,16 @@ import java.util.List;
 import Contract.HistoryBase;
 import Pojos.Trip;
 import Presenter.HistoryPresenter;
+import view.historymap.MapActivity;
 
 public class History extends AppCompatActivity implements HistoryBase {
 
-    private List<Trip> c = new ArrayList<Trip>();
+    public static List<Trip> c = new ArrayList<Trip>();
     private RecyclerView recyclerView;
     private HistoryAdapter historyAdapter;
     HistoryPresenter historyPresenter;
+
+    Button historyMapBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +44,7 @@ public class History extends AppCompatActivity implements HistoryBase {
 
         historyPresenter=new HistoryPresenter(this);
 
-
+        historyMapBtn = findViewById(R.id.showMap);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.setItemIconTintList(null);
@@ -64,7 +70,14 @@ public class History extends AppCompatActivity implements HistoryBase {
         });
 
 
+        historyMapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent mapHistoryIntent = new Intent(History.this, MapActivity.class);
+                startActivity(mapHistoryIntent);
+            }
+        });
 
     }
 
@@ -88,5 +101,9 @@ public class History extends AppCompatActivity implements HistoryBase {
     @Override
     public void showOnFailHistory() {
 
+    }
+
+    public History getHistoryInstance(){
+        return this;
     }
 }

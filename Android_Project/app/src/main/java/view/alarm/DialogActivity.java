@@ -51,6 +51,10 @@ public class DialogActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
 
+        Intent dIntent = getIntent();
+        Bundle args = dIntent.getBundleExtra("Data");
+        Trip tripData = (Trip) args.getSerializable("obj");
+
         this.setFinishOnTouchOutside(false);
 
         alarmReceiver = new AlarmReceiver();
@@ -69,7 +73,7 @@ public class DialogActivity extends Activity {
             source = tripDialog.getStartPoint();
             destination = tripDialog.getEndPoint();
             String sss = tripDialog.getTripId();
-            Toast.makeText(this, source+"  "+destination, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, destination+"  "+source, Toast.LENGTH_LONG).show();
         }
 
         //register for receiver
@@ -98,7 +102,6 @@ public class DialogActivity extends Activity {
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
 
-
                 mMediaPlayer.stop();
 
                 ///////////////////////////////////////////////////////////////
@@ -114,11 +117,6 @@ public class DialogActivity extends Activity {
                     startService(floatIntent);
                 }
                 addNewBubble();
-
-                ///////////////////////////////////////////////////////////////
-                //sendBroadcast(intent);
-                // put Trip id
-                //new CancelMyAlarm().cancelAlarm(DialogActivity.this, new AlarmServiceID().getAlarmServiceId(tripDialog.getTripId()));
                 finish();
             }
         });

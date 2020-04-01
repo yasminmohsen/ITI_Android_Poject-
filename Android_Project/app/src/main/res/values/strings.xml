@@ -46,4 +46,6 @@
     <string name="Save">Save</string>
     <string name="notes">Notes :</string>
     <string name="showNotes">Reda</string>
+
+    <string name="map_key" translatable="false">AIzaSyB_XP9LpfV8mPGBvDd1BbnGdhuc25Obq48</string>
 </resources>
