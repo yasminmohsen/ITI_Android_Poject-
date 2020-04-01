@@ -64,7 +64,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 
-        for(int i = 0; i < pointsList.size()/2; i+=2){
+        for(int i = 0; i < pointsList.size(); i+=2){
             Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
                     .clickable(true)
                     .color(color)
