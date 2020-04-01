@@ -46,11 +46,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         historyTrip = (ArrayList<Trip>) args.getSerializable("ARRAYLIST"); // your array list
         pointsList = new ArrayList<>();
 
-        for(Trip t : historyTrip ){
+        for (Trip t : historyTrip) {
             if (t.getTripStatus().equals("Done")) {
                 getAddressFromLocation(t.getStartPoint());
                 getAddressFromLocation(t.getEndPoint());
-            }else{}
+            } else {
+            }
         }
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
@@ -63,26 +64,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
 
-        for(int i = 0; i < pointsList.size(); i+=2){
+        for (int i = 0; i < pointsList.size(); i += 2) {
 
             double zx = pointsList.get(i).lng;
             double zx2 = pointsList.get(i).lat;
-            double zx3 = pointsList.get(i+1).lng;
-            double zx4 = pointsList.get(i+1).lat;
+            double zx3 = pointsList.get(i + 1).lng;
+            double zx4 = pointsList.get(i + 1).lat;
             Random random = new Random();
-            int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256) );
+            int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
             Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
                     .clickable(true)
                     .color(color)
                     .add(
                             new LatLng(pointsList.get(i).lng, pointsList.get(i).lat),
-                            new LatLng(pointsList.get(i+1).lng, pointsList.get(i+1).lat)
+                            new LatLng(pointsList.get(i + 1).lng, pointsList.get(i + 1).lat)
                     ));
             LatLng sydney = new LatLng(pointsList.get(i).lng, pointsList.get(i).lat);
             googleMap.addMarker(new MarkerOptions().position(sydney)
                     .title(""));
 
-            LatLng des = new LatLng(pointsList.get(i+1).lng, pointsList.get(i+1).lat);
+            LatLng des = new LatLng(pointsList.get(i + 1).lng, pointsList.get(i + 1).lat);
             googleMap.addMarker(new MarkerOptions().position(des)
                     .title(""));
         }
@@ -101,7 +102,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             List<Address> addresses = geocoder.getFromLocationName(s, 1);
 
             if (addresses.size() > 0) {
-                Address address =  (Address)addresses.get(0);
+                Address address = (Address) addresses.get(0);
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(address.getLatitude()).append(",");
                 stringBuilder.append(address.getLongitude());
