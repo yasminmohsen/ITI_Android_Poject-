@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -78,6 +80,33 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // Position the map's camera near Alice Springs in the center of Egypt,
         // and set the zoom factor so most of Egypt shows on the screen.
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(26.8206, 30.8025), 6));
+    }
+
+    private void getAddressFromLocation(double latitude, double longitude) {
+
+        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+
+            if (addresses.size() > 0) {
+                Address fetchedAddress = addresses.get(0);
+                StringBuilder strAddress = new StringBuilder();
+                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
+                    strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
+                }
+
+                //txtLocationAddress.setText(strAddress.toString());
+
+            } else {
+                //txtLocationAddress.setText("Searching Current Address");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            //printToast("Could not get address..!");
+        }
     }
 
     private class GeoHandler extends Handler {
