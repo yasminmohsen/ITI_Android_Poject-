@@ -121,6 +121,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.25"
                     android:gravity="center"
+                    android:textColor="#0C0C0C"
                     android:textSize="18sp" />
 
                 <Button
@@ -165,6 +166,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.25"
                     android:gravity="center"
+                    android:textColor="#0C0C0C"
                     android:textSize="20sp" />
 
                 <Button

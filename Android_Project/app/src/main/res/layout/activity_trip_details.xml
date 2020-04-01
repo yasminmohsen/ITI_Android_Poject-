@@ -54,7 +54,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="68dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -77,7 +77,7 @@
                 <TextView
                     android:id="@+id/dStart"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1.25"
                     android:gravity="center|left"
                     android:text="Cairo"
@@ -91,7 +91,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="68dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -114,7 +114,7 @@
                 <TextView
                     android:id="@+id/dEnd"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1.25"
                     android:gravity="center|left"
                     android:text="Alex"

@@ -2,6 +2,7 @@ package Presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -19,6 +20,7 @@ import Contract.HomeBase;
 import Model.AppDataBase;
 import Model.FirebaseModel;
 import Pojos.Trip;
+import view.AddNewTrip;
 import view.Home;
 
 public class Presenter implements AddBase,FirebaseBase{
@@ -39,6 +41,7 @@ public class Presenter implements AddBase,FirebaseBase{
 
 
 
+
     public Presenter(Context contx, HomeBase ho) {
 
 
@@ -50,16 +53,22 @@ public class Presenter implements AddBase,FirebaseBase{
         addPresenter = new AddPresenter(contx, this);
         firebaseModel = new FirebaseModel(this);
 
+
     }
 
-    public void getTripPresenter() {
+    public void getTripPresenter( String pref) {
+
 
         result = isConnectedToInternet();
         tripList = triptDAO.getTrips();
 
-        if (tripList.isEmpty()) {
+
+
+        if (tripList.isEmpty() &&pref=="no" ) {
             if(result==true) {
                 retrieveTripfromFirebase();
+
+
             }
 
         }

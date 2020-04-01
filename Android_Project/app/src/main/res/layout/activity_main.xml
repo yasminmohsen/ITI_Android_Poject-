@@ -45,6 +45,7 @@
         android:layout_marginTop="48dp"
         android:layout_toEndOf="@+id/textView3"
         android:layout_toRightOf="@+id/textView3"
+        android:drawableRight="@drawable/icons8_user_30"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
@@ -58,6 +59,7 @@
         android:layout_marginTop="24dp"
         android:layout_toEndOf="@+id/Name"
         android:layout_toRightOf="@+id/Name"
+        android:drawableRight="@drawable/icons8_password_1_24"
         android:ems="10"
         android:inputType="textPassword"
         android:password="true" />
@@ -68,22 +70,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp"
-        android:background="#D85C01"
+        android:background="@color/quantum_orange50"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
     <Button
         android:id="@+id/loginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="184dp"
+        android:layout_height="37dp"
         android:layout_below="@+id/logPass"
         android:layout_alignStart="@+id/logPass"
         android:layout_alignLeft="@+id/logPass"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginStart="-2dp"
+        android:layout_marginLeft="-2dp"
         android:layout_marginTop="32dp"
-        android:background="#D85C01"
-        android:text="@string/Login" />
+        android:background="@drawable/login_btn"
+        android:text="@string/Login"
+        android:textColor="#FFF1D9" />
 
     <Button
         android:id="@+id/regCreat"
@@ -92,14 +95,15 @@
         android:layout_below="@+id/loginBtn"
         android:layout_alignEnd="@+id/loginBtn"
         android:layout_alignRight="@+id/loginBtn"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="-48dp"
-        android:layout_marginRight="-48dp"
-        android:background="#D85C01"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:background="@drawable/login_btn"
         android:bufferType="normal"
         android:drawableLeft="@android:color/background_light"
         android:shadowColor="@android:color/background_light"
         android:text="Register"
+        android:textColor="#FFF1D9"
         android:textColorHint="#FFFFFF"
         android:textSize="12sp" />
 
@@ -111,7 +115,7 @@
         android:layout_alignEnd="@+id/regCreat"
         android:layout_alignRight="@+id/regCreat"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
         android:background="#FFFFFF" />
 </RelativeLayout>
