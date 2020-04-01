@@ -100,10 +100,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 String result = stringBuilder.toString();
 
                 String[] arrOfStr = result.split(",");
-                double lng=Double.parseDouble(arrOfStr[0]);
-                double lat=Double.parseDouble(arrOfStr[1]);
-                MyPoints p = new MyPoints(lng, lat);
-                pointsList.add(p);
+                String s1 = arrOfStr[0];
+                String s2 = arrOfStr[1];
+                double lng = Double.parseDouble(arrOfStr[0]);
+                double lat = Double.parseDouble(arrOfStr[1]);
+                pointsList.add(new MyPoints(lng, lat));
+                double zx = pointsList.get(0).lng;
+                double zx2 = pointsList.get(0).lat;
 
             } else {
 
