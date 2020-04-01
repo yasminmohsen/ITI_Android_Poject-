@@ -38,10 +38,10 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
     private Button timeBtn;
     private EditText notes;
     private Button save;
-    private  String startLoc;
-    private  String endLoc;
-    private  String startLocAdd;
-    private  String endLocAdd;
+    private String startLoc;
+    private String endLoc;
+    private String startLocAdd;
+    private String endLocAdd;
     private Trip t;
     private AddPresenter addPresenter;
     public static final String PrefName = "MyPrefFile";
@@ -65,7 +65,7 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         myIntent = new Intent(this, AlarmReceiver.class);
 
-       tripName = (EditText) findViewById(R.id.rTripName);
+        tripName = (EditText) findViewById(R.id.rTripName);
         startPnt = (TextView) findViewById(R.id.editStartPoint);
         endPtn = (TextView) findViewById(R.id.editEndPoint);
         dateBtn = (Button) findViewById(R.id.calenderBtn);
@@ -74,21 +74,20 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
         time = (TextView) findViewById(R.id.TimeText);
         notes = (EditText) findViewById(R.id.NotesText);
         save = (Button) findViewById(R.id.AddBtn);
-        trip=new Trip();
+        trip = new Trip();
         Intent i = getIntent();
-        startLoc= i.getExtras().getString("start");
-        endLoc= i.getExtras().getString("end");
-        startLocAdd= i.getExtras().getString("startAdd");
-        endLocAdd= i.getExtras().getString("endAdd");
+        startLoc = i.getExtras().getString("start");
+        endLoc = i.getExtras().getString("end");
+        startLocAdd = i.getExtras().getString("startAdd");
+        endLocAdd = i.getExtras().getString("endAdd");
 
 
         final SharedPreferences prefs = RoundTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
         final long cnt = prefs.getLong(counter, 0);
-        addPresenter=new AddPresenter(getApplicationContext(),this);
+        addPresenter = new AddPresenter(getApplicationContext(), this);
 
         startPnt.setText(endLoc);
         endPtn.setText(startLoc);
-
 
 
         dateBtn.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +102,6 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
         });
 
 
-
         timeBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -113,7 +111,6 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
 
             }
         });
-
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -146,8 +143,8 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
                 pendingIntent = PendingIntent.getBroadcast(RoundTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
 
-    }
-});
+            }
+        });
 
     }
 
@@ -165,7 +162,6 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
         super.onStart();
 
         super.onStart();
-        // increment th id counter
         final SharedPreferences prefs = RoundTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
         final long count = prefs.getLong(counter, 0);
 
@@ -178,7 +174,7 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
     @Override
     public void showOnSucessAdd() {
 
-        Intent intent=new Intent(RoundTrip.this,Home.class);
+        Intent intent = new Intent(RoundTrip.this, Home.class);
 
         startActivity(intent);
         finish();
@@ -188,6 +184,6 @@ public class RoundTrip extends AppCompatActivity implements AddBase {
     @Override
     public void showOnFailFail() {
 
-      Toast.makeText(getApplicationContext(),"Fill Empty Data",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Fill Empty Data", Toast.LENGTH_LONG).show();
     }
 }

@@ -22,21 +22,21 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
 
         Bundle args = intent.getBundleExtra("Data");
-        if(args != null) {
+        if (args != null) {
             Trip recTrip = (Trip) args.getSerializable("obj");
             Bundle recArgs = new Bundle();
-            args.putSerializable("obj",(Serializable)recTrip);
-            serviceIntent.putExtra("Data",args);
+            args.putSerializable("obj", (Serializable) recTrip);
+            serviceIntent.putExtra("Data", args);
         }
 
         String action = intent.getAction();
-        if(action != null) {
+        if (action != null) {
             if (action.equals("my.action.data")) {
                 String s = intent.getStringExtra("send");
                 if (s != null) {
                     if (s.equals("stop")) {
                         serviceIntent.putExtra("send", "stop");
-                    } else if(s.equals("notes")) {
+                    } else if (s.equals("notes")) {
                         serviceIntent.putExtra("send", "notes");
                     }
                 }
@@ -44,7 +44,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(serviceIntent);
-        }else{
+        } else {
             context.startService(serviceIntent);
         }
     }

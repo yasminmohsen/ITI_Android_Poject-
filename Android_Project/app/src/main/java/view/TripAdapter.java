@@ -31,16 +31,14 @@ import view.alarm.CancelMyAlarm;
 import view.alarm.DialogActivity;
 import Presenter.HistoryPresenter;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder>  implements HomeBase, HistoryBase {
+public class TripAdapter extends RecyclerView.Adapter<TripAdapter.MyViewHolder> implements HomeBase, HistoryBase {
 
 
     private Context context;
     private List<Trip> tripsList;
     private Presenter presenter;
     private Home home;
-private  HistoryPresenter historyPresenter;
-
-
+    private HistoryPresenter historyPresenter;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -63,9 +61,9 @@ private  HistoryPresenter historyPresenter;
             homeDate = view.findViewById(R.id.H_DATE);
             deleteBtn = view.findViewById(R.id.trashBtn);
             editBtn = view.findViewById(R.id.editBtn);
-            homeStart=view.findViewById(R.id.startBtn);
+            homeStart = view.findViewById(R.id.startBtn);
             cardCancelBtn = view.findViewById(R.id.card_cancel_btn);
-            showBtn=view.findViewById(R.id.showDetails);
+            showBtn = view.findViewById(R.id.showDetails);
 
         }
     }
@@ -75,7 +73,7 @@ private  HistoryPresenter historyPresenter;
         this.context = context;
         this.tripsList = trips;
         presenter = new Presenter(context, this);
-        historyPresenter=new HistoryPresenter(this);
+        historyPresenter = new HistoryPresenter(this);
 
 
     }
@@ -187,10 +185,8 @@ private  HistoryPresenter historyPresenter;
                 context.startActivity(i);
 
 
-
             }
         });
-
 
 
         /********** starting alarm manager ********/
@@ -200,17 +196,17 @@ private  HistoryPresenter historyPresenter;
             @Override
             public void onClick(View v) {
 
-               new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
-               String alarmDate=trip.getDate();
-               String alarmTime= trip.getTime();
-               String startLoc=trip.getStartPoint();
-               String endLoc=trip.getEndPoint();
+                new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
+                String alarmDate = trip.getDate();
+                String alarmTime = trip.getTime();
+                String startLoc = trip.getStartPoint();
+                String endLoc = trip.getEndPoint();
 
-                Toast.makeText(context, ""+trip.getTripId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "" + trip.getTripId(), Toast.LENGTH_SHORT).show();
 
                 //write code here
 
-                Uri navigationIntentUri = Uri.parse("google.navigation:q=" + trip.getStartPoint() +"," + trip.getEndPoint());//creating intent with latlng
+                Uri navigationIntentUri = Uri.parse("google.navigation:q=" + trip.getStartPoint() + "," + trip.getEndPoint());//creating intent with latlng
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, navigationIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 context.startActivity(mapIntent);
@@ -224,11 +220,6 @@ private  HistoryPresenter historyPresenter;
                 presenter.deleteFromFireBaseData(trip);
                 tripsList.remove(position);
                 notifyDataSetChanged();
-
-
-                /***** alarm manager cancell ****/
-
-
 
             }
         });
@@ -247,12 +238,8 @@ private  HistoryPresenter historyPresenter;
                 tripsList.remove(position);
                 notifyDataSetChanged();
 
-
             }
         });
-
-
-
 
     }
 
@@ -260,8 +247,6 @@ private  HistoryPresenter historyPresenter;
     public int getItemCount() {
         return tripsList.size();
     }
-
-
 
 
     @Override

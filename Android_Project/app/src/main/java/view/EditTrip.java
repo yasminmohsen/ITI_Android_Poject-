@@ -52,20 +52,20 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     private Button save;
     private RadioButton oneDir;
     private RadioButton round;
-    Trip t;
-    String tripId;
-    String tripStatus;
-    String eStartui;
-    String eEndui;
-    String eStartPoint;
-    String eEndPoint;
-    EditPresenter presenter;
-    AutocompleteSupportFragment places_fregment;
-    AutocompleteSupportFragment places_fregment_end;
-    PlacesClient placesClient;
-    List<Place.Field> placeField = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
-    public  static  final  String PrefName="MyPrefFile";
-    public  static  final  String counter="Counter";
+    private Trip t;
+    private String tripId;
+    private String tripStatus;
+    private String eStartui;
+    private String eEndui;
+    private String eStartPoint;
+    private String eEndPoint;
+    private EditPresenter presenter;
+    private AutocompleteSupportFragment places_fregment;
+    private AutocompleteSupportFragment places_fregment_end;
+    private PlacesClient placesClient;
+    private List<Place.Field> placeField = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
+    public static final String PrefName = "MyPrefFile";
+    public static final String counter = "Counter";
 
     //alarm manager
     AlarmManager alarmManager;
@@ -102,21 +102,19 @@ public class EditTrip extends AppCompatActivity implements EditBase {
         save = (Button) findViewById(R.id.AddBtn);
         oneDir = (RadioButton) findViewById(R.id.oneDirection);
         round = (RadioButton) findViewById(R.id.roundBtn);
-        presenter= new EditPresenter(getApplicationContext(),this);
+        presenter = new EditPresenter(getApplicationContext(), this);
 
 
         Intent i = getIntent();
         t = (Trip) i.getSerializableExtra("sampleObject");
         tripStatus = t.getTripStatus();
 
-        vStartui=t.getStartUi();
-        vEndui=t.getEndUi();
-        vStartPoint=t.getStartPoint();
-        vEndPoint=t.getEndPoint();
+        vStartui = t.getStartUi();
+        vEndui = t.getEndUi();
+        vStartPoint = t.getStartPoint();
+        vEndPoint = t.getEndPoint();
         final SharedPreferences prefs = EditTrip.this.getSharedPreferences(PrefName, Context.MODE_PRIVATE);
         final long cnt = prefs.getLong(counter, 0);
-
-
 
 
         eTripName.setText(t.getTripName());
@@ -134,21 +132,18 @@ public class EditTrip extends AppCompatActivity implements EditBase {
             public void onClick(View v) {
 
 
-                String tn=eTripName.getText().toString();
-                String tripId=t.getTripId();
+                String tn = eTripName.getText().toString();
+                String tripId = t.getTripId();
 
                 t.setTripName(eTripName.getText().toString());
 
-                if (flag!="pressed")
-                {
+                if (flag != "pressed") {
                     t.setStartPoint(vStartPoint);
                     t.setEndPoint(vEndPoint);
                     t.setStartUi(vStartui);
                     t.setEndUi(vEndui);
 
-                }
-
-                else{
+                } else {
 
                     t.setStartUi(eStartui);
                     t.setEndUi(eEndui);
@@ -165,10 +160,7 @@ public class EditTrip extends AppCompatActivity implements EditBase {
                 t.setTripStatus(tripStatus);
 
 
-
                 presenter.updateTripPresenter(t);
-
-                Toast.makeText(EditTrip.this, "id is "+tripId, Toast.LENGTH_SHORT).show();
 
                 saveTripToShared(t);
 
@@ -176,8 +168,8 @@ public class EditTrip extends AppCompatActivity implements EditBase {
                 int serviceId = new AlarmServiceID().getAlarmServiceId(tripId);
 
                 Bundle args = new Bundle();
-                args.putSerializable("obj",(Serializable)t);
-                myIntent.putExtra("Data",args);
+                args.putSerializable("obj", (Serializable) t);
+                myIntent.putExtra("Data", args);
 
                 pendingIntent = PendingIntent.getBroadcast(EditTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);
@@ -215,13 +207,11 @@ public class EditTrip extends AppCompatActivity implements EditBase {
         });
 
 
-
         round.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 eTripDir.setText("Round");
-
 
 
             }
@@ -249,10 +239,10 @@ public class EditTrip extends AppCompatActivity implements EditBase {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
 
-                eStartui=place.getName();
-                eStartPoint=place.getAddress();
+                eStartui = place.getName();
+                eStartPoint = place.getAddress();
                 eStartPointAddress.setText(eStartui);
-                flag="pressed";
+                flag = "pressed";
 
             }
 
@@ -270,11 +260,11 @@ public class EditTrip extends AppCompatActivity implements EditBase {
             public void onPlaceSelected(@NonNull Place place) {
 
 
-               eEndPoint=place.getAddress();
-               eEndui=place.getName();
+                eEndPoint = place.getAddress();
+                eEndui = place.getName();
                 eEndPointAddress.setText(eEndui);
 
-                flag="pressed";
+                flag = "pressed";
 
             }
 
@@ -306,27 +296,5 @@ public class EditTrip extends AppCompatActivity implements EditBase {
     public void showOnFailEdit() {
 
     }
-    // convert string to millisecond
-    /*
-        String someDate = "05.10.2011";
-        SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy");
-        Date date = sdf.parse(someDate);
-        System.out.println(date.getTime());
-     */
 
-    // cancel alarm
-    /*
-    Context ctx = getApplicationContext();
-
-    AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-    Intent cancelServiceIntent = new Intent(ctx, NewsCheckingService.class);
-    PendingIntent cancelServicePendingIntent = PendingIntent.getBroadcast(
-            ctx,
-            NewsCheckingService.SERVICE_ID, // integer constant used to identify the service
-            cancelServiceIntent,
-            0 //no FLAG needed for a service cancel
-    );
-    am.cancel(cancelServicePendingIntent);
-
-    */
 }

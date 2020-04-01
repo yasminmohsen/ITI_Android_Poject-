@@ -22,7 +22,7 @@ public class HistoryPresenter implements HistoryFireBase {
     public  void addToFireBaseHistory(Trip t)
     {
 
-        historyModel.addHistorytoFireBase(t);
+        historyModel.addHistoryToFireBase(t);
 
     }
 
@@ -38,9 +38,6 @@ public class HistoryPresenter implements HistoryFireBase {
         historyModel.deleteFromFirebase(t);
 
     }
-
-
-
 
     @Override
     public void showOnSuccLoadHistory(List<Trip> t) {

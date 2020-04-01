@@ -59,14 +59,14 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
 
-        final Presenter presenter= new Presenter(getApplicationContext(),this);
-        final HistoryPresenter historyPresenter= new HistoryPresenter(this);
+        final Presenter presenter = new Presenter(getApplicationContext(), this);
+        final HistoryPresenter historyPresenter = new HistoryPresenter(this);
 
 
         Intent dIntent = getIntent();
         Bundle args = dIntent.getBundleExtra("Data");
-        if(args != null) {
-             tripData = (Trip) args.getSerializable("obj");
+        if (args != null) {
+            tripData = (Trip) args.getSerializable("obj");
             String zc = tripData.getTripId();
         }
         this.setFinishOnTouchOutside(false);
@@ -79,15 +79,16 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
         SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("trip", null);
-        Type type = new TypeToken<Trip>(){}.getType();
+        Type type = new TypeToken<Trip>() {
+        }.getType();
         tripDialog = gson.fromJson(json, type);
 
-        if(tripDialog != null){
+        if (tripDialog != null) {
 
             source = tripDialog.getStartPoint();
             destination = tripDialog.getEndPoint();
             String sss = tripDialog.getTripId();
-            Toast.makeText(this, destination+"  "+source, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, destination + "  " + source, Toast.LENGTH_LONG).show();
         }
 
         //register for receiver
@@ -120,25 +121,22 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                 /****** handling trip database****/
 
 
-                Uri gmmIntentUri = Uri.parse("google.navigation:q="+source+","+destination);
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + source + "," + destination);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
 
 
-
-
                 mMediaPlayer.stop();
 
-                ///////////////////////////////////////////////////////////////
 
                 //Floating Button Permission
-                if(Build.VERSION.SDK_INT >= 23) {
-                    if(!Settings.canDrawOverlays(DialogActivity.this)) {
-                        Intent floatIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:"+getPackageName()));
+                if (Build.VERSION.SDK_INT >= 23) {
+                    if (!Settings.canDrawOverlays(DialogActivity.this)) {
+                        Intent floatIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
                         startActivityForResult(floatIntent, MY_PERMISSION);
                     }
-                }else{
+                } else {
                     Intent floatIntent = new Intent(DialogActivity.this, Service.class);
                     startService(floatIntent);
                 }
@@ -161,14 +159,13 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
             public void onClick(View v) {
 
 
-
                 mMediaPlayer.stop();
 
                 /****** handling trip database****/
-               tripData.setTripStatus("Cancelled");
-               presenter.deleteTripPresenter(tripData);
-               presenter.deleteFromFireBaseData(tripData);
-               historyPresenter.addToFireBaseHistory(tripData);
+                tripData.setTripStatus("Cancelled");
+                presenter.deleteTripPresenter(tripData);
+                presenter.deleteFromFireBaseData(tripData);
+                historyPresenter.addToFireBaseHistory(tripData);
                 /****** handling trip database****/
                 sendBroadcast(intent);
 
@@ -212,7 +209,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
             public void onBubbleClick(BubbleLayout bubble) {
                 Toast.makeText(DialogActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
                 String s = readFromShared();
-                if(s.equals("f") || s.equals("false")) {
+                if (s.equals("f") || s.equals("false")) {
 
                     intent.putExtra("send", "notes");
                     sendBroadcast(intent);

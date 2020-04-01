@@ -7,7 +7,7 @@ import android.content.Intent;
 
 public class CancelMyAlarm {
 
-    public void cancelAlarm(Context context, int serviceId){
+    public void cancelAlarm(Context context, int serviceId) {
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent cancelServiceIntent = new Intent(context, AlarmReceiver.class);

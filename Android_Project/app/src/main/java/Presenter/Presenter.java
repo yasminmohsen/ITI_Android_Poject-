@@ -24,23 +24,21 @@ import Pojos.Trip;
 import view.AddNewTrip;
 import view.Home;
 
-public class Presenter implements AddBase,FirebaseBase{
+public class Presenter implements AddBase, FirebaseBase {
 
     private List<Trip> tripList = new ArrayList<Trip>();
 
-    TripDAO triptDAO;
-    final AppDataBase database;
-    DatabaseReference databaseReferenceUsers;
-    FirebaseModel firebaseModel;
-    AddPresenter addPresenter;
+    private TripDAO triptDAO;
+    private final AppDataBase database;
+    private DatabaseReference databaseReferenceUsers;
+    private FirebaseModel firebaseModel;
+    private AddPresenter addPresenter;
 
-    HomeBase h;
-    Home home;
-    Activity a;
-    Context contx;
-    boolean result;
-
-
+    private HomeBase h;
+    private Home home;
+    private Activity a;
+    private Context contx;
+    private boolean result;
 
 
     public Presenter(Context contx, HomeBase ho) {
@@ -57,16 +55,19 @@ public class Presenter implements AddBase,FirebaseBase{
 
     }
 
-    public void getTripPresenter( String pref) {
+    /**
+     * Database Methods
+     **/
+
+    public void getTripPresenter(String pref) {
 
 
         result = isConnectedToInternet();
         tripList = triptDAO.getTrips();
 
 
-
-        if (tripList.isEmpty() &&pref=="no" ) {
-            if(result==true) {
+        if (tripList.isEmpty() && pref == "no") {
+            if (result == true) {
                 retrieveTripfromFirebase();
 
 
@@ -118,14 +119,17 @@ public class Presenter implements AddBase,FirebaseBase{
     }
 
 
-
-    public void deleteFromFireBaseData(Trip trip)
-    {
+    public void deleteFromFireBaseData(Trip trip) {
 
         firebaseModel.deleteFromFirebase(trip);
 
     }
 
+    public void logOut() {
+
+        FirebaseAuth.getInstance().signOut();
+
+    }
 
 
     public boolean isConnectedToInternet() {
@@ -150,7 +154,7 @@ public class Presenter implements AddBase,FirebaseBase{
         if (tripList.isEmpty() == false) {
             for (int i = 0; i < tripList.size(); i++) {
 
-                  addPresenter.insertTripPresenter(tripList.get(i));
+                addPresenter.insertTripPresenter(tripList.get(i));
             }
             h.showOnSucess(tripList);
         }
@@ -166,15 +170,6 @@ public class Presenter implements AddBase,FirebaseBase{
     public void showOnFailFail() {
 
     }
-
-
-
-    public  void logOut(){
-
-        FirebaseAuth.getInstance().signOut();
-
-    }
-
 
 
 }

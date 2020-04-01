@@ -36,10 +36,10 @@ import view.MainActivity;
 public class LoginPresenter implements FirebaseBase  {
     private FirebaseAuth mAuth;
 
-   private MainActivity mainActivity;
+    private MainActivity mainActivity;
 
     private static final String TAG = "GoogleActivity";
-    List<Trip> tripList=new ArrayList<Trip>();
+    List<Trip> tripList = new ArrayList<Trip>();
 
 
     LoginBase loginBase;
@@ -49,7 +49,6 @@ public class LoginPresenter implements FirebaseBase  {
         mAuth = FirebaseAuth.getInstance();
         mainActivity = new MainActivity();
         loginBase = l;
-
 
 
     }
@@ -62,30 +61,22 @@ public class LoginPresenter implements FirebaseBase  {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
 
                             FirebaseUser user = mAuth.getCurrentUser();
-
-                            //
-
-
                             loginBase.showOnSucessEmail();
 
                         } else {
 
-
                             loginBase.showOnFailEmail();
-
                         }
 
-                        // ...
                     }
                 });
     }
 
-/*******/
 
-   public void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
+    public void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -112,7 +103,7 @@ public class LoginPresenter implements FirebaseBase  {
     @Override
     public void showOnSuccLoad(List<Trip> t) {
 
-       tripList=t;
+        tripList = t;
 
     }
 }

@@ -28,12 +28,11 @@ import view.historymap.MapActivity;
 
 public class History extends AppCompatActivity implements HistoryBase {
 
-    private   List<Trip> c = new ArrayList<Trip>();
+    private List<Trip> c = new ArrayList<Trip>();
     private RecyclerView recyclerView;
     private HistoryAdapter historyAdapter;
-    HistoryPresenter historyPresenter;
-
-    Button historyMapBtn;
+    private HistoryPresenter historyPresenter;
+    private Button historyMapBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class History extends AppCompatActivity implements HistoryBase {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        historyPresenter=new HistoryPresenter(this);
+        historyPresenter = new HistoryPresenter(this);
 
         historyMapBtn = findViewById(R.id.showMap);
 
@@ -56,7 +55,7 @@ public class History extends AppCompatActivity implements HistoryBase {
                 switch (item.getItemId()) {
                     case R.id.home:
 
-                        Intent a = new Intent(History.this,Home.class);
+                        Intent a = new Intent(History.this, Home.class);
                         startActivity(a);
                     case R.id.history:
 
@@ -74,36 +73,23 @@ public class History extends AppCompatActivity implements HistoryBase {
             @Override
             public void onClick(View v) {
 
-if(c.isEmpty())
-{
-    Toast.makeText(History.this,"No data Now",Toast.LENGTH_LONG).show();
-}
-        else{
+                if (c.isEmpty()) {
+                    Toast.makeText(History.this, "No data Now", Toast.LENGTH_LONG).show();
+                } else {
 
 
-
-    Intent intent = new Intent(History.this, MapActivity.class);
-    Bundle args = new Bundle();
-    args.putSerializable("ARRAYLIST",(Serializable)c);
-    intent.putExtra("BUNDLE",args);
-    startActivity(intent);
-
-
-}
+                    Intent intent = new Intent(History.this, MapActivity.class);
+                    Bundle args = new Bundle();
+                    args.putSerializable("ARRAYLIST", (Serializable) c);
+                    intent.putExtra("BUNDLE", args);
+                    startActivity(intent);
 
 
+                }
 
-//                Intent mapHistoryIntent = new Intent(History.this, MapActivity.class);
-//                startActivity(mapHistoryIntent);
+
             }
         });
-
-
-
-
-
-
-
 
 
     }
@@ -120,7 +106,7 @@ if(c.isEmpty())
     @Override
     public void showOnSuccessHistory(List<Trip> tripList) {
         this.c = tripList;
-        historyAdapter = new HistoryAdapter(this, c,this);
+        historyAdapter = new HistoryAdapter(this, c, this);
         recyclerView.setAdapter(historyAdapter);
 
     }
@@ -130,7 +116,7 @@ if(c.isEmpty())
 
     }
 
-    public History getHistoryInstance(){
+    public History getHistoryInstance() {
         return this;
     }
 }

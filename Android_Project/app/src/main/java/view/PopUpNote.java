@@ -13,8 +13,8 @@ import Pojos.Trip;
 
 public class PopUpNote extends AppCompatActivity {
 
-   private String noteText;
-   private TextView myNote;
+    private String noteText;
+    private TextView myNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,25 +22,23 @@ public class PopUpNote extends AppCompatActivity {
         setContentView(R.layout.activity_pop_up_note);
 
 
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width=dm.widthPixels;
-        int height=dm.heightPixels;
-       getWindow().setLayout((int)(width*.8),(int)(height*.5));
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .8), (int) (height * .5));
 
-myNote=(TextView)findViewById(R.id.showNoteText);
+        myNote = (TextView) findViewById(R.id.showNoteText);
 
         Intent i = getIntent();
-        noteText =  i.getExtras().getString("note");
+        noteText = i.getExtras().getString("note");
 
-        if (noteText==""){
+        if (noteText == "") {
 
 
             myNote.setText("No Notes ");
 
-        }
-
-        else{
+        } else {
             myNote.setText(noteText);
 
         }

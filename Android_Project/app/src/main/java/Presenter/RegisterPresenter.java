@@ -27,10 +27,9 @@ public class RegisterPresenter {
     public RegisterPresenter(RegisterBase rB) {
 
         mAuth = FirebaseAuth.getInstance();
-        registerBase=rB;
-        reg= new Register();
+        registerBase = rB;
+        reg = new Register();
     }
-
 
 
     public void setRegister(String e, String p) {
