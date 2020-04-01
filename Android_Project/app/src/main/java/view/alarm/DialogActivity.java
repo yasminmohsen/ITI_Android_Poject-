@@ -47,7 +47,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 
     String source;
     String destination;
-    Trip tripData;
+    static Trip tripData;
 
     BubblesManager bubblesManager;
     private int MY_PERMISSION = 1000;
@@ -65,6 +65,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
         Bundle args = dIntent.getBundleExtra("Data");
         if(args != null) {
              tripData = (Trip) args.getSerializable("obj");
+            String zc = tripData.getTripId();
         }
         this.setFinishOnTouchOutside(false);
 

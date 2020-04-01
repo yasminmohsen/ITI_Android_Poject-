@@ -32,7 +32,7 @@ import view.History;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     List<Trip> historyTrip;
-    GeoLocation geolocation;
+    //GeoLocation geolocation;
      ArrayList<MyPoints> pointsList;
 
     @Override
@@ -42,13 +42,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         historyTrip = History.c;
 
-        geolocation = new GeoLocation();
+        //geolocation = new GeoLocation();
 
         pointsList = new ArrayList<>();
 
         for(Trip t : historyTrip ){
-            geolocation.getAddress(t.getStartPoint(), getApplicationContext(), new GeoHandler());
-            geolocation.getAddress(t.getEndPoint(), getApplicationContext(), new GeoHandler());
+            //geolocation.getAddress(t.getStartPoint(), getApplicationContext(), new GeoHandler());
+            //geolocation.getAddress(t.getEndPoint(), getApplicationContext(), new GeoHandler());
+            getAddressFromLocation(t.getStartPoint());
+            getAddressFromLocation(t.getEndPoint());
         }
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
@@ -82,25 +84,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(26.8206, 30.8025), 6));
     }
 
-    private void getAddressFromLocation(double latitude, double longitude) {
+    private void getAddressFromLocation(String s) {
 
         Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
 
 
         try {
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            List<Address> addresses = geocoder.getFromLocationName(s, 1);
 
             if (addresses.size() > 0) {
-                Address fetchedAddress = addresses.get(0);
-                StringBuilder strAddress = new StringBuilder();
-                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
-                    strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
-                }
+                Address address =  (Address)addresses.get(0);
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(address.getLatitude()).append(",");
+                stringBuilder.append(address.getLongitude());
+                String result = stringBuilder.toString();
 
-                //txtLocationAddress.setText(strAddress.toString());
+                String[] arrOfStr = result.split(",");
+                double lng=Double.parseDouble(arrOfStr[0]);
+                double lat=Double.parseDouble(arrOfStr[1]);
+                MyPoints p = new MyPoints(lng, lat);
+                pointsList.add(p);
 
             } else {
-                //txtLocationAddress.setText("Searching Current Address");
+
             }
 
         } catch (IOException e) {
@@ -109,7 +115,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    private class GeoHandler extends Handler {
+    /*private class GeoHandler extends Handler {
 
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -128,5 +134,5 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             MyPoints p = new MyPoints(lng, lat);
             pointsList.add(p);
         }
-    }
+    }*/
 }

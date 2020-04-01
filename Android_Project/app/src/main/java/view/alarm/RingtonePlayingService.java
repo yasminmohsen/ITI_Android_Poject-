@@ -73,6 +73,11 @@ public class RingtonePlayingService extends Service {
             startActivity(dialogIntent);
 
             Intent notificationIntent = new Intent(this, DialogActivity.class);
+            if(serTrip != null) {
+                Bundle sevArgs = new Bundle();
+                args.putSerializable("obj",(Serializable)serTrip);
+                notificationIntent.putExtra("Data",args);
+            }
             PendingIntent pIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
