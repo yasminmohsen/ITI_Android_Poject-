@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+
 import com.example.android_project.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -71,7 +73,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 
         alarmReceiver = new AlarmReceiver();
 
-        //startFloatingButton();
+        startFloatingButton();
 
         //Get Trip Object
         SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
@@ -131,7 +133,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                 ///////////////////////////////////////////////////////////////
 
                 //Floating Button Permission
-                /*if(Build.VERSION.SDK_INT >= 23) {
+                if(Build.VERSION.SDK_INT >= 23) {
                     if(!Settings.canDrawOverlays(DialogActivity.this)) {
                         Intent floatIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:"+getPackageName()));
                         startActivityForResult(floatIntent, MY_PERMISSION);
@@ -140,7 +142,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                     Intent floatIntent = new Intent(DialogActivity.this, Service.class);
                     startService(floatIntent);
                 }
-                addNewBubble();*/
+                addNewBubble();
                 finish();
             }
         });
@@ -177,7 +179,12 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
         });
     }
 
-    /*private void startFloatingButton() {
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    private void startFloatingButton() {
         bubblesManager = new BubblesManager.Builder(this)
                 .setTrashLayout(R.layout.bubble_remove)
                 .setInitializationCallback(new OnInitializedCallback() {
@@ -215,7 +222,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
         });
         bubbleView.setShouldStickToWall(true);
         bubblesManager.addBubble(bubbleView, 60, 20);
-    }*/
+    }
 
     //write in shared preference
     void writeInShared(String s) {
@@ -235,7 +242,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(alarmReceiver);
-        //bubblesManager.recycle();
+        bubblesManager.recycle();
     }
 
     @Override
