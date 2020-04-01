@@ -111,7 +111,8 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 
                 /****** handling trip database****/
                 tripData.setTripStatus("Done");
-               presenter.deleteTripPresenter(tripData);
+                presenter.deleteTripPresenter(tripData);
+                presenter.deleteFromFireBaseData(tripData);
                 historyPresenter.addToFireBaseHistory(tripData);
                 /****** handling trip database****/
 
@@ -169,6 +170,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                 /****** handling trip database****/
                tripData.setTripStatus("Cancelled");
                presenter.deleteTripPresenter(tripData);
+               presenter.deleteFromFireBaseData(tripData);
                historyPresenter.addToFireBaseHistory(tripData);
                 /****** handling trip database****/
                 sendBroadcast(intent);

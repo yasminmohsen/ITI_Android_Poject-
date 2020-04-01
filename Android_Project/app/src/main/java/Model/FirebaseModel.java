@@ -96,4 +96,13 @@ public class FirebaseModel {
     }
 
 
+
+    public void deleteFromFirebase(Trip trip)
+    {
+        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("upcoming");
+        databaseReferenceUsers.child(userId).child(trip.getTripId()).removeValue(); // remove method
+
+
+    }
+
 }
