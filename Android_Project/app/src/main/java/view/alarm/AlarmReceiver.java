@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 
+import java.io.Serializable;
+
 import Pojos.Trip;
 import view.AddNewTrip;
 
@@ -18,6 +20,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         IntentFilter filter = new IntentFilter("my.action.data");
 
         Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
+
+        Bundle args = intent.getBundleExtra("Data");
+        if(args != null) {
+            Trip recTrip = (Trip) args.getSerializable("obj");
+            Bundle recArgs = new Bundle();
+            args.putSerializable("obj",(Serializable)recTrip);
+            serviceIntent.putExtra("Data",args);
+        }
 
         String action = intent.getAction();
         if(action != null) {

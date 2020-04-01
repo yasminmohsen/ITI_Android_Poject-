@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/quantum_orange50"
+    tools:context="View.Regiter">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/quantum_orange50"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/Email" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView7"
+        android:layout_alignStart="@+id/textView7"
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/Password" />
+
+    <EditText
+        android:id="@+id/regEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar3"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/textView7"
+        android:layout_toRightOf="@+id/textView7"
+        android:drawableRight="@drawable/icons8_user_30"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/regPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regEmail"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/textView8"
+        android:layout_toRightOf="@+id/textView8"
+        android:drawableRight="@drawable/icons8_password_1_24"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/regBtn"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regPass"
+        android:layout_alignEnd="@+id/regPass"
+        android:layout_alignRight="@+id/regPass"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="237dp"
+        android:layout_marginRight="237dp"
+        android:background="@drawable/login_btn"
+        android:text="@string/Register" />
+
+
+</RelativeLayout>

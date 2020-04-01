@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/quantum_orange50"
+    tools:context="view.MainActivity">
+
+
+
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="45dp"
+        android:text="@string/Password" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp"
+        android:freezesText="false"
+        android:text="@string/Email"
+        android:textIsSelectable="false" />
+
+    <EditText
+        android:id="@+id/logEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:drawableRight="@drawable/icons8_user_30"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/logPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logEmail"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/Name"
+        android:layout_toRightOf="@+id/Name"
+        android:drawableRight="@drawable/icons8_password_1_24"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:password="true" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="184dp"
+        android:layout_height="37dp"
+        android:layout_below="@+id/logPass"
+        android:layout_alignStart="@+id/logPass"
+        android:layout_alignLeft="@+id/logPass"
+        android:layout_marginStart="109dp"
+        android:layout_marginLeft="109dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/login_btn"
+        android:text="@string/Login"
+        android:textColor="#100F0E" />
+
+    <Button
+        android:id="@+id/regCreat"
+        android:layout_width="184dp"
+        android:layout_height="37dp"
+        android:layout_below="@+id/loginBtn"
+        android:layout_alignEnd="@+id/loginBtn"
+        android:layout_alignRight="@+id/loginBtn"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:background="@drawable/login_btn"
+        android:bufferType="normal"
+        android:drawableLeft="@android:color/background_light"
+        android:shadowColor="@android:color/background_light"
+        android:text="Register"
+        android:textColor="#151514"
+        android:textColorHint="#FFFFFF"
+        android:textSize="12sp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googleLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/regCreat"
+        android:layout_alignEnd="@+id/regCreat"
+        android:layout_alignRight="@+id/regCreat"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="#FFFFFF" />
+</RelativeLayout>

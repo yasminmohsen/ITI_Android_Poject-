@@ -26,6 +26,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -173,6 +174,10 @@ public class EditTrip extends AppCompatActivity implements EditBase {
 
                 // here start pendingIntent
                 int serviceId = new AlarmServiceID().getAlarmServiceId(tripId);
+
+                Bundle args = new Bundle();
+                args.putSerializable("obj",(Serializable)t);
+                myIntent.putExtra("Data",args);
 
                 pendingIntent = PendingIntent.getBroadcast(EditTrip.this, serviceId, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, tripAlarm.calendar.getTimeInMillis(), pendingIntent);

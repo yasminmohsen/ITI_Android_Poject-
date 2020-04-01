@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -23,6 +24,7 @@ import com.example.android_project.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 
 import Pojos.Trip;
@@ -59,6 +61,15 @@ public class RingtonePlayingService extends Service {
 
             Intent dialogIntent = new Intent(this, DialogActivity.class);
             dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            Bundle args = intent.getBundleExtra("Data");
+            Trip serTrip = (Trip) args.getSerializable("obj");
+
+            if(serTrip != null) {
+                Bundle sevArgs = new Bundle();
+                args.putSerializable("obj",(Serializable)serTrip);
+                dialogIntent.putExtra("Data",args);
+            }
             startActivity(dialogIntent);
 
             Intent notificationIntent = new Intent(this, DialogActivity.class);
@@ -140,6 +151,7 @@ public class RingtonePlayingService extends Service {
                 return false;
             }
         });
+
         stopWM_IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

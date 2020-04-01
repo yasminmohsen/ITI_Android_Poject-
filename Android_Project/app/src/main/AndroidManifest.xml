@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:name="view.CheckState"
         android:allowBackup="true"
@@ -15,14 +18,17 @@
         android:roundIcon="@drawable/triplogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
-        android:usesCleartextTraffic="true"
-        >
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
 
-        <activity android:name="view.HistoryAdapter"></activity>
-        <activity android:name="view.History"
-            android:label="@string/History"/>
-
+        <activity android:name="view.historymap.MapActivity"></activity>
+        <activity android:name="view.HistoryAdapter" />
+        <activity android:name="view.History" 
+         android:label="@string/History"/>
+        
         <activity
             android:name="view.PopUpNote"
             android:label="@string/Note"
@@ -81,7 +87,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

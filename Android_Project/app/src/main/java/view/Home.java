@@ -65,17 +65,11 @@ public class Home extends AppCompatActivity implements HomeBase {
     HomeBase h;
 
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-/*************/
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigation.setItemIconTintList(null);
@@ -100,10 +94,6 @@ public class Home extends AppCompatActivity implements HomeBase {
             }
         });
 
-/************/
-
-
-
 
         presenter = new Presenter(getApplicationContext(), this);
 
@@ -126,9 +116,6 @@ public class Home extends AppCompatActivity implements HomeBase {
                 Intent intent = new Intent(getApplicationContext(), AddNewTrip.class);
 
                 startActivity(intent);
-
-
-
 
             }
         });

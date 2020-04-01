@@ -60,6 +60,11 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 //         final HistoryPresenter historyPresenter= new HistoryPresenter(this);
         /*****/
 
+        Intent dIntent = getIntent();
+        Bundle args = dIntent.getBundleExtra("Data");
+        if(args != null) {
+            Trip tripData = (Trip) args.getSerializable("obj");
+        }
         this.setFinishOnTouchOutside(false);
 
         alarmReceiver = new AlarmReceiver();
@@ -78,7 +83,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
             source = tripDialog.getStartPoint();
             destination = tripDialog.getEndPoint();
             String sss = tripDialog.getTripId();
-            Toast.makeText(this, source+"  "+destination, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, destination+"  "+source, Toast.LENGTH_LONG).show();
         }
 
         //register for receiver
