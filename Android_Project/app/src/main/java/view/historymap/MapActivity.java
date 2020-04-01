@@ -47,9 +47,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         pointsList = new ArrayList<>();
 
         for(Trip t : historyTrip ){
-
-            getAddressFromLocation(t.getStartPoint());
-            getAddressFromLocation(t.getEndPoint());
+            if (t.getTripStatus().equals("Done")) {
+                getAddressFromLocation(t.getStartPoint());
+                getAddressFromLocation(t.getEndPoint());
+            }else{}
         }
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
@@ -61,10 +62,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        Random rnd = new Random();
-        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 
         for(int i = 0; i < pointsList.size(); i+=2){
+
+            double zx = pointsList.get(i).lng;
+            double zx2 = pointsList.get(i).lat;
+            double zx3 = pointsList.get(i+1).lng;
+            double zx4 = pointsList.get(i+1).lat;
+            Random random = new Random();
+            int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256) );
             Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
                     .clickable(true)
                     .color(color)
