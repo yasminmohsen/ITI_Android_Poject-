@@ -209,7 +209,8 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
             public void onBubbleClick(BubbleLayout bubble) {
                 Toast.makeText(DialogActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
                 String s = readFromShared();
-                if (s.equals("f") || s.equals("false")) {
+
+                if(s.equals("f") || s.equals("false")) {
 
                     intent.putExtra("send", "notes");
                     sendBroadcast(intent);
@@ -234,6 +235,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
         String msg = msgPref.getString("msg", "false");
         return msg;
     }
+
 
     @Override
     protected void onDestroy() {

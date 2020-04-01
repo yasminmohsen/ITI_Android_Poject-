@@ -57,7 +57,10 @@ public class RingtonePlayingService extends Service {
                 stopSelf();
             } else if(s.equals("notes")){
                 // run dialog of notes
-                startNotesWindow();
+                String read = readFromShared();
+                if(read.equals("t")) {
+                    startNotesWindow();
+                }
             }
         }else {
 
@@ -162,8 +165,8 @@ public class RingtonePlayingService extends Service {
         stopWM_IV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wm.removeView(linearLayout);
-                writeInShared("f");
+            wm.removeView(linearLayout);
+            writeInShared("f");
             }
         });
     }
@@ -174,5 +177,12 @@ public class RingtonePlayingService extends Service {
         SharedPreferences.Editor editor = msgPref.edit();
         editor.putString("msg", s);
         editor.commit();
+    }
+
+    //read in shared preference
+    String readFromShared() {
+        SharedPreferences msgPref = getSharedPreferences("msg", 0);
+        String msg = msgPref.getString("msg", "false");
+        return msg;
     }
 }
