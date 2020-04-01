@@ -113,7 +113,7 @@ private  HistoryPresenter historyPresenter;
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
                 new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
 
@@ -147,7 +147,7 @@ private  HistoryPresenter historyPresenter;
                                         tripsList.remove(position);
                                         notifyDataSetChanged();
 
-
+                                        new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
                                         /**** alarm manager cancell*****/
 
 

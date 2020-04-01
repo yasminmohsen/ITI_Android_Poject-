@@ -40,8 +40,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        historyTrip = History.c;
 
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        historyTrip = (ArrayList<Trip>) args.getSerializable("ARRAYLIST"); // your array list
         pointsList = new ArrayList<>();
 
         for(Trip t : historyTrip ){
