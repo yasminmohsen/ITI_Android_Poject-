@@ -59,6 +59,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
         for(int i = 0; i < pointsList.size(); i+=2){
+            double zx = pointsList.get(i).lng;
+            double zx2 = pointsList.get(i).lat;
+            double zx3 = pointsList.get(i+1).lng;
+            double zx4 = pointsList.get(i+1).lat;
             Polyline polyline1 = googleMap.addPolyline(new PolylineOptions()
                     .clickable(true)
                     .color(Color.BLUE)
