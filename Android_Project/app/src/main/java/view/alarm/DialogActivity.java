@@ -62,8 +62,9 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 
         Intent dIntent = getIntent();
         Bundle args = dIntent.getBundleExtra("Data");
-        Trip tripData = (Trip) args.getSerializable("obj");
-
+        if(args != null) {
+            Trip tripData = (Trip) args.getSerializable("obj");
+        }
         this.setFinishOnTouchOutside(false);
 
         alarmReceiver = new AlarmReceiver();

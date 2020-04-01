@@ -22,8 +22,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
 
         Bundle args = intent.getBundleExtra("Data");
-        Trip recTrip = (Trip) args.getSerializable("obj");
-        if(recTrip != null) {
+        if(args != null) {
+            Trip recTrip = (Trip) args.getSerializable("obj");
             Bundle recArgs = new Bundle();
             args.putSerializable("obj",(Serializable)recTrip);
             serviceIntent.putExtra("Data",args);
