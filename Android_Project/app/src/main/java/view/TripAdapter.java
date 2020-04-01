@@ -115,6 +115,8 @@ private  HistoryPresenter historyPresenter;
             @Override
             public void onClick(View v) {
 
+                new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
+
                 AlertDialog.Builder builder
                         = new AlertDialog
                         .Builder(context);
@@ -198,10 +200,11 @@ private  HistoryPresenter historyPresenter;
             @Override
             public void onClick(View v) {
 
-           String alarmDate=trip.getDate();
-           String alarmTime= trip.getTime();
-           String startLoc=trip.getStartPoint();
-           String endLoc=trip.getEndPoint();
+               new CancelMyAlarm().cancelAlarm(v.getContext(), new AlarmServiceID().getAlarmServiceId(trip.getTripId()));
+               String alarmDate=trip.getDate();
+               String alarmTime= trip.getTime();
+               String startLoc=trip.getStartPoint();
+               String endLoc=trip.getEndPoint();
 
                 Toast.makeText(context, ""+trip.getTripId(), Toast.LENGTH_SHORT).show();
 
