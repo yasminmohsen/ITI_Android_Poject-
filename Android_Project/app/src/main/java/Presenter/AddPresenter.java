@@ -46,7 +46,7 @@ public class AddPresenter {
         if(trip == null) {
             if (newtrip.getTripName().isEmpty()|| newtrip.getTripId().isEmpty()|| newtrip.getDate().isEmpty()||
                     newtrip.getTime().isEmpty()|| newtrip.getStartUi().isEmpty()||newtrip.getEndUi().isEmpty()||
-                    newtrip.getStartPoint().isEmpty()||newtrip.getEndPoint().isEmpty()||newtrip.getTripStatus().isEmpty())
+                    newtrip.getStartPoint().isEmpty()||newtrip.getEndPoint().isEmpty()||newtrip.getTripStatus().isEmpty()||newtrip.getTripDirection().isEmpty())
             {
                 addBase.showOnFailFail();
             } else {

@@ -25,10 +25,15 @@ import com.txusballesteros.bubbles.OnInitializedCallback;
 
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.List;
 
+import Contract.HistoryBase;
+import Contract.HomeBase;
 import Pojos.Trip;
+import Presenter.Presenter;
+import Presenter.HistoryPresenter;
 
-public class DialogActivity extends Activity {
+public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 
     Button snoozeBtn;
     Button startBtn;
@@ -50,6 +55,10 @@ public class DialogActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
+        /******/
+         final Presenter presenter= new Presenter(getApplicationContext(),this);
+         final HistoryPresenter historyPresenter= new HistoryPresenter(this);
+        /*****/
 
         this.setFinishOnTouchOutside(false);
 
@@ -93,10 +102,20 @@ public class DialogActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // start Activity
+
+                /****** handling trip database****/
+                tripDialog.setTripStatus("Done");
+                presenter.deleteTripPresenter(tripDialog);
+                historyPresenter.addToFireBaseHistory(tripDialog);
+                /****** handling trip database****/
+
+
                 Uri gmmIntentUri = Uri.parse("google.navigation:q="+source+","+destination);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);
+
+
 
 
                 mMediaPlayer.stop();
@@ -119,6 +138,7 @@ public class DialogActivity extends Activity {
                 //sendBroadcast(intent);
                 // put Trip id
                 //new CancelMyAlarm().cancelAlarm(DialogActivity.this, new AlarmServiceID().getAlarmServiceId(tripDialog.getTripId()));
+
                 finish();
             }
         });
@@ -136,8 +156,17 @@ public class DialogActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+
+
                 mMediaPlayer.stop();
+
+                /****** handling trip database****/
+                tripDialog.setTripStatus("Cancelled");
+                presenter.deleteTripPresenter(tripDialog);
+                historyPresenter.addToFireBaseHistory(tripDialog);
+                /****** handling trip database****/
                 sendBroadcast(intent);
+
                 finish();
                 // put Trip id
                 //new CancelMyAlarm().cancelAlarm(DialogActivity.this, new AlarmServiceID().getAlarmServiceId(tripDialog.getTripId()));
@@ -204,5 +233,35 @@ public class DialogActivity extends Activity {
         super.onDestroy();
         unregisterReceiver(alarmReceiver);
         bubblesManager.recycle();
+    }
+
+    @Override
+    public void showOnSuccessHistory(List<Trip> tripList) {
+
+    }
+
+    @Override
+    public void showOnFailHistory() {
+
+    }
+
+    @Override
+    public void showOnSucess(List<Trip> tripList) {
+
+    }
+
+    @Override
+    public void showOnFail() {
+
+    }
+
+    @Override
+    public void showOnSucessFirebase(List<Trip> tripList) {
+
+    }
+
+    @Override
+    public void showOnFaiIntenetConnet() {
+
     }
 }

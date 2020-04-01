@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -82,8 +84,15 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
             @Override
             public void onClick(View v) {
 
-                presenter.setLoginEmail(email.getText().toString(), pass.getText().toString());
+                String emailVal = email.getText().toString();
+                String passVal = pass.getText().toString();
 
+                if(!emailVal.isEmpty() && !passVal.isEmpty()){
+
+                    presenter.setLoginEmail(email.getText().toString(), pass.getText().toString());
+                } else {
+                    Toast.makeText(MainActivity.this, "Enter Valid Email and Password", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -150,6 +159,12 @@ public class MainActivity extends AppCompatActivity implements LoginBase  {
 
     @Override
     public void showOnSucessEmail() {
+
+
+        SharedPreferences.Editor editor = getSharedPreferences("PrefName", MODE_PRIVATE).edit();
+        editor.putString("retrieve", "no");
+        editor.apply();
+
 
         Toast toast_1 = Toast.makeText(MainActivity.this, "Sucess Login", Toast.LENGTH_SHORT);
         toast_1.show();

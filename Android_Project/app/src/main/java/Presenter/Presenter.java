@@ -2,9 +2,9 @@ package Presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.View;
 
 import androidx.room.Room;
 
@@ -20,9 +20,10 @@ import Contract.HomeBase;
 import Model.AppDataBase;
 import Model.FirebaseModel;
 import Pojos.Trip;
+import view.AddNewTrip;
 import view.Home;
 
-public class Presenter implements AddBase,FirebaseBase {
+public class Presenter implements AddBase,FirebaseBase{
 
     private List<Trip> tripList = new ArrayList<Trip>();
 
@@ -39,6 +40,8 @@ public class Presenter implements AddBase,FirebaseBase {
     boolean result;
 
 
+
+
     public Presenter(Context contx, HomeBase ho) {
 
 
@@ -50,20 +53,24 @@ public class Presenter implements AddBase,FirebaseBase {
         addPresenter = new AddPresenter(contx, this);
         firebaseModel = new FirebaseModel(this);
 
+
     }
 
-    public void getTripPresenter() {
+    public void getTripPresenter( String pref) {
+
 
         result = isConnectedToInternet();
         tripList = triptDAO.getTrips();
 
-        if (tripList.isEmpty()) {
+
+
+        if (tripList.isEmpty() &&pref=="no" ) {
             if(result==true) {
                 retrieveTripfromFirebase();
-            }
-            else{
+
 
             }
+
         }
         h.showOnSucess(tripList);
 
@@ -101,6 +108,16 @@ public class Presenter implements AddBase,FirebaseBase {
         firebaseModel.getfromFireBase();
 
     }
+
+
+    public void addToHistoryFireBase() {
+
+        firebaseModel.getfromFireBase();
+
+    }
+
+
+
 
 
     public boolean isConnectedToInternet() {
@@ -141,4 +158,7 @@ public class Presenter implements AddBase,FirebaseBase {
     public void showOnFailFail() {
 
     }
+
+
+
 }

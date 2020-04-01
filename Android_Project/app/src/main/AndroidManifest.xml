@@ -15,12 +15,22 @@
         android:roundIcon="@drawable/triplogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+
         android:usesCleartextTraffic="true"
         >
+
+        <activity android:name="view.HistoryAdapter"></activity>
+        <activity android:name="view.History"
+            android:label="@string/History"/>
+
         <activity
             android:name="view.PopUpNote"
+            android:label="@string/Note"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name="view.RoundTrip" />
+        <activity android:name="view.RoundTrip"
+            android:label="@string/RoundTrip"
+            android:parentActivityName="view.EditTrip"
+            />
         <activity
             android:name="view.alarm.DialogActivity"
             android:label="@string/notes"
@@ -40,13 +50,19 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="view.TripDetails" />
-        <activity android:name="view.EditTrip" />
+        <activity android:name="view.TripDetails"
+            android:parentActivityName="view.Home"
+            android:label="@string/details"/>
+
+        <activity android:name="view.EditTrip"
+            android:parentActivityName="view.Home"
+            android:label="@string/editTrip"/>
         <activity
             android:name="view.AddNewTrip"
             android:label="@string/AddNewTrip"
             android:parentActivityName="view.Home" />
-        <activity android:name="view.Home" />
+        <activity android:name="view.Home"
+            android:label="@string/Home"/>
         <activity android:name="view.Register" />
         <activity android:name="view.MainActivity">
             <intent-filter>
@@ -55,6 +71,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+
+
         <activity android:name="view.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

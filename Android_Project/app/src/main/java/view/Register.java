@@ -40,8 +40,14 @@ public class Register extends AppCompatActivity implements RegisterBase {
             @Override
             public void onClick(View v) {
 
+                String emailVal = email.getText().toString();
+                String passVal = pass.getText().toString();
 
-                presenter.setRegister(email.getText().toString(), pass.getText().toString());
+                if(!emailVal.isEmpty() && !passVal.isEmpty()) {
+                    presenter.setRegister(email.getText().toString(), pass.getText().toString());
+                } else {
+                    Toast.makeText(Register.this, "Enter Valid Email and Password", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
