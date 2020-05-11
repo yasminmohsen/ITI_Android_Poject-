@@ -49,7 +49,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 
     String source;
     String destination;
-    static Trip tripData;
+    Trip tripData;
 
     BubblesManager bubblesManager;
     private int MY_PERMISSION = 1000;
@@ -67,6 +67,7 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
         Bundle args = dIntent.getBundleExtra("Data");
         if (args != null) {
             tripData = (Trip) args.getSerializable("obj");
+
             String zc = tripData.getTripId();
         }
         this.setFinishOnTouchOutside(false);
@@ -85,9 +86,9 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
 
         if (tripDialog != null) {
 
-            source = tripDialog.getStartPoint();
-            destination = tripDialog.getEndPoint();
-            String sss = tripDialog.getTripId();
+            source = tripData.getStartPoint();
+            destination = tripData.getEndPoint();
+            String sss = tripData.getTripId();
             Toast.makeText(this, destination + "  " + source, Toast.LENGTH_LONG).show();
         }
 
@@ -174,11 +175,6 @@ public class DialogActivity extends Activity implements HomeBase, HistoryBase {
                 //new CancelMyAlarm().cancelAlarm(DialogActivity.this, new AlarmServiceID().getAlarmServiceId(tripDialog.getTripId()));
             }
         });
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     private void startFloatingButton() {
